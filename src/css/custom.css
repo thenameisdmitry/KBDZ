@@ -14,19 +14,21 @@
  */
 
 :root {
-  --ifm-background-color: #ffffff;
+  --ifm-background-color: #eeeeee;
   --ifm-font-color-base: #000000;
   --ifm-color-primary: #000000;
 
-  --ifm-navbar-background-color: #ffffff;
-  --ifm-footer-background-color: #ffffff;
+  --ifm-navbar-background-color: #eeeeee;
+  --ifm-footer-background-color: #eeeeee;
 
   --ifm-heading-color: #000000;
 
   --site-button-bg: #000000;
-  --site-button-text: #ffffff;
+  --site-button-text: #eeeeee;
 
   --site-navbar-link: #000000;
+
+  --site-muted-text: #666666;
 }
 
 /**
@@ -34,19 +36,21 @@
  */
 
 html[data-theme='dark'] {
-  --ifm-background-color: #000000;
+  --ifm-background-color: #111111;
   --ifm-font-color-base: #ffffff;
   --ifm-color-primary: #ffffff;
 
-  --ifm-navbar-background-color: #000000;
-  --ifm-footer-background-color: #000000;
+  --ifm-navbar-background-color: #111111;
+  --ifm-footer-background-color: #111111;
 
   --ifm-heading-color: #ffffff;
 
   --site-button-bg: #ffffff;
-  --site-button-text: #000000;
+  --site-button-text: #111111;
 
   --site-navbar-link: #ffffff;
+
+  --site-muted-text: #a0a0a0;
 }
 
 /**
@@ -69,7 +73,7 @@ body {
 
 .footer {
   border-top: 2px solid #838383;
-  background-color: #000000
+  background-color: #111111
 }
 
 /**
@@ -78,7 +82,7 @@ body {
 
 html[data-theme='light'] .hero {
   background-color: #838383;
-  color: #000000;
+  color: #111111;
 }
 
 /**
@@ -87,7 +91,7 @@ html[data-theme='light'] .hero {
 
 html[data-theme='dark'] .hero {
   background-color: #373737;
-  color: #ffffff;
+  color: #eeeeee;
 }
 
 /**
@@ -164,7 +168,7 @@ a {
 }
 
 html[data-theme='light'] .guideCard {
-  background: #f5f5f5;
+  background: #eeeeee;
   border: 1px solid #ddd;
 }
 

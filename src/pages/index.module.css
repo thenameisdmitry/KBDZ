@@ -1,23 +1,277 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* ── BANNER ──────────────────────────────────────────────────────────────── */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+.banner {
   position: relative;
+  padding: 28px 40px 24px;
   overflow: hidden;
+  background-color: var(--ifm-navbar-background-color);
+  border-bottom: 1px solid rgba(131, 131, 131, 0.2);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.bannerBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bannerInner {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bannerEyebrow {
+  font-size: 1 rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--site-muted-text);
+  margin-bottom: 12px;
+}
+
+.bannerTitle {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 200;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: var(--ifm-font-color-base);
+}
+
+.bannerTagline {
+  font-size: 1.1rem;
+  color: var(--site-muted-text);
+  min-height: 1.6em;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+
+.taglineWord {
+  display: inline-block;
+}
+
+.cvButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 30px;
+  border: 1.5px solid var(--ifm-font-color-base);
+  color: var(--ifm-font-color-base) !important;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none !important;
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.cvButton:hover {
+  background: var(--ifm-font-color-base);
+  color: var(--ifm-background-color) !important;
+}
+
+/* ── MAIN BODY ───────────────────────────────────────────────────────────── */
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 40px 80px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 }
 
-.buttons {
+/* ── SECTION LABEL ───────────────────────────────────────────────────────── */
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--site-muted-text);
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(131,131,131,0.3);
+  width: 100%;
+}
+
+/* ── LEFT — ABOUT ────────────────────────────────────────────────────────── */
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.aboutBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutHeading {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  margin-top: 0;
+  color: var(--ifm-font-color-base);
+}
+
+.aboutText {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--site-muted-text);
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+/* AVATAR */
+.avatar {
+  float: right;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 0 12px 20px;
+  border: 1px solid rgba(131, 131, 131, 0.3);
+}
+
+/* CONTACT INFO */
+
+.contactList {
+  list-style: disc;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.contactList li {
+  font-size: 0.9375rem;
+  line-height: 2;
+  color: var(--site-muted-text);
+}
+
+.contactList a {
+  color: var(--site-muted-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.contactList a:hover {
+  border-bottom-color: var(--site-muted-text);
+}
+
+/* ── RIGHT — NAV CARDS ───────────────────────────────────────────────────── */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.navCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.navCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 20px 20px 20px;
+  border: 1px solid rgba(131,131,131,0.2);
+  border-radius: 8px;
+  text-decoration: none !important;
+  color: var(--ifm-font-color-base) !important;
+  background: transparent;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  animation: cardFadeIn 0.4s ease both;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navCard:hover {
+  border-color: rgba(131,131,131,0.6);
+  background: rgba(131,131,131,0.06);
+  transform: translateX(4px);
+  text-decoration: none !important;
+}
+
+.navCardIcon {
+  flex-shrink: 0;
+  width: 65px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(131,131,131,0.25);
+  border-radius: 8px;
+  color: var(--site-muted-text);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.navCard:hover .navCardIcon {
+  color: var(--ifm-font-color-base);
+  border-color: rgba(131,131,131,0.5);
+}
+
+.navCardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.navCardLabel {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ifm-font-color-base);
+  line-height: 1.2;
+}
+
+.navCardDesc {
+  font-size: 0.8125rem;
+  color: var(--site-muted-text);
+  line-height: 1.5;
+}
+
+.navCardArrow {
+  flex-shrink: 0;
+  color: var(--site-muted-text);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.navCard:hover .navCardArrow {
+  opacity: 1;
+  transform: translateX(0);
 }

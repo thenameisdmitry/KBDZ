@@ -1,0 +1,443 @@
+---
+id: code-samples
+title: Script Samples
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Script Samples
+This page describes an automation script that streamlines the process of collecting TFS features, 
+user stories, and bug fixes that form the basis of Release Notes documentation. The script is 
+production-ready and has been successfully used to support the preparation of Release Notes.
+
+## TFS Release Notes Extractor
+### Objective
+ 
+Release Notes authoring in enterprise environments typically involves manually opening dozens of 
+TFS work items and reviewing descriptions, comments, and discussion threads. When a release contains
+ 50 to 80 items, this process can require several hours of repetitive navigation and analysis.
+ 
+The TFS Release Notes Extractor automates the information-gathering phase. It queries TFS using 
+WIQL, iterates through all matching work items, and compiles relevant content into a single 
+structured text file ready for review. As a result, collaboration with stakeholders can begin 
+as soon as a release is announced, rather than after the manual collection process is complete.
+
+### Manual extraction vs TFS Extractor script
+ 
+| Manual process | TFS Extractor |
+|---|---|
+| Open each work item individually | Single query fetches all items at once |
+| Copy-paste Description, Notes, Comments | All fields extracted and structured automatically |
+| Risk of missing items or fields | Query enforces consistent scope every time |
+| 8-14 hours per release cycle | ~30 seconds to generate the raw file |
+ 
+The generated output file becomes a **single source of truth** for the release cycle: a clean, 
+readable document containing information about all release features, enhancements, and bug fixes. 
+With a complete overview available immediately, it becomes easier to identify priorities and 
+structure the Release Notes around the most significant changes.
+
+### Query Parameters
+ 
+The script filters work items by two conditions:
+ 
+- **Include in Release Notes**: a checkbox that developers tick when a change is documentation-relevant
+- **Release Version**: a field set to a version string such as `11.3`
+Only items matching both conditions are included in the output.
+
+### Output Structure
+ 
+For every work item in the query, the script extracts and writes:
+ 
+1. **Work item type, ID,** and **title**
+2. **Description**: the full technical description of the change
+3. **Release Notes**: the developer-authored notes
+4. **Comments**: the full comment thread, numbered chronologically
+---
+ 
+:::important Before you start
+Save the script below as a file on your computer before running it. The commands in the 
+**How to Run** section execute the saved file. They will not work if you paste the code 
+directly into the terminal.
+:::
+ 
+---
+
+### How to Run
+ 
+<Tabs>
+  <TabItem value="python" label="🐍 Python" default>
+**Requirements**
+ 
+```bash
+pip install requests
+```
+ 
+**Save the script** as `tfs_release_notes.py`, then run:
+ 
+```bash
+python tfs_release_notes.py
+```
+ 
+**Before running**, open the file and fill in the three stubs at the top:
+ 
+```python
+TFS_BASE_URL    = "https://YOUR_TFS_SERVER/tfs/YOUR_COLLECTION/YOUR_PROJECT"
+RELEASE_VERSION = "11.3"
+PAT             = "YOUR_PERSONAL_ACCESS_TOKEN"
+```
+ 
+  </TabItem>
+  <TabItem value="bash" label="🖥️ Bash">
+**Requirements**
+ 
+No installation needed. Uses only standard Unix tools: `curl`, `sed`, `grep`, `base64`.
+ 
+**Save the script** as `tfs_release_notes.sh`, make it executable, then run:
+ 
+```bash
+chmod +x tfs_release_notes.sh
+./tfs_release_notes.sh
+```
+ 
+**Before running**, open the file and fill in the three stubs at the top:
+ 
+```bash
+TFS_BASE_URL="https://YOUR_TFS_SERVER/tfs/YOUR_COLLECTION/YOUR_PROJECT"
+RELEASE_VERSION="11.3"
+PAT="YOUR_PERSONAL_ACCESS_TOKEN"
+```
+ 
+  </TabItem>
+</Tabs>
+---
+
+
+## Python and Bash TFS Extraction scripts
+
+<Tabs>
+
+<TabItem value="python" label="🐍 Python">
+
+```python
+
+"""
+TFS Release Notes Extractor
+
+Scope: Features, User Stories, Bug Fixes.
+Filters: "Include in Release Notes" checkbox and a release version.
+"""
+ 
+import os
+import requests
+from requests.auth import HTTPBasicAuth
+from datetime import datetime
+ 
+# Parameters to fill
+ 
+TFS_BASE_URL    = "https://YOUR_TFS_SERVER/tfs/YOUR_COLLECTION/YOUR_PROJECT"  #replace with TFS path
+RELEASE_VERSION = "11.3"                                                       #replace with release version
+OUTPUT_PATH     = os.path.expanduser("~/Desktop/dz_release_notes.txt")
+ 
+# Personal Access Token (get from User Settings > Security)
+PAT = "YOUR_PERSONAL_ACCESS_TOKEN"  # replace with PAT
+ 
+# TFS Query, WIQL (SQL-like syntax to form the query)
+ 
+WIQL_QUERY = f"""
+SELECT [System.Id], [System.Title], [System.WorkItemType]
+FROM WorkItems
+WHERE
+    [System.TeamProject] = @project
+    AND [System.WorkItemType] IN ('Feature', 'User Story', 'Bug')
+    AND [Custom.IncludeInReleaseNotes] = True
+    AND [Custom.ReleaseVersion] = '{RELEASE_VERSION}'
+ORDER BY [System.WorkItemType], [System.Id]
+"""
+ 
+# Helpers
+ 
+def tfs_get(endpoint: str) -> dict:
+    """Send an authenticated GET request to the TFS REST API."""
+    url = f"{TFS_BASE_URL}/_apis/{endpoint}&api-version=5.0"
+    response = requests.get(url, auth=HTTPBasicAuth("", PAT))
+    response.raise_for_status()
+    return response.json()
+ 
+ 
+def run_wiql(query: str) -> list[int]:
+    """Execute a WIQL query and return a list of matching work item IDs."""
+    url = f"{TFS_BASE_URL}/_apis/wit/wiql?api-version=5.0"
+    payload = {"query": query}
+    response = requests.post(url, json=payload, auth=HTTPBasicAuth("", PAT))
+    response.raise_for_status()
+    data = response.json()
+    return [item["id"] for item in data.get("workItems", [])]
+ 
+ 
+def get_work_item(item_id: int) -> dict:
+    """Fetch full details for a single work item by ID."""
+    url = (
+        f"{TFS_BASE_URL}/_apis/wit/workitems/{item_id}"
+        f"?$expand=all&api-version=5.0"
+        # $expand=all pulls in relations and comments alongside field values
+    )
+    response = requests.get(url, auth=HTTPBasicAuth("", PAT))
+    response.raise_for_status()
+    return response.json()
+ 
+ 
+def get_comments(item_id: int) -> list[str]:
+    """Fetch all comments for a work item and return them as a list of strings."""
+    url = (
+        f"{TFS_BASE_URL}/_apis/wit/workitems/{item_id}/comments"
+        f"?api-version=5.0-preview"
+    )
+    response = requests.get(url, auth=HTTPBasicAuth("", PAT))
+    if response.status_code == 404:
+        return []
+    response.raise_for_status()
+    data = response.json()
+    return [c.get("text", "").strip() for c in data.get("comments", []) if c.get("text")]
+ 
+ 
+def strip_html(text: str) -> str:
+    """Remove HTML tags from rich-text fields (Description, Release Notes)."""
+    import re
+    if not text:
+        return ""
+    clean = re.sub(r"<[^>]+>", " ", text)
+    clean = re.sub(r"\s+", " ", clean)
+    return clean.strip()
+ 
+ 
+def format_item(item: dict, comments: list[str]) -> str:
+    """Format a single work item into a readable text block."""
+    fields      = item.get("fields", {})
+    item_id     = item.get("id")
+    item_type   = fields.get("System.WorkItemType", "Unknown")
+    title       = fields.get("System.Title", "(no title)")
+    description = strip_html(fields.get("System.Description", ""))
+    release_notes = strip_html(fields.get("Custom.ReleaseNotes", ""))
+
+    # NOTE: Custom.ReleaseNotes — replace with the actual reference name 
+    # for Release Notes field.
+ 
+    lines = [
+        "=" * 72,
+        f"[{item_type}] #{item_id} — {title}",
+        "=" * 72,
+    ]
+ 
+    lines.append("\nDESCRIPTION")
+    lines.append("-" * 40)
+    lines.append(description if description else "(empty)")
+ 
+    lines.append("\nRELEASE NOTES")
+    lines.append("-" * 40)
+    lines.append(release_notes if release_notes else "(empty)")
+ 
+    lines.append("\nCOMMENTS")
+    lines.append("-" * 40)
+    if comments:
+        for i, comment in enumerate(comments, start=1):
+            lines.append(f"[{i}] {comment}")
+    else:
+        lines.append("(no comments)")
+ 
+    lines.append("")  # trailing blank line between items
+    return "\n".join(lines)
+ 
+ 
+# Script body
+ 
+def main():
+    print(f"Release {RELEASE_VERSION}...")
+    item_ids = run_wiql(WIQL_QUERY)
+ 
+    if not item_ids:
+        print("No items matched the query.")
+        return
+ 
+    print(f"Found {len(item_ids)} item(s). Fetching details...")
+ 
+    blocks = []
+    for item_id in item_ids:
+        item     = get_work_item(item_id)
+        comments = get_comments(item_id)
+        blocks.append(format_item(item, comments))
+        print(f"  ✓ #{item_id}")
+ 
+    # Compose the txt document
+    header = "\n".join([
+        f"TFS RELEASE NOTES DRAFT",
+        f"Release version : {RELEASE_VERSION}",
+        f"Generated       : {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        f"Total items     : {len(blocks)}",
+        "",
+    ])
+ 
+    output = header + "\n" + "\n".join(blocks)
+ 
+    # Create txt file on my desktop
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+        f.write(output)
+ 
+    print(f"\nDone. File saved to: {OUTPUT_PATH}")
+ 
+ 
+if __name__ == "__main__":
+    main()
+
+```
+
+</TabItem>
+
+<TabItem value="bash" label="🖥️ Bash">
+
+```bash
+
+#!/usr/bin/env bash
+
+# TFS Release Notes Extractor
+
+# Scope: Features, User Stories, Bug Fixes.
+# Filters: "Include in Release Notes" checkbox and a release version.
+
+set -euo pipefail  # exit on error, treat unset vars as errors, propagate pipe failures
+
+# Parameters
+
+TFS_BASE_URL="https://YOUR_TFS_SERVER/tfs/YOUR_COLLECTION/YOUR_PROJECT"  # replace with TFS path
+RELEASE_VERSION="11.3"                                                     # replace with release version
+OUTPUT_PATH="$HOME/Desktop/dz_release_notes.txt"
+
+# Personal Access Token (get from User Settings > Security)
+PAT="YOUR_PERSONAL_ACCESS_TOKEN"  # stub: replace with your PAT
+
+# Base64-encode the PAT for Basic Auth
+AUTH_HEADER="Authorization: Basic $(echo -n ":${PAT}" | base64)"
+
+# Helpers
+
+# Send authenticated GET request to TFS REST API
+tfs_get() {
+  local endpoint="$1"
+  curl --silent --fail \
+    --header "$AUTH_HEADER" \
+    --header "Content-Type: application/json" \
+    "${TFS_BASE_URL}/_apis/${endpoint}"
+}
+
+# Send authenticated POST request
+tfs_post() {
+  local endpoint="$1"
+  local body="$2"
+  curl --silent --fail \
+    --request POST \
+    --header "$AUTH_HEADER" \
+    --header "Content-Type: application/json" \
+    --data "$body" \
+    "${TFS_BASE_URL}/_apis/${endpoint}"
+}
+
+# Strip HTML tags from Description and Release Notes
+strip_html() {
+  echo "$1" | sed 's/<[^>]*>/ /g' | sed 's/  */ /g' | xargs
+}
+
+# TFS Query, WIQL
+
+echo "Querying TFS for release ${RELEASE_VERSION}..."
+
+WIQL_BODY=$(cat <<EOF
+{
+  "query": "SELECT [System.Id], [System.Title], [System.WorkItemType] FROM WorkItems WHERE [System.WorkItemType] IN ('Feature', 'User Story', 'Bug') AND [Custom.IncludeInReleaseNotes] = True AND [Custom.ReleaseVersion] = '${RELEASE_VERSION}' ORDER BY [System.WorkItemType], [System.Id]"
+}
+EOF
+)
+
+# Run the WIQL query and extract all work item IDs
+ITEM_IDS=$(
+  tfs_post "wit/wiql?api-version=5.0" "$WIQL_BODY" \
+  | grep -o '"id":[0-9]*' \        # pull every "id":12345 occurrence
+  | grep -o '[0-9]*'                # strip the key, keep only the number
+)
+
+if [[ -z "$ITEM_IDS" ]]; then
+  echo "No items matched the query. Check your field names and filters."
+  exit 0
+fi
+
+ITEM_COUNT=$(echo "$ITEM_IDS" | wc -w | xargs)
+echo "Found ${ITEM_COUNT} item(s). Fetching details..."
+
+# Output txt file
+
+cat > "$OUTPUT_PATH" <<EOF
+TFS RELEASE NOTES RAW EXPORT
+Release version : ${RELEASE_VERSION}
+Generated       : $(date '+%Y-%m-%d %H:%M')
+Total items     : ${ITEM_COUNT}
+
+EOF
+
+# Script body
+
+for ITEM_ID in $ITEM_IDS; do
+
+  # Fetch full work item details — $expand=all includes fields and relations
+  ITEM_JSON=$(tfs_get "wit/workitems/${ITEM_ID}?\$expand=all&api-version=5.0")
+
+  # Extract field values using grep + sed (no jq dependency required)
+  ITEM_TYPE=$(echo "$ITEM_JSON"     | grep -o '"System.WorkItemType":"[^"]*"' | sed 's/.*":"\(.*\)"/\1/')
+  TITLE=$(echo "$ITEM_JSON"         | grep -o '"System.Title":"[^"]*"'        | sed 's/.*":"\(.*\)"/\1/')
+  DESCRIPTION_RAW=$(echo "$ITEM_JSON" | grep -o '"System.Description":"[^"]*"' | sed 's/.*":"\(.*\)"/\1/')
+  RELEASE_NOTES_RAW=$(echo "$ITEM_JSON" | grep -o '"Custom.ReleaseNotes":"[^"]*"' | sed 's/.*":"\(.*\)"/\1/')
+  # NOTE: Custom.ReleaseNotes — replace with the actual reference name for
+  # your Release Notes field if it differs.
+
+  # Strip HTML from rich-text fields
+  DESCRIPTION=$(strip_html "$DESCRIPTION_RAW")
+  RELEASE_NOTES=$(strip_html "$RELEASE_NOTES_RAW")
+
+  # Fetch comments for this item
+  COMMENTS_JSON=$(tfs_get "wit/workitems/${ITEM_ID}/comments?api-version=5.0-preview" 2>/dev/null || echo "{}")
+  COMMENTS=$(echo "$COMMENTS_JSON" | grep -o '"text":"[^"]*"' | sed 's/"text":"//;s/"$//' | nl -ba -nrz -w2)
+
+  # Append the formatted block to the output file
+  {
+    echo "========================================================================"
+    echo "[${ITEM_TYPE}] #${ITEM_ID} — ${TITLE}"
+    echo "========================================================================"
+    echo ""
+    echo "DESCRIPTION"
+    echo "----------------------------------------"
+    echo "${DESCRIPTION:-"(empty)"}"
+    echo ""
+    echo "RELEASE NOTES"
+    echo "----------------------------------------"
+    echo "${RELEASE_NOTES:-"(empty)"}"
+    echo ""
+    echo "COMMENTS"
+    echo "----------------------------------------"
+    if [[ -n "$COMMENTS" ]]; then
+      echo "$COMMENTS"
+    else
+      echo "(no comments)"
+    fi
+    echo ""
+  } >> "$OUTPUT_PATH"
+
+  echo "  ✓ #${ITEM_ID}"
+
+done
+
+echo ""
+echo "Done. File saved to: ${OUTPUT_PATH}"
+
+```
+
+</TabItem>
+
+</Tabs>

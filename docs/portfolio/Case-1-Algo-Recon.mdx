@@ -1,0 +1,746 @@
+---
+id: Case-1-Algo-Recon
+title: "Case 1: Algorithmic Reconciliation"
+---
+
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+
+# Case 1: Algorithmic Reconciliation
+
+**Format**: A knowledge base article examining the Algorithmic Reconciliation process at the core of the Reconciliation Manager module.
+
+**Description**: The article presents original internal research and analysis of a company-developed self-learning engine algorithm, demonstrating how it reconciles Security entities across multiple data sources using Fuzzy logic.
+
+**Business impact**: The Reconciliation Manager module is used by hedge funds and banking accounting systems to ensure the accuracy of daily reference data reports. It is a critical requirement across collateral management, loan positions, cashflows, and projected portfolios. This article contributed to a 70% increase in module sales.
+
+**Target readers**: Quantitative analysts, financial data engineers, portfolio risk managers, and fund accountants.
+
+---
+
+# Reconciliation Manager - Algorithmic Recon
+
+
+
+## Introduction
+
+**Reconciliation Manager** is an administrative dashboard that helps confirm portfolio elements against counterparties and accounting systems. It enables clients to manage portfolio figures and ensure accurate reconciliation to mitigate operational risks and errors.
+
+Reconciliation Manager offers two data reconciliation solutions: *Classic* and *Algorithmic*. This Guide provides user instructions and explains the working principles of **Algorithmic Recon**.
+
+> *Term*: **Algorithmic Recon** is an engine for data reconciliation based on *Fuzzy logic*. The Algorithmic Recon engine is a machine-learning background process that uses a special algorithm to calculate certainty and identify the best entity match based on reconciliation history. To do so, Algorithmic Recon uses a *Reinforcement Learning* approach based on a matrix table. Algorithmic Recon is used for Security Recon.
+> 
+
+> *Term*: **Fuzzy logic** is a form of probability theory that calculates "degrees of truth" rather than the usual "true or false" Boolean logic. It addresses partial truth, where the truth value may range between completely true and completely false. Fuzzy logic is used in many fields, such as artificial intelligence. In the Algorithmic Recon, it powers the machine-learning process at the core of the engine.
+> 
+
+**IMPORTANT:** Security Recon runs in two phases: *ID-Based Recon* and *Algorithmic Recon*. ID-Based Recon runs first and processes only *Listed Securities* and *Equity Swaps*. Algorithmic Recon runs second and covers all Securities, including those not matched during the first phase. This document describes the second phase: Algorithmic Recon.
+
+![Algo screenshot 1](/img/case-1-algo-recon/image004.png)
+
+- **Security Analysis**: retains Securities with Strong, Weak, Potential, and Ambiguous map types assigned as a result of Security Algorithmic Recon.
+- **Not Mapped Securities**: contains Securities not included in any Positions’ search spaces for the Algorithmic reconciliation process.
+- **Reinforcement Learning**: contains and analyzes Algorithmic Recon data in a matrix table.
+- **Rejected Mappings**: contains Security mappings from the Weak certainty group that users rejected on the Security Analysis screen.
+
+**INFORMATION:** The *Security Mappings* screen in the ID-Based Security Recon toolbox is also considered part of Algorithmic Recon because it aggregates all extracted Securities mapped to system Securities (using both *ID-Based* and *Algorithmic* methods).
+
+### Security Algorithmic Recon: Principle of Work
+
+**Security Algorithmic Recon**, built on *Fuzzy logic*, follows a working principle different from Classic Security Recon. Security entities are extracted from the *HUB_POSN* and *HUB_MRGD* files (which contain Position records). The matching algorithm consists of the following steps:
+
+![Algo screenshot 2](/img/case-1-algo-recon/graph.png)
+
+#### Step 1: Search space formation
+
+The search space is formed for Positions on the left side (House-side entities) and on the right side (Counterparty feed files).
+
+When Positions are extracted from the **HUB_POSN** and **HUB_MRGD** feed files, a search space is created for each right-side Position (Counterparty feed file). The search space is a pool of possible matches selected by the parameters *Account*, *Direction*, and *Settlement Date*. A Cartesian join method is used for this step.
+Click on the image below to expand it:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image006.png"
+  alt="Algo screenshot 3"
+  style={{ width: '60%' }}
+/>
+
+Positions A, B, and C are candidates for collation on the House side because their basic parameters match. This forms the search space for Fuzzy logic reconciliation. The Algorithmic Recon Fuzzy engine then determines which candidate is the correct match.
+
+**NOTE:** Positions with expired Securities (past their Maturity or Expiry date) do not participate in reconciliation and are excluded from the search space in the first step of the algorithm.
+
+**INFORMATION:** It is common for a House Position to be split into several Positions for business or planning purposes (for example, by Position strategy). In that case, multiple House Positions may be matched to a single Counterparty Position (for example, in bank reports). The matching routine proceeds in the same way as regular one-to-one matching.
+
+#### Step 2: Pair Similarity calculation
+
+Pair Similarity calculation is performed for Positions within the search space, using three Predicates for a specific group of fields and the selected Strategy.
+
+To determine the correct candidate, the Algorithmic Recon engine calculates the *Pair Similarity* value. This value is assembled from three *Predicates* computed for each candidate.
+
+> *Term:* **Predicate** is a variable that represents the matching strength of Position and Security entities and is used to compute the *Pair Similarity* value. Predicates are based on the matching fields of reconciled right-side and left-side Position items. Algorithmic Recon uses three Predicates: Position required fields (*Quantity* and *Market Value Local*), Security description fields (*ISIN, Cusip, Underlying Security, Issuer, Description, etc.*), and Position additional fields (*Market Value Book, Price Local, FX Rate, Daily Accrual Basis, etc.*).
+> 
+
+**INFORMATION:** Position required fields have the highest weight at 0.4, Security description fields have a weight of 0.35, and Position additional fields have the lowest weight at 0.25. Together, the three Predicates sum to a total weight of 1.
+
+Therefore, the algorithm scans the fields of the Counterparty Position and House Position candidates, starting with the most important fields: *Quantity* and *Market Value Local*, which form the first Predicate target group (Position required fields).
+
+**NOTE:** Values may be missing on one side of the comparison. For example, the House Position may have the ISIN field populated while the Counterparty file does not (or vice versa). In these cases, the Fuzzy engine applies the **Recon Missing Values Strategy**.
+
+> *Term:* **Recon Missing Values Strategy** is a two-way method used during field collation when compared Positions lack a value on one side but have it on the other. When the Recon Strategy is set to *Optimistic*, the system assumes the missing value matches the value on the opposite side, which adds points to the computed Predicate. When the Recon Strategy is set to *Pessimistic*, the system assumes the missing value does not match the value on the opposite side, which subtracts points from the Predicate.
+> 
+
+**INFORMATION:** When both sides lack data in the compared field, the Recon Strategy is not applied and does not affect the Predicate result.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image009.png"
+  alt="Algoritchim Recon Schema"
+  style={{ width: '50%' }}
+/>
+
+---
+
+**CRITICAL FAILURE IN FIELDS COMPARISON**
+
+The second Predicate, Security description fields, includes fields that compare the Securities attributes of Positions on opposite sides. These fields are grouped into two sets: *Required* and *Sufficient*.
+
+- **Required** is a group of highly critical values (*Security Type, Currency Code, Effective Date, Strike Price, Underlying SEDOL, Underlying CUSIP, Underlying ISIN*). If values in these fields do not match, the Predicate’s weight decreases sharply, which reduces the chance of a match. If they do match, the weight increases slightly.
+- **Sufficient** is a group of values with lower criticality (*SEDOL, CUSIP, ISIN, Ticket, RIC,* and *Security Code*). These fields may legitimately differ for the same Security. For Sufficient fields, a match drives a sharp increase in weight, while a discrepancy causes a sharp decrease.
+
+---
+
+When all three Predicates are calculated, the Pair Similarity value is assembled for each candidate. Pair Similarity ranges from zero to one hundred, where zero indicates a complete mismatch across all Position and Security fields and one hundred indicates a perfect match across all fields.
+
+In general, each mismatch subtracts points from the Predicate. It is unlikely that all Predicates will achieve the full combined weight of 1. As a result, Pair Similarity works like a competition: the highest-scoring candidate is selected to match with the House Security.
+
+See the example below.
+
+---
+
+**EXAMPLE**
+
+The incoming Broker Report from the HUB_POSN file contains thousands of records, and each one undergoes the Algorithmic Recon procedure. Here is an example of a single record retrieved from HUB_POSN to find its match among the entities on the Hazeltree side:
+
+![Algo screenshot 4](/img/case-1-algo-recon/image008.png)
+
+Based on the search space formed using the Position parameters (Account, Direction, and Settlement Date), there are four candidates for the right-side Security with the appropriate Security Map Type. Pair Similarity is then calculated for each candidate:
+
+1. **GLTUK2022**: has only one matching *Security Description field*. Pair Similarity is computed as 13% probability.
+2. **GLTUK-RA**: has three matching fields, one of which adds points to the *Position required fields* Predicate. In addition, the critical values in the second *Security description* *field* Predicate match. Pair Similarity is computed at 76% probability.
+3. **GL-T-UK22**: also has three matching fields, but none align with the highest-weighted Predicate. Pair Similarity is computed at 59% probability.
+4. **GTU**: this candidate has the lowest Pair Similarity at 0 percent probability, since no fields match on the right side.
+
+In this reconciliation round, **GLTUK-RA** scores the highest Pair Similarity and is therefore mapped to the right-side Security. However, whether the mapping is automatically approved, requires user approval, or is classified as a potential map is determined in the third step of the reconciliation process.
+
+---
+
+#### Step 3: Best Pair selection
+
+Based on the calculated Pair Similarity value, the system selects the best Securities for mapping.
+
+Position matching based on the highest Pair Similarity leads to a key step in Security Recon: matching Securities within Positions. Securities inherit the Pair Similarity score of their Positions. This Security Pair Similarity determines the mapping strength applied in phase four.
+
+The Pair Similarity for Positions—and therefore for Position Securities—is calculated using the engine logic described in Step 2.
+
+#### Step 4: Mapping Strength
+
+The system determines the mapping strength for the best Pair Similarity scorer, based on the Confidence Level and Distance.
+
+After the engine identifies the winner of the matching contest, it determines the mapping strength. There are four possible mapping strengths:
+
+- **Strong**: high accuracy, mapping is created automatically.
+- **Weak**: decent accuracy, mapping is created but requires the user’s approval.
+- **Potential**: low accuracy, mapping is automatically added to the Candidates list and can be reviewed; mappings can then be created manually.
+- **Ambiguous**: undecided mapping, since the Pair Similarity of matching candidates is identical; in this case, the mapping conflict must be resolved manually by a user.
+
+The engine determines the mapping strength based on two parameters (*Confidence Level* and *Distance*) and their ratio within the *Reinforcement Learning* matrix.
+
+> *Term:* **Confidence Level** is the mapping certainty value. This value is taken directly from the calculated Pair Similarity of the reconciliation winner. The higher the Confidence Level, the stronger the mapping.
+> 
+
+> *Term:* **Distance** is the difference between the Pair Similarities of the reconciliation winner and the second-place candidate. The greater the difference between the winner and the closest competitor, the higher the certainty of the mapping.
+> 
+
+**NOTE:** If there is only one candidate in the search space, the Distance equals the Confidence Level.
+
+**Confidence Level** and **Distance** form the axes of the Reinforcement Learning matrix table. The matrix table is available on the Reinforcement Learning screen.
+
+> *Term:* **Reinforcement Learning matrix table** is a dynamic, self-modifying table. Columns represent Confidence Level diapason chanks, and rows represent Distance diapason chanks. These diapason chanks are calculated based on the overall set of Algorithmic mappings: the more mappings are created with different Confidence Levels and Distances, the shorter the diapason chanks become.
+> 
+
+**IMPORTANT:** The position of a new mapping on the matrix table determines its strength: landing in a green cell defines a *Strong* mapping, landing in a yellow cell defines a *Weak* mapping, and landing in a white cell grants a *Potential* status.
+
+**NOTE:** Ambiguous mappings are not considered in the matrix table unless the mapping conflict is resolved manually by a user.
+
+The Reinforcement matrix table is shown in the screenshot below.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image010.png"
+  alt="Image 10"
+/>
+
+---
+
+**SELF-LEARNING MECHANISM OF THE ALGORITHMIC RECON ENGINE**
+
+In an ideal situation, with equal proportions of reconciled data and no discrepancies or user corrections, the ratio of the Strong/Weak/Potential zones in the Reinforcement Learning matrix table would be approximately as follows:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image011.png"
+  alt="Image 11"
+/>
+
+Indeed, the smaller the difference in Pair Similarity between a low-Confidence Level winner and the second-place candidate, the higher the odds of an erroneous mapping. By contrast, the higher the Confidence Level and the larger the gap between Pair Similarities, the smaller the margin for error.
+
+In practice, mismappings occur across different Confidence Levels and Distances, so the strength ratio within the Reinforcement Learning matrix is constantly changing. For example, when a user finds an error in a Strong mapping and corrects it, the green Strong cell where the mapping landed is downgraded to Weak or Potential.
+
+As a result, the final decision on mapping strength depends on a self-learning mechanism that adapts dynamically to mapping history and user corrections. The more entities are mapped, the more mappings are confirmed, and the more errors are corrected manually, the smarter the Fuzzy engine becomes.
+
+---
+
+The Reinforcement Learning screen allows users to dive deep into mapping statistics, review mapping Pair Similarities and Predicates at different levels, and analyze mappings alongside the Fuzzy engine.
+
+#### Step 5: Reconciliation results
+
+System populates **Security Mappings, Security Analysis,** and **Not Mapped Securities** screens: for reconciled Security entities, these screens are populated with Algorithmic Recon results.
+
+In the Algorithmic Recon final phase, the system populates the screen grids with reconciliation results. There are three resultant screens of Security Algorithmic Recon:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image012.png"
+  alt="Image 12"
+/>
+- **Security Mappings**: an aggregation screen that shows all mappings and mapping suggestions in the system for a designated period.
+- **Security Analysis**: an operational analysis screen that contains mapped and not-mapped Securities, and allows users to create, approve, reject, and break mappings.
+- **Not Mapped Securities**: an aggregation screen that contains only not-mapped Securities, allowing users to review and manually map entities that have no mappings.
+
+Once the results are allocated in the system, users can begin reviewing Securities mappings, approving Weak mappings, creating Potential mappings, and correcting errors.
+
+---
+
+**ROLL-UP ACCOUNT IN SECURITY POSITIONS**
+
+You can configure the system to check whether Security Positions have Accounts with assigned Roll-up Accounts. To activate this check during Algorithmic Recon, set the Company Preference **HubRecon - Aggregate Positions On Rollup Account** to *True*:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image013.png"
+  alt="Image 13"
+/>
+If activated, reconciled Security Positions will show Roll-up Accounts instead of the main Account on the resultant Security Analysis screen.
+
+**NOTE:** Activating this Company Preference also impacts the Classic Position Recon process in the same way.
+
+---
+
+## Algorithmic Security Analysis
+
+**Algorithmic Security Analysis** is an operational screen that contains Securities with *Strong*, *Weak*, *Potential*, and *Ambiguous* map types assigned by the Security Algorithmic Recon process.
+
+The Algorithmic Security Analysis screen lets users manage Security mappings, approve or reject Weak mappings, edit Securities, and rerun an Algorithmic Recon reprocess. It also maintains a backlog and technical data for each Algorithmic Recon process.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image014.png"
+  alt="Image 14"
+/>
+1. **Date selector**: specifies the date range for displaying Securities.
+2. **Filter set**: filters Securities using two filter types (*Security Type* and *Security Code*).
+3. **Operation buttons**: a set of tools for Securities’ mappings management (*Reprocess, Details, Edit Security, Unmap Security, Create Mapping, Approve Mapping,* and *Reject Mapping*).
+4. **Context menu**: options for operating with an individual selected Security.
+5. **Grid**: list of Securities within the time frame specified by the *Date selector* (1).
+
+### Operational buttons
+
+**The Upper toolbar** contains operation buttons for managing Securities’ mapping. If a button is greyed out, the action is unavailable for the selected Security. The available actions are described below.
+
+#### Reprocess button
+
+The **Reprocess** button opens the Run Algorithmic Reconciliation pop-up screen, which allows you to run the Security Algorithmic Recon. The Run Algorithmic Reconciliation screen is divided into three sections: *General, Tune Algorithm,* and *Detail Settings*.
+
+---
+
+**General** section is used to set the primary Security Algorithmic Recon parameters.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image015.png"
+  alt="Image 15"
+/>
+1. **Model Type***: type of Algorithmic Recon to reprocess (*Security*). This option is unavailable and is provided strictly for reference.
+2. **Definition**: dropdown with the *Security Reconciliation*. Other Algorithmic Recon options will be added as capacity is developed.
+3. **Date**: select the date to re-run the Algorithmic Recon for.
+4. **Override Company**: select the Company from the dropdown list to re-run the Algorithmic Recon for.
+5. **Detail Mode**: check the box to enable the Detail Settings section at the bottom of the screen.
+6. **Owner Definition**: check the box to re-run the Algorithmic Recon for all subsidiary Companies and the Owner company afterward. **NOTE:** If this checkbox is not selected, the Algorithmic Recon will be re-run only for the company selected in the *Override Company* dropdown (3).
+7. **Description**: brief information about the Algorithmic Recon.
+
+---
+
+**Tune Algorithm** section is used to set the scope of the Security Algorithmic Recon.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image016.png"
+  alt="Image 16"
+/>
+1. **Matching Strategy Type**: select the Recon Strategy for the Algorithmic Recon re-run (Pessimistic or Optimistic). Refer to the Principle of Work chapter to learn about the Recon [](https://www.notion.so/Case-1-Algorithmic-Reconciliation-350dcf524819806dbfd1e8edd32638ee?pvs=21)Missing Values Strategy.
+2. **Confidence Level**: set the Confidence Level lower threshold. When the Algorithmic Recon is launched in work mode, it rewrites Security entities above the threshold.
+
+**INFORMATION:** Algorithmic Recon reprocess can be launched in *working* or *debug* mode. Working mode creates mappings, just like the regularly scheduled Algorithmic Recon. Debug mode does not create mappings; instead, it includes the source multiplicity of extracted Security entities for Fuzzy learning purposes. The debug mode results are allocated in the Reinforcement Learning matrix.
+
+The switch between working mode and debug mode is located in the Detail Settings section.
+
+---
+
+**Detail Settings** section is used to specify parameters for Detail Mode. **NOTE:** This section becomes available only when the *Detail Mode* checkbox in the *General* section is selected.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image017.png"
+  alt="Image 17"
+/>
+1. **Detail Output Columns After Matching***: plurality of columns that are saved for every compared pair in the search scope of the reconciliation process. This field is unavailable. It is provided for reference and debugging purposes, to review Pair Similarity and Predicate values during manual analysis.
+2. **Reinforcement Learning Enabled**: switch between working mode and debug mode. Check the box to launch Algorithmic Recon re-run in debug mode.
+
+**INFORMATION:** Each Algorithmic Recon run evaluates all possible Security pairs considered by the Algorithmic Security Recon Fuzzy engine. As a result, the best pairs are used to create Security mappings. The remaining candidates in the search space can be reviewed and analyzed on three levels. To review the search space with the calculated Predicates and Pair Similarities, use the Upper toolbar button *Details*.
+
+---
+
+#### Details button
+
+The **Details** button opens a Mapping Details pop-up screen that shows the right-side Security (*Counterparty*), the mapped left-side Security (*House*) and the remaining candidates from the search space that were not mapped.
+
+The Mapping Details screen allows users to review Security mappings across three levels and manually change the mapping if the Algorithmic choice was inaccurate.
+
+The mapping and candidates are distributed across the following levels:
+
+- **Level 3**: all possible mapping variations (in other words, the reconciliation search space).
+- **Level 2**: best variations selected in all three Predicate groups.
+- **Level 1**: the actual winner and the mapped Security.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image018.png"
+  alt="Image 18"
+/>
+1. **Their Security**: the right-side Counterparty Security and its basic parameters (*Security Code, Security Description, Security Type,* and *Map Type*).
+2. **Level section**: contains mapping candidates grouped into three levels. The number of candidates varies by Security (a Security can have multiple candidates in the Level 3 group or just one, depending on how the Algorithmic mapping performed in that case).
+3. **Level Up/Level Down**: operational button that allows to descend or ascend through the levels and review the candidates.
+4. **Grid**: contains the list of mapping candidates and shows their technical reconciliation background data (calculated *Similarities* and *Predicates* values).
+5. **Context menu**: contains options that can be executed against selected mapping.
+
+---
+
+**CONTEXT MENU**
+
+**Context menu** of the Mapping Details screen contains various options that depend on the mapping itself and its strength. Possible options are reviewed below.
+
+- **Unmap**: available for established *Strong* mappings. Use it to break the Security mapping. When the mapping is broken, the Security is added to the *Not Mapped Securities* grid.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image019.png"
+  alt="Image 19"
+/>
+- **Change Mapping to this Security**: available for *Potential* candidates that were not mapped to the Security. Use it to manually establish the mapping. The previous mapping is automatically broken.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image020.png"
+  alt="Image 20"
+/>
+- **Approve or Reject Mapping**: available for established Weak mappings. Use it to approve or decline the mapping. Rejected mappings are added to *Rejected Mappings*.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image021.png"
+  alt="Image 21"
+/>
+---
+
+**INFORMATION:** Using the *Level Up* and *Level Down* buttons, users can jump between groups to review the Similarity parameters and each Predicate that constitute the Pair Similarity value. The Level grid provides full technical details for every mapping candidate in the search space. You can select the required columns in the Column Chooser:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image022.png"
+  alt="Image 22"
+/>
+By default, only the most important predicates are stored in the database and are visible on the Mapping Details screen. However, if the Algorithmic Recon is re-run in debug mode, additional values will populate the Level grid.
+
+**IMPORTANT:** The search group candidates are not stored in the database permanently because this would add load to the servers and slow down the application. The entities are cleaned up one month after the reconciliation process. When the entities are purged, the Level grid displays the message:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image023.png"
+  alt="Image 23"
+/>
+---
+
+#### Edit Security button
+
+**Edit Security** button opens the Security Editor (*Reference Data Security Master tool*). It is used to edit Security instruments and manage their mapping lists:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image024.png"
+  alt="Image 24"
+/>
+1. **Basic Security information**: displays the *Security Code, Security Description,* and *Type*.
+2. **Tab bar**: an operational ribbon with Security tabs. The tabs may vary depending on the Security type.
+3. **General section**: contains the primary Security parameters.
+4. **Identifiers**: contains Security identifier parameters.
+5. **Issuer**: contains Security issuer parameters.
+6. **Save and Close/Save/Cancel**: use these buttons to save your changes or discard them.
+
+---
+
+**SECURITY MAPPINGS**
+
+**Mappings tab** displays all mappings assigned to the Security, including those created by Classic and Algorithmic Recons, the Reference Data Job, and manual mapping.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image025.png"
+  alt="Image 025"
+/>
+
+**INFORMATION:** Each accounting and banking system may label the same Security differently. For example, the client’s accounting system may store it as *MSFT*, while a bank system stores it as *MSFT US* (based on BBG ID). Another bank may report it as *MSFT.O*, and another counterparty may label it as *MSFT SHS*. As a result, House Securities typically have multiple mappings.
+
+You can create manual mappings directly in the Mappings grid:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image026.png"
+  alt="Image 026"
+/>
+
+---
+
+#### Unmap Security button
+
+**Unmap Security** button breaks an existing active mapping. When an Algorithmic active mapping is broken (it can be *Strong, Weak* or *Potential*), the mapping is considered erroneous. When this happens, the mapping’s initial parameters (*Security Id Left + Security Code Right + Security Map Type Right*) are added to the blacklist and will no longer appear in the Algorithmic Recon search space. Unmapping also adjusts the matrix table on the Reinforcement Learning screen. Before breaking a mapping, users must confirm the action in the pop-up window:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image027.png"
+  alt="Image 027"
+/>
+
+**NOTE:** If a mapping is broken by mistake and later restored, the statistics revert as if the break never happened, returning to the status quo.
+
+---
+
+#### Create Mapping button
+
+**Create Mapping** allows you to create a mapping manually. It opens the *Mapping Details* screen with the candidates selected for the Security’s mapping search space. 
+
+When you create a manual mapping, the system updates mapping statistics and adjusts the Reinforcement Learning matrix table accordingly. If you try to create a mapping for a Security that is already mapped, the following warning appears:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image028.png"
+  alt="Image 028"
+/>
+
+---
+
+#### Approve Mapping/Reject Mapping buttons
+
+**Approve Mapping** and **Reject Mapping** buttons are used for Securities with a *Weak* or *Potential* Algorithmic Map Type. A Weak mapping has a decent Confidence Level, but it is not high enough to qualify as *Strong*; therefore, it requires approval from an authorized user.
+
+**NOTE:** When a mapping is rejected, it is automatically added to the Rejected Mappings list (available on the screen of the same name). A rejected mapping severely impacts the algorithmic reconciliation routine.
+
+---
+
+### Grid
+
+The **Algorithmic Security Analysis grid** contains Algorithmic Security mappings’ parameters. The primary columns of the grid are:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image029.png"
+  alt="Image 029"
+/>
+
+- **Algorithmic Map Type**: indicates mapping certainty (*Strong, Weak, Potential, Ambiguous*).
+- **Is Active**: indicates whether the mapping is active (applies to the Security).
+- **Is Approve Required**: indicates whether the mapping requires approval.
+- **Has Ambiguity Mappings**: indicates whether the Security has ambiguous mappings.
+
+You can filter entities in the grid by selecting a Strength value in the *Algorithmic Map Type* column.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image030.png"
+  alt="Image 030"
+/>
+
+**NOTE:** Securities in the grid are color-coded so users can quickly review their status. The color codes are:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image031.png"
+  alt="Image 031"
+/>
+
+1. **Not mapped Security**: the available action is *Create mapping*.
+2. **Mapped Security**: the available action is *Unmap Security*.
+3. **Security needs approval**: the available actions are *Approve mapping* and *Reject mapping*.
+
+---
+
+## Security Mappings
+
+**Security Mappings** is the primary Security Recon screen. It aggregates all Security mappings and mapping suggestions that persist in the system (created by both *Classic* and *Algorithmic* recon, Reference Data Job, Hub Client, or established manually by users). 
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image032.png"
+  alt="Image 032"
+/>
+
+1. **Date selector**: specifies the time range for displaying Security mappings.
+2. **Show Mappings**: selects the mapping status used to filter Security mappings in the grid (*All, Active, Approve Required, Ambiguous, Potential*).
+3. **Operational buttons**: actions that can be executed against mappings in the grid.
+4. **Grid**: lists all Security mappings for the selected time period.
+5. **Context menu**: actions available for the selected item in the grid.
+
+**INFORMATION:** The *Approve Required, Ambiguous,* and *Potential* statuses refer to mappings established via Algorithmic Recon. Each status implies a possible action against the Security. As a result, the Mapping Details screen and its available tools vary by status. See the examples below.
+
+#### Mapping statuses (Approve Required, Ambiguous, Potential)
+
+**Approve Required** mapping status implies the following Mapping Details screen and available options:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image033.png"
+  alt="Image 033"
+/>
+
+1. **Their Security**: the right-side Security (delivered from the Counterparty source) with basic parameters.
+2. **Candidates**: list of House Securities that make up the candidate list.
+3. **Context menu for the main candidate**: allows users to *Approve* or *Reject* the mapping. The main candidate is highlighted in yellow.
+4. **Context menu for other candidates**: allows users to map the right-side Security to a different candidate. If this happens, the main candidate is automatically rejected, and the suggested mapping moves to the *Rejected Mappings.*
+5. **Search Notes**: text block containing brief logs about the suggested mapping search and results. If Search Notes are blank, it means the system purged the logs after one month.
+6. **Advanced View**: select to switch to the Levels grid and review the mapping’s technical details.
+
+**INFORMATION:** The *Advanced View* button takes users to the Level grid with the full candidate list and technical reconciliation parameters (Predicate variables and Pair Similarities). The Levels grid supports the same actions (*Approve, Reject,* and *Map to this Security*).
+
+---
+
+**Ambiguous** mapping status implies the following Mapping Details screen and available options:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image034.png"
+  alt="Image 034"
+/>
+
+1. **Their Security**: the right-side Security (delivered from the Counterparty source), with basic parameters.
+2. **Levels**: list of candidates grouped by algorithmic mapping level.
+3. **Context menu for all candidates**: allows you to create a mapping to the selected Security. Other mapping candidates remain on lower levels and are not rejected.
+4. **Pair Similarity of the candidates**: calculated Pair Similarities for the candidates.
+
+**INFORMATION:** Ambiguous status is assigned when the Confidence Level is identical for two or more candidates. In this case, the algorithm cannot determine the correct mapping and delegates the decision to the user. Once the correct candidate is identified, it can be mapped manually.
+
+---
+
+**Potential** mapping status implies the following Mapping Details screen and available options:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image035.png"
+  alt="Image 035"
+/>
+
+1. **Their Security**: right-side Security (delivered from the Counterparty source) with basic parameters.
+2. **Levels**: list of candidates grouped by algorithmic mapping level.
+3. **Context menu for all candidates:** allows you to create a mapping to the selected Security. Other candidates remain on the lower levels but are not rejected.
+
+**INFORMATION:** Potential mapping status is assigned to a Security when the combination of Confidence Level and Distance places the mapping in the gray zone of the Reinforcement Learning matrix table. This means the candidate list is formed, but the top-scoring candidate is not strong enough to be mapped automatically.
+
+Potential mappings can be rejected (unmapped). In this case, the mapping is considered erroneous. When this happens, the mapping’s initial parameters *Security Id Left + Security Code Right + Security Map Type Right* are added to the blacklist and will never enter the Algorithmic Recon search space.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image036.png"
+  alt="Image 036"
+/>
+
+---
+
+### Operational buttons
+
+**Operational buttons** are used to manage Security mappings and handle mapping requests originating from the Security screen.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image037.png"
+  alt="Image 037"
+/>
+
+- **Request Data**: press to load entities into the grid when filters are set (*Date range* and *Mapping status*). Automatic loading is turned off by default.
+- **Details**: opens the *Mapping Details* screen. The user interface depends on the Security’s mapping status.
+- **Edit Security**: opens the *Edit Security* screen, which mirrors the Security Master Editor. It allows you to modify all Security parameters, including mappings.
+- **Create Mapping**: press to create a Security mapping with the top Confidence Level-scoring candidate. This option is available only for mappings in *Potential*.
+- **Approve Mapping**: press to approve a Security mapping in *Approve Required* status.
+- **Reject Mapping**: press to decline a Security mapping in *Approve Required* status.
+- **Unmap Security**: press to break an existing Security mapping.
+
+---
+
+## Reinforcement Learning
+
+**Reinforcement Learning** is an operational analytics screen that consolidates and analyzes Algorithmic Recon data in a specialized matrix table.
+
+It recalculates the accuracy of previously created mappings and generates a heatmap of accuracy zones for Algorithmic Recon mappings. For details, refer to the Principle of Work section.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image038.png"
+  alt="Image 038"
+/>
+
+1. **Date selector**: selects the time range for Reinforcement Learning statistics.
+2. **Distance rows**: Distance parameter diapason chunks.
+3. **Quality parameters**: sub-rows showing quality parameters (*Total verified, Verified as correct, Unverified*).
+4. **Confidence Level columns**: Confidence Level diapason chunks.
+5. **Totals**: totals per Quality Parameter group for each Distance row.
+6. **Summary**: averages for *Strong, Weak,* and *Unused* mappings, including *Accuracy* and *Coverage* for each group.
+
+**INFORMATION:** The Reinforcement Learning screen is scheduled to run once per day at the end of the day for the previous business day. During the run, Reinforcement Learning recalculates *Confidence Levels* and *Distances* for all mappings (including approved and rejected mappings), gathers statistics, and regenerates the accuracy zones in the matrix table. To do this, Algorithmic Recon runs for the past date using real historical input and produces new outputs for mappings and mapping suggestions. These outputs are then compared with existing real mappings (Etalon mappings): verified, approved, rejected, corrected, or manually created.
+
+---
+
+**FUZZY ENGINE SELF-LEARNING PROCESS**
+
+By comparing the calculated outputs of an Algorithmic Recon run with Etalon mappings, the Fuzzy engine can self-learn and evolve. This learning process enables the engine to calculate actual accuracy for each Confidence Level/Distance segment and apply a similar expected accuracy rate to future mappings within the same segment. Segments are divided into three groups:
+
+- **Strong (matrix green cells)**: accuracy is higher than 99,5%.
+- **Weak (matrix yellow cells)**: accuracy is between 98% and 99,5% (that is, at most one error per hundred mappings).
+- **Potential (matrix white cells)**: accuracy is less than 98%.
+
+As a result, the Reinforcement Learning matrix table dynamically adjusts the heatmap accuracy zones based on automatic Strong mappings, approvals and rejections of Weak mappings, and manual mappings created by users.
+
+---
+
+**NOTE:** Due to the dynamic nature of the Reinforcement Learning matrix table, the number of columns and rows—and the chunk ranges—change automatically and are not controlled by the user. The matrix table skeleton is calculated based on the average distribution of mapping volume (each row and column includes the nearest number of mappings).
+
+**IMPORTANT:** The Reinforcement Learning matrix begins to work only after the system accumulates a significant number of verified matching instances. This threshold is set individually for each client during implementation (the default value is 10,000 matching instances).
+
+Additionally, the accuracy zones shift in response to users breaking mappings. For example, the Strong cell for a Confidence Level of 89–93 with a Distance of 1–30 can be downgraded to Weak or Potential if a user manually breaks a Strong mapping they deem incorrect within this cell.
+
+### Matrix table
+
+**Matrix table** shows the accuracy zones of *Strong*, *Weak*, and *Potential* Map Types for Security mappings. Rows represent Distance ranges, and columns represent Confidence Level ranges. Each cell contains three quality parameters:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image039.png"
+  alt="Image 039"
+/>
+
+- **Total verified**: number of legitimate mappings (constituted from correct and rejected mappings).
+- **Verified as correct**: number of mappings that were verified (constituted from approved mappings, manually created mappings, or mappings created by Classic Recon).
+- **Unverified**: number of mappings that are not currently verified (constituted from mappings that require approval and have not yet been approved).
+
+Each value lets users drill down to the list of mappings within that Distance and Confidence Level segment. When a value is clicked, the user is directed to the *Learning Details* grid.
+
+#### Summary
+
+**Summary** is an overview at the bottom of the Reinforcement Learning matrix table. It shows the totals for **Total verified**, **Verified as correct**, and **Unverified** mappings across all three groups (*Strong, Weak,* and *Unused*). It also displays each group’s *Accuracy* and *Coverage*:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image040.png"
+  alt="Image 040"
+/>
+
+- **Accuracy**: calculated as *the total number of suggested mappings verified as correct divided by the total number of suggested verified mappings.*
+- **Coverage**: calculated as *the total number of suggested Broker Security-to-House Security mappings divided by the total number of not mapped Broker Securities.*
+
+### Learning Details
+
+**Learning Details** is an overlay screen that displays all mappings within the selected matrix-table cell and quality parameter. To open the Learning Details grid, click a value in the matrix table on the Reinforcement Learning screen:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image041.png"
+  alt="Image 041"
+/>
+
+1. **Model Id**: *currently not used filter*.
+2. **Confidence From/To**: specify the Confidence Level range to filter Securities in the grid. Default values are taken from the selected cell on the matrix table.
+3. **Distance From/To**: specify the Distance range to filter Securities in the grid. Default values are taken from the cell of selected value on the matrix table.
+4. **Grid**: Security mappings displayed based on the selected filters.
+5. **Context menu**: selective options that can be performed against the Security mapping.
+
+### Context menu
+
+**Context menu** adapts to the parameters of the Security mapping. The available options and the conditions for using them are listed below.
+
+**Unmap Security**
+
+The option is available for Security mapping where the mapping is *Fuzzy Mapped* and is not rejected.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image042.png"
+  alt="Image 042"
+/>
+
+When applied to the mapping, it switches to the *Is Rejected* status:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image043.png"
+  alt="Image 043"
+/>
+
+---
+
+**Restore Mapping**
+
+The option is available for Security mappings in the Rejected state. When applied, it restores the mapping to its previous status:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image044.png"
+  alt="Image 044"
+/>
+
+---
+
+**Reject**
+
+The option is available for Security mappings where the mapping is *Fuzzy Mapped* and is not rejected. When applied, the mapping switches to the Rejected state, and the combination of Security Id Left + Security Code Right + Security Map Type Right will not enter the Algorithmic Recon search space going forward:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image045.png"
+  alt="Image 045"
+/>
+
+---
+
+**Create**
+
+The option is available for Security mappings where Etalon Security Id is not specified and the mapping is not rejected. When applied, a new mapping is created with the combination Security Id Left + Security Code Right + Security Map Type Right:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image046.png"
+  alt="Image 046"
+/>
+
+---
+
+**Change Mapping to Security Id Left**
+
+The option is available for Security mappings where the mapping is not Fuzzy-correct, Etalon Security Id does not match Security Id Left, and the mapping is not rejected. When applied, the mapping is changed to the Security Id from the left side:
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image047.png"
+  alt="Image 047"
+/>
+
+---
+
+**INFORMATION:** Always available options are Details (allows to switch to the Mapping Details screen with a list of mapping candidates divided by levels) and Edit Security (allows to open the Security Master Editor to adjust Security parameters and mappings).
+
+## Not Mapped Securities & Rejected Mappings
+
+The **Not Mapped Securities** and **Rejected Mappings** screens are aggregation grids for, respectively, Securities that did not find a match and Security mappings that were rejected by users.
+
+### Not Mapped Securities
+
+The **Not Mapped Securities** grid contains Securities extracted from incoming feed files that were not included in any Positions’ search spaces for the Algorithmic reconciliation process. As a result, reconciliation was not performed because there were zero mapping candidates.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image048.png"
+  alt="Image 048"
+/>
+
+1. **Date To**: select the date for which to display not mapped Securities.
+2. **Reprocess**: press the button to open the Algorithmic Recon Reprocess screen and initiate the reprocess procedure.
+3. **Grid**: list of not mapped Securities for the selected day.
+4. **Context menu**: contains the *Details* option that opens the Mapping Details pop-up screen.
+
+### Rejected Mappings
+
+The **Rejected Mappings** grid contains Security mappings from the Weak certainty group that users rejected on the Security Analysis screen.
+
+<LightboxImage
+  src="/img/case-1-algo-recon/image049.png"
+  alt="Image 049"
+/>
+
+1. **Grid**: list of mappings in the Rejected state.
+2. **Context menu**: contains the *Restore Mapping* option, which returns the mapping to its previous state.
+
+**IMPORTANT:** Rejected mappings directly impact the Algorithmic reconciliation processes. Before starting, the Fuzzy algorithm checks the pool of rejected mappings; if it finds a mapping flagged as *Rejected*, it excludes entities with the same *Security Code*, *Map Type*, and *Company ID* from the search space.

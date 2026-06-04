@@ -5,26 +5,241 @@
  */
 
 /* You can override the default Infima variables here. */
+/**
+ * LIGHT THEME
+ */
+
+/**
+ * LIGHT THEME
+ */
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-background-color: #ffffff;
+  --ifm-font-color-base: #000000;
+  --ifm-color-primary: #000000;
+
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-footer-background-color: #ffffff;
+
+  --ifm-heading-color: #000000;
+
+  --site-button-bg: #000000;
+  --site-button-text: #ffffff;
+
+  --site-navbar-link: #000000;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/**
+ * DARK THEME
+ */
+
+html[data-theme='dark'] {
+  --ifm-background-color: #000000;
+  --ifm-font-color-base: #ffffff;
+  --ifm-color-primary: #ffffff;
+
+  --ifm-navbar-background-color: #000000;
+  --ifm-footer-background-color: #000000;
+
+  --ifm-heading-color: #ffffff;
+
+  --site-button-bg: #ffffff;
+  --site-button-text: #000000;
+
+  --site-navbar-link: #ffffff;
+}
+
+/**
+ * GLOBAL
+ */
+
+body {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.hero {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/*FOOTER*/
+
+.footer {
+  border-top: 2px solid #838383;
+  background-color: #000000
+}
+
+/**
+ * LIGHT THEME HERO
+ */
+
+html[data-theme='light'] .hero {
+  background-color: #838383;
+  color: #000000;
+}
+
+/**
+ * DARK THEME HERO
+ */
+
+html[data-theme='dark'] .hero {
+  background-color: #373737;
+  color: #ffffff;
+}
+
+/**
+ * NAVBAR LINKS
+ */
+
+.navbar__link,
+.navbar__title {
+  color: var(--site-navbar-link) !important;
+}
+
+/**
+ * BUTTONS
+ */
+
+.button.button--secondary:not([title="Collapse sidebar"]) {
+  background-color: var(--site-button-bg) !important;
+  color: var(--site-button-text) !important;
+  border: 1px solid var(--site-button-text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.button.button--secondary:not([title="Collapse sidebar"]):hover {
+  opacity: 0.85;
+}
+
+/**
+ * LINKS
+ */
+
+a {
+  color: inherit;
+}
+
+/* ==========================================
+   PORTFOLIO LANDING PAGE (GUIDES)
+========================================== */
+
+.guideCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.guideCard {
+  display: block;
+
+  padding: 24px;
+
+  border-radius: 16px;
+
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  background: rgba(255,255,255,0.05);
+}
+
+.guideCard:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(255,255,255,0.5);
+
+  text-decoration: none;
+}
+
+.guideCard h2 {
+  margin-bottom: 12px;
+}
+
+html[data-theme='light'] .guideCard {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+html[data-theme='light'] .guideCard:hover {
+  border-color: #999;
+}
+
+/* SIDEBAR HIDE BUTTON */
+.collapseSidebarButton {
+  color: var(--ifm-color-primary) !important;
+  border-top-color: var(--ifm-color-primary) !important;
+}
+
+.collapseSidebarButtonIcon {
+  color: var(--ifm-color-primary) !important;
+}
+
+/* SIDEBAR HIDE BUTTON */
+[title="Collapse sidebar"] svg {
+  fill: #838383 !important;
+}
+
+[title="Collapse sidebar"] svg * {
+  fill: #838383 !important;
+}
+
+/*GUIDE CARDS*/
+.guideCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.guideCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 20px 24px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: inherit;
+
+  transition: 0.2s ease;
+  min-height: 100px;
+}
+
+.guideCard:hover {
+  transform: translateY(-2px);
+}
+
+.guideIcon {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.guideText h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.guideText p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/*TERM*/
+
+.term-highlight {
+  background-color: #e4d6a7;
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: 600;
 }

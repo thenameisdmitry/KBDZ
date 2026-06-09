@@ -72,8 +72,10 @@ body {
 /*FOOTER*/
 
 .footer {
-  border-top: 2px solid #838383;
-  background-color: #111111
+  border-top: 1px solid #838383;
+  background-color: #111111;
+  padding: 0.75rem 0;
+  font-size: 0.85rem;
 }
 
 /**
@@ -98,9 +100,21 @@ html[data-theme='dark'] .hero {
  * NAVBAR LINKS
  */
 
+ .navbar__title {
+  margin-left: 315px;
+                }
+.navbar__items {
+  gap: 20px;
+                }
+.navbar__brand {
+  margin-right: 20px;
+}
+
 .navbar__link,
 .navbar__title {
-  color: var(--site-navbar-link) !important;
+  color: var(--site-muted-text) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
 }
 
 /**
@@ -120,13 +134,28 @@ html[data-theme='dark'] .hero {
   opacity: 0.85;
 }
 
-/**
- * LINKS
- */
+/* LINKS FOR CARDS (DEFAULT) DONT TOUCH*/
 
 a {
   color: inherit;
 }
+
+/* DOC LINKS FOR MD, MDX */
+
+.theme-doc-markdown a {
+  color: #838383;
+  font-weight: 500;
+}
+
+.theme-doc-markdown a:hover {
+  text-decoration: underline;
+}
+
+html[data-theme='dark'] .theme-doc-markdown a {
+  color: #b0b0b0;
+}
+
+
 
 /* ==========================================
    PORTFOLIO LANDING PAGE (GUIDES)
@@ -246,4 +275,19 @@ html[data-theme='light'] .guideCard:hover {
   border-radius: 2px;
   padding: 0 2px;
   font-weight: 600;
+}
+
+/* API FONT JetBrains */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/*API TEXT SPACE BETWEEN PARAGRAPHS*/
+
+.api-content p {
+  margin-bottom: 16px;
+}
+
+/*  BLOG ARTICLE IMAGES WITH ROUNDED CORNERS */
+.blog-wrapper article .markdown img {
+  border-radius: 12px;
 }

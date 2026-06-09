@@ -9,25 +9,25 @@ import styles from './index.module.css';
 const navCards = [
   {
     label: 'Documentation Portfolio',
-    description: 'Knowledge Base articles, end-user guides, release notes samples for enterprise fintech product.',
-    href: '/docs/portfolio-overview',
+    description: 'Knowledge Base articles, end-user guides, release notes samples for the enterprise fintech product.',
+    href: '/docs/portfolio/portfolio-overview',
     icon: <img src="/img/homepage/home-1-icon.png" alt="" width="45" height="45" />,
   },
   {
     label: 'API Documentation',
-    description: 'Swagger-based OpenAPI specification, reference documentation, endpoint guides, and integration examples.',
+    description: 'OpenAPI specification, reference documentation, endpoint guides, and integration examples.',
     href: '/api',
     icon: <img src="/img/homepage/home-2-icon.png" alt="" width="45" height="45" />,
   },
   {
     label: 'Blog',
-    description: 'Personally written articles on technical writing practice, documentation tooling, and AI-assisted workflows.',
+    description: 'Personally written articles on my thoughts about technical writing practice, documentation tooling, and AI-assisted workflows.',
     href: '/blog',
     icon: <img src="/img/homepage/home-3-icon.png" alt="" width="45" height="45" />,
   },
   {
     label: 'My Expertise',
-    description: 'Skills, tools, domain knowledge, and the methodologies behind my documentation practice.',
+    description: 'Skills, tools, domain knowledge, work experience, and the methodologies behind my documentation practice.',
     href: '/expertise',
     icon: <img src="/img/homepage/home-4-icon.png" alt="" width="45" height="45" />,
   },
@@ -235,12 +235,6 @@ export default function Home(): JSX.Element {
               <span className={styles.sectionLabel}>About</span>
               <h2 className={styles.aboutHeading}>Professional Summary</h2>
                 <p className={styles.aboutText}>
-                  
-                <img
-                  src="/img/Ava.png"
-                  alt="Dmitrii Zhukov"
-                  className={styles.avatar}
-                />
 
                 <b>Senior Technical Writer</b> and <b>Documentation Product Lead Manager</b> with 10 years of
                 experience in fintech, asset management, and B2B SaaS.
@@ -267,8 +261,15 @@ export default function Home(): JSX.Element {
 
             <div className={styles.aboutBlock}>
               <span className={styles.sectionLabel}>Connect with me</span>
-              <h2 className={styles.aboutHeading}>Contact & Links</h2>
+              <h2 className={styles.aboutHeading}>Contacts & Links</h2>
               <ul className={styles.contactList}>
+
+                <img
+                  src="/img/Ava.png"
+                  alt="Dmitrii Zhukov"
+                  className={styles.avatar}
+                />
+
                   <li>
                     <a href="https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                   </li>
@@ -313,6 +314,15 @@ export default function Home(): JSX.Element {
                 </Link>
               ))}
             </div>
+
+            <div className={styles.navCards}>
+                <img
+                  src="/img/homepage/gtu.png"
+                  alt="GTU"
+                  className={styles.gtu}
+                />
+            </div>
+
           </section>
 
         </div>

@@ -1,0 +1,31 @@
+.hero {
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.heroSubtitle {
+  max-width: 750px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  opacity: 0.8;
+}
+
+.divider {
+  width: 180px;
+  height: 1px;
+  margin: 3rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ifm-color-primary),
+    transparent
+  );
+}

@@ -1,19 +1,27 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+technical-writing:
+  label: Technical Writing
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+api-documentation:
+  label: API Documentation
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+knowledge-management:
+  label: Knowledge Management
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+ai:
+  label: AI
+
+automation:
+  label: Automation
+
+docs-as-code:
+  label: Docs as Code
+
+fintech:
+  label: Fintech
+
+product-thinking:
+  label: Product Thinking
+
+leadership:
+  label: Leadership
+

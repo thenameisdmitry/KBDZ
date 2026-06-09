@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Dmitrii Zhukov',
   tagline: 'Technical Writing | Product Documentation | Knowledge Management | Team Leadership | Fintech B2B SaaS | AI Workflow Optimization',
-  favicon: 'img/Ava.png',
+  favicon: 'img/Label.png',
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -44,6 +44,9 @@ const config: Config = {
           //  'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
+          routeBasePath: 'articles',
+          blogSidebarCount: 1,
+          postsPerPage: 10,
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
@@ -51,8 +54,8 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          //editUrl:
+          //  'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -84,22 +87,32 @@ const config: Config = {
 navbar: {
   title: 'Home',
   logo: {
-    alt: 'Ava',
-    src: 'img/Ava.png',
+    alt: 'Label',
+    src: 'img/Label.png',
   },
   items: [
     {
       label: 'Portfolio',
       position: 'left',
-      to: '/docs/portfolio-overview',
+      to: '/docs/portfolio/portfolio-overview',
     },
     {
-      label: 'Expertise',
+      label: 'API Documentation',
+      position: 'left',
+      to: '/api',    
+    },
+   {
+      label: 'My Blog',
+      position: 'left',
+      to: '/blog',
+    },
+    {
+      label: 'My Expertise',
       position: 'left',
       to: '/expertise',
     },
     {
-      href: 'https://github.com/facebook/docusaurus',
+      href: 'https://github.com/thenameisdmitry/',
       label: 'DZ GitHub',
       position: 'right',
     },

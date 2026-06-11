@@ -12,10 +12,10 @@ Technical Writing | Knowledge Base Strategy | Developer & API Documentation | Do
 
 ## Technical expertise
 
-- **Authoring & docs-as-code:** MadCap | Docusaurus | Markdown | MDX | XML | MS Office | GitHub | CI/CD 
-- **API & developer docs:** OpenAPI/Swagger | Postman | Insomnia | REST
-- **Scripting & automation:** Python | SQL | CI/CD
-- **Project & collaboration:** Jira | Confluence | Notion | SharePoint | Slack
+- **Authoring & docs-as-code:** MadCap | Docusaurus | Markdown | MDX | XML | MS Office | GitHub | CI/CD | DITA
+- **API:** OpenAPI/Swagger | Postman | Insomnia
+- **Scripting & DB management:** Python | SQL
+- **Project & collaboration:** Jira | Confluence | Notion | SharePoint | Slack | Aha
 - **Design & media:** Adobe Photoshop | Adobe Illustrator | Snagit | UML
 - **Cloud & infrastructure:** AWS | Azure | Zendesk | Zabbix | MS Exchange
 - **AI:** Claude (Anthropic) | Copilot | ChatGPT | Grammarly | Prompt Engineering | AI Workflow Automation

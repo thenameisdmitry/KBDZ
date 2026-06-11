@@ -2,3 +2,521 @@
 id: Case-4-Optimizer
 title: "Case 4: Optimizer Guide"
 ---
+
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+import ClickableSteps from '@site/src/components/ClickableSteps';
+import Example from '@site/src/components/Example';
+
+# Case 4: Optimizer Guide
+
+<div style={{
+  border: '1px solid rgba(131,131,131,0.2)',
+  borderLeft: '3px solid #999999',
+  borderRadius: '8px',
+  padding: '24px 28px',
+  marginBottom: '40px',
+  background: 'rgba(131,131,131,0.04)',
+}}>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Format</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Knowledge base guide combining a functional overview of the Optimizer tool with its algorithms library.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Target Readers</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Quantitative analysts, portfolio strategists, and risk and optimization specialists.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Description</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Technical reference and onboarding guide for a company-developed scripting environment. Introduces the Optimizer module, explains its architecture and workflow, and guides users through writing and deploying C# scripts against portfolios, positions, and agreements.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Automated analysis helps analysts streamline work at scale. Each Optimizer iteration is complemented with logs and scripts explaining suggested actions from a financial perspective, such as a better benchmark rate or a closer re-rate date.</p>
+</div>
+
+</div>
+</div>
+
+:::note NOTE
+This is a shortened version of the Guide, since the Algos’ code is protected by a 
+confidentiality agreement and cannot be published in a public portfolio. For better 
+understanding, the final part of the guide presents a library of default Algos with 
+detailed code comments.
+:::
+
+---
+
+## Introduction
+
+**Optimizer** is a module that generates data-driven recommendations to help optimize 
+client portfolios for improved profitability and risk management. The Optimizer engine 
+consists of specialized algorithms (*Algos*), each developed to address a specific 
+functional objective. These Algos analyze client data within the platform and generate 
+recommended actions (*Suggested Actions*).
+
+The Optimizer module contains the following screens:
+
+![optimizer-003](/img/case-4-optimizer/image003.png)
+
+- [**Portal**](#portal-screen): the module landing page, containing a set of Optimizer widgets and summary views.
+- [**Algos**](#algos-screen): a centralized grid containing all available Algos. Includes tools for creating, 
+editing, and testing Algos.
+- [**Solutions**](#solutions-screen): a repository of configured Solutions (ordered combinations of Algos with 
+defined parameters). Includes configuration and testing capabilities.
+- [**Blotter**](#blotter-screen): displays generated Suggested Actions for a selected date and enables users 
+to review and post actions.
+- [**Filters**](#filters-screen): contains configurable filters that can be applied to Solutions to refine results.
+- [**Sessions**](#sessions-screen): displays historical runs of Solutions and Algos, including generated 
+Suggested Actions and system logs.
+
+:::info INFORMATION 
+The Optimizer module is shipped with a default library of Optimizer Algos and Solutions.
+:::
+
+### Optimizer’s Concept of Operation
+
+The Optimizer engine processes client data (including rates, balances, currencies, 
+interest rates, and maturity dates) and generates Suggested Actions based on predefined 
+algorithmic logic:
+
+![optimizer-004](/img/case-4-optimizer/image004.png)
+
+1. **Standard Data Source**: provides the Optimizer engine with the system data used by 
+the triggered Solution. Optimizer pulls data from the sources designated in the Algos 
+that make up the Solution.
+2. **Solution**: processes the source data and runs Algos one by one, in the order 
+specified in the Solution setup.
+3. **Generation of Suggested Actions**: each Algo generates Suggested Actions based on 
+its analysis of the source data. As a result, the Solution outputs a set of Suggested 
+Actions produced by the Algos it contains.
+4. **Blotter**: generated Suggested Actions populate the Suggested Actions Blotter, where 
+users can review the recommendations and post them.
+5. **Suggested Actions Posting**: users can post selected Suggested Actions as 
+Transactions (*Vouchers*), Payments (*Cashflows*), Overrides (*Security* *Finance*), 
+Book Movements (*Collateral* *Management*), or bulk-post all generated Suggested Actions.
+
+:::info INFORMATION
+Each Algo has an individual objective, which is described in the Algo’s description. For example, an Algo can suggest closing negative balances with high interest rates by moving funds to the account with the lowest rate within a portfolio. Below is an example of this Algo:
+:::
+
+```csharp
+foreach (var portfolioId in OptimizerCustodianAccountBalances.Select(a => a.PortfolioId)
+        .Distinct().ToList())
+{
+    var accounts = OptimizerCustodianAccountBalances
+        .Where(a => a.RequiredDebit < 0 && a.IsCurrencyBalance &&
+            a.CurrencyId == a.PortfolioCurrencyId && a.PortfolioId == portfolioId);
+
+    var bestDebitRateCustodianAccount = accounts.OrderBy(a => a.DebitRate).FirstOrDefault();
+
+    if (bestDebitRateCustodianAccount == null)
+    
+    continue;
+
+    foreach (var debitAccount in accounts.Where(a => 
+        a.DebitRate > bestDebitRateCustodianAccount.DebitRate && 
+        Math.Abs(a.RequiredDebit) >= bestDebitRateCustodianAccount.WireThreshold))
+    {
+        await Transfer(bestDebitRateCustodianAccount, debitAccount, 
+            Math.Abs(debitAccount.RequiredDebit));
+    }
+}
+```
+
+## Algos screen
+
+**Algos** screen provides a centralized grid of all available Algos, along with tools to 
+create, edit, and test them.
+
+<Term name="Algo">
+A coded expression that processes selected system data and generates Suggested Actions based on 
+programmed logic.
+</Term> 
+
+The Algos screen is shown below:
+
+![optimizer-006](/img/case-4-optimizer/image006.png)
+
+1. **Upper toolbar**: set of action buttons.
+2. **Grid**: all Algos available in the system.
+3. **Is Public column**: indicates whether this Algo is visible to all users with access 
+to the screen (*checked*) or only to the Algo’s creator (*idle*).
+4. **Used In Solutions column**: indicates whether the Algo is part of a Solution.
+
+#### Upper toolbar
+
+**Upper toolbar** allows users to perform the following operations on Algos:
+
+![optimizer-007](/img/case-4-optimizer/image007.png)
+
+- **Add**: create a new Algo.
+- **Edit**: modify the selected Algo.
+- **Delete**: remove the selected Algo.
+- **Save As**: duplicate the selected Algo.
+- **Publish**: make an Algo publicly visible to authorized users.
+- **Export**: export an Algo in JSON format.
+- **Import**: import an Algo from a JSON file.
+
+## Algo Editor screen
+
+**Algo Editor** is a tool for creating, editing, and testing Algos. It includes three tabs:
+
+![optimizer-008](/img/case-4-optimizer/image008.png)
+
+- **Data Sources**: select the system data used by the Algo.
+- **Editor**: configure parameters and write the Algo expression.
+- **Test Run**: validate the logic and review results.
+
+### Data Sources
+
+**Data Sources** tab displays the full library of Hazeltree data blocks available for 
+processing with the Optimizer engine. The expression written on the Editor tab will 
+work with the data blocks selected here:
+
+![optimizer-009](/img/case-4-optimizer/image009.png)
+
+1. **Data blocks**: data blocks available for processing within the Hazeltree system.
+2. **Fields**: fields within the selected data block. These are used in specific contexts 
+(for example, the Data Source Optimizer Global Positions contains fields related to a 
+Position: *PositionID, SecurityID, AccountCode, PortfolioCode, Currency, Quantity, Market 
+Value, MTM, etc.*). These fields are processed by the Algo.
+3. **Properties**: data source system parameters.
+
+When data sources are selected, proceed to the Editor tab. If you forgot to select a data 
+source, you can return to this tab and add the missing data block to the Algo.
+
+### Editor
+
+**Editor** tab allows you to specify general settings and parameters used in the Algo. 
+It also includes an Expression field where the Algo code is written and validated:
+
+![optimizer-010](/img/case-4-optimizer/image010.png)
+
+1. **Data source fields**: list of selected Data Sources and fields. If you click on the 
+field name, it will automatically populate the Expression window.
+2. **Expression**: the Algo’s code. Code is written using the C# programming language.
+3. **Expression map**: minimized image of the Expression code sheet.
+4. **General settings**: specify *Name*, *Description*, *Algo Type*, *and* *Public state*.
+5. **Custom parameters**: set up custom parameters used in the Algo’s Expression.
+6. **Data Source parameters**: set up Data Source parameters used in the Algo’s Expression.
+7. **Collapse button**: use it to shrink the *Data source fields* (1) and the *Settings* 
+(4) sections.
+
+#### Custom parameters
+
+**Custom parameters** declare custom variables used in the Algo’s code. There is no limit 
+to the number of custom parameters.
+
+![optimizer-011](/img/case-4-optimizer/image011.png)
+
+#### Data Source parameters
+
+**Data Source** parameters are default parameters that come with the selected Data Source(s). 
+The number and attributes of Data Source parameters cannot be modified. You can mark these 
+parameters as mandatory (Is Required) and indicate whether they must be shown on the Test 
+Run and during the Solution run.
+
+![optimizer-012](/img/case-4-optimizer/image012.png)
+
+:::note NOTE
+After you complete the Algo’s setup, you need to perform the validation of the Expression:
+
+![optimizer-013](/img/case-4-optimizer/image013.png)
+
+1. **Validate**: click to run the integrity check.
+2. **Verdict plate**: a positive or negative verdict appears on the green or red plate 
+accordingly.
+3. **Status**: after the Expression is validated, you can proceed to the *Test Run* tab 
+for testing.
+
+In case of failed validation, the logs with errors description and troubleshooting tips 
+are displayed at the bottom of the Expression window:
+
+![optimizer-014](/img/case-4-optimizer/image014.png)
+
+:::
+
+The Algo must be saved before the Test Run. Click the *Create* button on the upper toolbar 
+to save the Algo in the grid.
+
+### Test Run
+
+**Test Run** tab is used to test an Algo:
+
+![optimizer-015](/img/case-4-optimizer/image015.png)
+
+1. **Test Run**: run a test for the Algo.
+2. **Algo parameters**: specify the parameters marked with *Is Required*.
+3. **Tabs**: view the generated Suggested Actions (*Suggested Actions tab*), Algo run 
+logs (*Trace Messages tab*), and system data used during processing (*Data Sources tab*).
+4. **Test Suggested Actions**: results of the Algo’s test run. These Suggested Actions 
+do not populate the Blotter grid and cannot be posted.
+
+<Example title="Algo Run">
+
+The *Cover Debits in Base Currencies* Algo finds Positions with negative Free Cash balances 
+in the base currency that must be covered and generates Suggested Actions to cover the balance:
+
+![optimizer-017](/img/case-4-optimizer/image017.png)
+
+If we look at the Cash Board prior to running the Algo, we can see two Positions with 
+negative Free Cash:
+
+![optimizer-016](/img/case-4-optimizer/image016.png)
+
+As a result, when the Algo is fired in test mode, the following Suggested Actions are 
+produced:
+
+![optimizer-018](/img/case-4-optimizer/image018.png)
+
+This is a simplified example that demonstrates the Optimizer’s approach and potential.
+
+</Example>
+
+## Solutions screen
+
+**Solutions** screen lists Solutions in a single grid. It includes an embedded Solutions 
+Editor for configuring Solutions and running test runs.
+
+<Term name="Solution">
+Optimizer unit that groups Algos targeting a single module (e.g. Collateral or Debt Management). 
+Algos run in the specified order. Solutions can use preconfigured filters to exclude undesired 
+results.
+</Term> 
+
+The Solutions screen is presented below:
+
+![optimizer-019](/img/case-4-optimizer/image019.png)
+
+1. **Upper toolbar**: allows users to create (*Add*), modify (*Edit*), and 
+remove (*Delete*) Solutions. It also allows users to define default Data Source and 
+custom parameters (*Arguments*).
+2. **Grid**: shows all existing Solutions in the system.
+3. **Module Name column**: indicates target modules.
+
+:::info INFORMATION
+The Arguments button allows users to set default values for parameters (both custom and Data 
+Source) across all Algos within the Solution. When default values are specified, the Solution 
+runs using those values only:
+
+![optimizer-020](/img/case-4-optimizer/image020.png)
+
+:::
+
+:::note NOTE
+If *AsOfDate* and *Company Code* are not provided with default values in the Arguments 
+pop-up screen, they automatically take the following values:
+
+- **AsOfDate**: the day selected on the screen where the Solution is fired (for example, 
+Optimizer Blotter or Cashboard).
+- **Company Code**: the active tenant (Company) under which the user runs the Solution.
+:::
+
+### Solution Editor
+
+**Solution Editor** is an embedded tool used to create and configure Solutions and perform 
+test runs:
+
+![optimizer-021](/img/case-4-optimizer/image021.png)
+
+1. **Upper toolbar**: operational buttons for *Test Run, Update* and *Cancel*.
+2. **Tabs**: the *Details* tab is used for Solution configuration and the *Test Run* tab is 
+used to Solution’s test.
+3. **General settings**: Solution’s parameters (*Name\*, Description, Solution Type, Is 
+Public *and* Module*)
+4. **Algos ribbon**: allows to add Algos to the Solution, apply preconfigured Filters, and 
+establish the work order of the Algos.
+5. **Algos**: list of the Algos that constitute the Solution. The top Algo runs first when 
+the Solution is triggered.
+
+Solutions can use Filters to control the outcome of the Algos. Click the Filters button on 
+the ribbon and select a filter to apply. Filters must be preconfigured on the dedicated screen:
+
+![optimizer-022](/img/case-4-optimizer/image022.png)
+
+#### Test Run tab
+
+**Test Run** tab is used to generate test Suggested Actions. Similar to the Algo Editor’s 
+Test Run, Suggested Actions generated during the test are not conveyed to the Blotter but 
+are registered in the Sessions screen:
+
+![optimizer-023](/img/case-4-optimizer/image023.png)
+
+1. **Test Run button**: launch the test process.
+2. **Algos parameters**: specify the parameters of all Algos comprised within the Solution.
+3. **Tabs**: Suggested Actions, Trace Messages (test run logs) and Data Sources used in the 
+Solution’s Test Run.
+4. **Suggested Actions**: generated during the test run.
+
+## Blotter screen
+
+**Blotter** screen stores all Suggested Actions generated for the selected date and allows 
+users to launch Solutions directly from the screen:
+
+![optimizer-024](/img/case-4-optimizer/image024.png)
+
+1. **Notification plate**: it indicates whether the Solution launched with the *Run Optimizer* 
+button is successful or not. In case of an error, the plate is red and provides an error log.
+2. **Upper toolbar**: *Date selector*, *Scenarios* filters and *Run Optimizer* operational 
+button.
+3. **Grid**: Suggested Actions generated for the selected date.
+4. **Post**: context menu button that allows users to publish the Suggested Action as a 
+Transaction.
+
+### Run Optimizer
+
+**Run Optimizer** runs the selected Solution and generates Suggested Actions that populate 
+the Blotter grid.
+
+![optimizer-025](/img/case-4-optimizer/image025.png)
+
+1. **Solution**: select the Solution from the list.
+2. **AutoPosting**: check the box to enable the system to automatically publish 
+Suggested Actions (as *Transactions, Overrides, Book Movements, Payments, etc.*).
+3. **Data parameters**: specify all parameters required for Solution’s process.
+4. **Run**: after all data parameters are specified, click Run to start the Optimizer 
+engine. After the Optimizer job completes, all generated Suggested Actions populate the 
+Blotter grid.
+
+:::note NOTE
+The Run Optimizer button is available on several screens throughout the system 
+(for example, Cashboard’s FX Hedge and Call Management). It allows users to run the Solution 
+directly from those screens:
+
+![optimizer-026](/img/case-4-optimizer/image026.png)
+:::
+
+The Solutions that run from each screen are specified in Company Preference (*System 
+Administration module > Company Administration folder > Company Preference screen*). There 
+are three Company Preferences that designate the Solutions per screen:
+
+- Collateral Optimization
+- FX Hedge Optimization
+- FX Hedge Forward Roll Optimization
+
+![optimizer-027](/img/case-4-optimizer/image027.png)
+
+### Posting
+
+**Posting** enables a Suggested Action to be published as a Transaction on the Transactions 
+grid or to trigger workflow-specific business actions (e.g. send an email to the Counterparty, 
+create a Re-rate, generate a Book Movement, add a Payment to the Cashflow, etc.). Automatic 
+posting is also available with the *Run Optimizer* button. The Post context menu button opens 
+a pop-up window with the selected Suggested Actions:
+
+![optimizer-028](/img/case-4-optimizer/image028.png)
+
+After a Suggested Action is posted, you can track its status on the Blotter grid:
+
+![optimizer-029](/img/case-4-optimizer/image029.png)
+
+Successfully posted Suggested Actions receive a *Posted* status when processing is complete. 
+In case of an error, a *Failed* status is assigned. You can repost failed Suggested Actions 
+after the cause of the issue is fixed.
+
+## Filters screen
+
+**Filters** screen stores filters used in Solutions to control the Algos outcome:
+
+![optimizer-030](/img/case-4-optimizer/image030.png)
+
+1. **Upper toolbar**: lets users create (*Add*), edit (*Edit*), or delete (*Delete*) 
+filters in the grid.
+2. **Grid**: list of all filters in the system.
+
+:::info INFORMATION
+Filters are useful when you want to control the Suggested Actions produced by Solutions, 
+rather than picking the ones you need from a large set. See the example below.
+:::
+
+
+<Example title="Solution Filters">
+The Algo produces two Suggested Actions that cover Positions with negative Free Cash. If the 
+client is only interested in results that show Positions below one million in base currency 
+(USD in this case), they can apply a filter to the Solution that runs the *Cover Debits in 
+Base Currencies* Algo.
+
+The user goes to the Filters screen and opens the Filter Editor:
+
+![optimizer-032](/img/case-4-optimizer/image032.png)
+
+1. **Upper toolbar**: use to *Validate*, *Update* or *Cancel.*
+2. **Data Sources**: list of available fields from the selected Data Source.
+3. **Expression**: write a filter’s expression. This example demonstrates how the filter 
+hides results higher than minus million.
+4. **General settings**: filter’s *Name, Description, Type* and *Public status*, plus the 
+custom and Data Source parameters
+
+When the filter is ready (validated and saved), it can be applied to Solutions within the system. 
+The user then opens the Solutions Editor and selects the new filter for the Solution that runs 
+the *Cover Debits in Base Currencies* Algo.
+
+![optimizer-031](/img/case-4-optimizer/image031.png)
+
+As a result, the next Solution run produces only one Suggested Action recommending that the 
+debit balance below one million be covered:
+
+![optimizer-033](/img/case-4-optimizer/image033.png)
+
+</Example>
+
+## Sessions screen
+
+**Sessions** screen provides a log of all Solution and Algo runs, including test executions.
+
+![optimizer-034](/img/case-4-optimizer/image034.png)
+
+#### Session Details
+
+The **Details** button on the upper toolbar opens a pop-up window where you can view the 
+following details of the Solution run:
+
+- **Suggested Actions tab**: generated Suggested Actions. Note that you cannot post them 
+from this window.
+
+![optimizer-035](/img/case-4-optimizer/image035.png)
+
+- **Trace Messages tab**: logs of the Optimizer run.
+
+![optimizer-036](/img/case-4-optimizer/image036.png)
+
+## Portal screen
+
+**Portal** screen is a widget console page that contains Optimizer widgets:
+
+![optimizer-037](/img/case-4-optimizer/image037.png)
+
+1. **Date range and type**: select the *From* and *To* date to define the time period you 
+want to see the results for.
+2. **Widgets**: select the widgets from the pool in the top right corner and deploy them in 
+the working area.
+3. **Widget properties**: use to customize the widgets.
+
+The Optimizer screen stores the following widgets:
+
+| **Widget Name** | **Widget Type** | **Description** |
+| --- | --- | --- |
+| **Loan Board Widget** | Grid | Snapshot from the Loan Board grid (Debt Management module) |
+| **Position Management Widget** | Grid | Snapshot from the Positions grid (Position Management module) |
+| **Suggested Actions Widget** | Grid | Snapshot from the Optimizer Blotter grid |
+| **Suggested Payment Audit** | Grid | Shows only posted Suggested Actions from the Optimizer Blotter grid |
+
+## System Algos Registry
+
+This section contains the full library of Solutions and Algos shipped with the Optimizer module.
+
+:::warning IMPORTANT
+Due to strict confidentiality policy, the **System Algos Registry** cannot be 
+published as part of this portfolio. The registry contains Algo’s name, business purpose, 
+underlying logic/working algorithm, and C# source code with detailed inline comments. The 
+registry is designed to enable third‑party developers to build their own Algos by extending 
+system patterns and modifying specific clauses or programmed actions. Sharing this material 
+publicly would disclose protected intellectual property and internal methodologies, so it is 
+intentionally omitted from this public version.
+:::

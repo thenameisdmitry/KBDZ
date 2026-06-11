@@ -1,15 +1,466 @@
 ---
 id: Case-2-Approver-App
-title: "Case 2: Approver Application"
+title: "Case 2: Approver Application Guide"
 ---
-# Case 2: Approver Application
 
-**Format:** A step-by-step instructional guide covering the full setup and operation of the Approver mobile application. It enables users to review, approve, or reject transactions on the go.
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+import ClickableSteps from '@site/src/components/ClickableSteps';
+import Example from '@site/src/components/Example';
 
-**Description:** The article walks users through initial configuration, authentication, and day-to-day operations. It is a critical routine that ensures that time-sensitive Transaction requests are verified immediately.
+# Case 2: Approver Application Guide
 
-**Business impact:** The mobile app patches a critical operational gap in Transactions management workflow: the ability to approve or reject transactions on the go. This is critical when managing asset movements under credit or collateral agreements, where delays can carry significant financial and contractual risk.
+<div style={{
+  border: '1px solid rgba(131,131,131,0.2)',
+  borderLeft: '3px solid #999999',
+  borderRadius: '8px',
+  padding: '24px 28px',
+  marginBottom: '40px',
+  background: 'rgba(131,131,131,0.04)',
+}}>
 
-**Target readers:** All users of the Transaction Manager module, including treasury operations managers, collateral management officers, fund controllers, and credit operations specialists.
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Format</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Step-by-step instructional guide covering the full setup and operation of the Approver mobile application.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Target Readers</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Transaction Manager module users, including treasury operations managers, collateral management officers, fund controllers, and credit operations specialists.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Description</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Enables users to review, approve, or reject transactions on the go. Walks users through initial configuration, authentication, and day-to-day operations. A critical routine ensuring time-sensitive Transaction requests are verified immediately.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Patches a critical operational gap in Transactions management: the ability to approve or reject on the go. Essential when managing asset movements under credit or collateral agreements, where delays carry significant financial and contractual risk.</p>
+</div>
+
+</div>
+</div>
 ---
-# Approver Mobile Guide
+
+## Introduction
+
+**The Approver Mobile Application** (hereinafter **Approver**) allows users to review 
+and manage Vouchers on the go. Approver runs on smartphones and tablets and is 
+available for iOS™ and Android™ devices. It can be installed from the App Store™ and 
+Google Play™.
+
+:::note NOTE
+To add an extra layer of security and prevent unauthorized access, Approver cannot 
+connect to the environment without administrator approval. To connect your device to 
+the system, complete the following steps: *License* & *Device Approval*.
+:::
+
+## Device Enrollment
+
+**Device Enrollment** is the process of connecting your personal handheld device to 
+the platform. To enroll your device and start using it, complete the following steps:
+
+- [**Licensing**](#licensing)
+- [**Installation**](#installation) & [**First launch**](#first-launch)
+- [**Device Approval**](#device-approval)
+
+### Licensing
+
+**The Approver Mobile App license** is a purchasable item. Licensing requires an 
+update to the client contract. Contact your Sales manager to discuss the best available 
+options.
+
+### Installation
+
+**The Approver Mobile App** can be downloaded and installed from the App Store™ 
+and Google Play™ for the latest versions of iOS™ and Android™ devices, respectively.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img001](/img/case-2-approver-app/image003.png)
+</div>
+
+:::warning IMPORTANT:
+The Mobile App will not work on rooted (jailbroken) devices.
+:::
+
+### First launch
+
+When you open Approver for the first time, you must configure the connection to your 
+environment. Only then will your device appear on the Device Approval screen.
+
+During the initial launch, you will be prompted to allow push notifications on your 
+device:
+
+- **If accepted**: notifications will be sent directly to your device. Notifications 
+may also include confirmation codes required for voucher approval.
+- **If declined**: notifications will not be displayed. Confirmation codes will be 
+delivered via email.
+
+When you open the **Approver** for the first time, specify the following parameters 
+to connect to your environment:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img004](/img/case-2-approver-app/image004.png)
+</div>
+
+1. **Access Code**: a unique identifier for your tenant (company). **INFORMATION:** 
+Contact your representative to obtain the Access Code for your company’s users. 
+This code is confidential and should be shared only with authorized users.
+2. **Login and Password**: enter the credentials for your user profile.
+3. **About**: tap to view information about the Approver application.
+
+*The Approver application does not support single sign-on (SSO); therefore, the 
+password you use to log in must be your system password.
+
+After you authorize with the Access Code and your credentials, the device 
+registration process begins. An administrator must approve your handheld device to 
+complete the process.
+
+### Device approval
+
+Your mobile device must be approved before the Approver* can connect to the environment. 
+When your credentials are accepted during the initial launch, your device appears 
+on the **Device Approval** screen (*System Administration module > User Administration 
+folder > Device Approval screen*).
+
+The **Device Approval** screen is an administrative console used to manage mobile 
+device enrollment. It is available only to administrators:
+
+![approver-img005](/img/case-2-approver-app/image005.png)
+
+1. **Upper toolbar**: contains *Approve*, *Reject*, and *Set notification options*
+2. **Device Code**: a unique code assigned to each device associated with the 
+application.
+3. **Approval State**: the approval status. Only *Approved* devices can read data 
+in **Approver**.
+4. **Push/Email Notifications**: shows how the device receives notifications (including 
+confirmation codes).
+
+:::info INFORMATION
+If you need to disconnect the device from the system, select the device on the grid 
+and click the *Reject* button. The device will be automatically disconnected from the 
+system, and the user will be forcefully logged out of the Approver. Any repeated login 
+attempt will be unsuccessful.
+:::
+
+To change the notification delivery method, click the upper toolbar button *Set 
+notification options*. The *Device Notification Options* screen opens with two 
+checkboxes (as shown below). Select the preferred method and click *Save*. The change 
+will apply to the mobile device.
+
+![approver-img006](/img/case-2-approver-app/image006.png)
+
+Once the device is successfully approved on the server side, the application displays 
+a *Confirmation screen* prompting you to enter the confirmation code sent to you 
+either as a push notification or to your registered email address. Enter the code 
+in the *Confirmation Code* field, then click the *Next* button. You will then be 
+taken to the *Access Code* screen, where you must set up a short PIN code for Approver 
+login:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img008](/img/case-2-approver-app/image008.png)
+</div>
+
+### Access Code length and Login attempts
+
+You can configure the length of the Access Code used for Approver login and the number 
+of login attempts allowed for the application user. Use the following Company 
+Preferences to set up these parameters:
+
+![approver-img009](/img/case-2-approver-app/image009.png)
+
+- **Mobile Device Pin Length**: specify a 4-, 6-, or 8-digit PIN as a User Preference 
+Value. If the PIN length is set to 8 digits, users must create an 8-digit PIN.
+- **Mobile Device Login Attempts**: the number of login attempts is not limited. A 
+value of 3 means users have three attempts to enter the PIN code. After three 
+unsuccessful attempts, the user will be logged out of the application and will have 
+to enter the *Access Code, Username* and *Password*
+
+The Approver login screen shows a countdown indicating how many login attempts remain:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img010](/img/case-2-approver-app/image010.png)
+</div>
+
+:::tip TIP
+You can also log in using your fingerprint or Face ID if your device supports it. 
+The corresponding prompt will appear on the Approver login page when you set up the 
+PIN code.
+:::
+
+---
+
+:::note NETWORK OR SERVER ISSUES
+
+If the Approver displays an error when you attempt to log in, perform the following 
+troubleshooting steps:
+
+- Verify that your username and password are correct.
+- Check the internet connectivity on your handheld device.
+- Enable Airplane Mode, wait 30 seconds, then disable it.
+- If no issues are detected on your side, contact the Support Team for immediate 
+assistance.
+
+The Approver always warns customers about maintenance work performed on the servers.
+:::
+
+---
+
+## Approver Navigation
+
+The primary purpose of the Approver application is to allow users to review and 
+approve or decline Vouchers remotely. The My Approvals screen displays a list of all 
+Vouchers in the system that are ready for an approval or rejection decision. Vouchers 
+are automatically sorted by Voucher ID, with the most recent Voucher at the top. 
+The Approver user interface contains the following items:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img013](/img/case-2-approver-app/image013.png)
+</div>
+
+1. **Left menu:** provides options to review Vouchers in different states. Here 
+you can also change the application theme (*Dark* & *Light*), select custom statuses, 
+and your tenant.
+2. **Search**: an advanced search engine that allows you to filter Vouchers by date 
+range, date type (e.g., Settlement Date), sort by (e.g., Voucher Id desc), and status. 
+The results are displayed on the *All vouchers*
+3. **Voucher details**: a short recap of the Voucher details (total amount size, total 
+number of Transactions that constitute the Voucher, State, Attachments, etc.)
+
+<div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+
+<div style={{ flex: 1 }}>
+![approver-img015](/img/case-2-approver-app/image015.png)
+</div>
+
+<div style={{ flex: 1 }}>
+![approver-img016](/img/case-2-approver-app/image016.png)
+</div>
+
+<div style={{ flex: 1 }}>
+![approver-img011](/img/case-2-approver-app/image014.png)
+</div>
+
+</div>
+
+### Tenant selection
+
+Approver allows users in the parent tenant (Company) to switch tenants in a 
+multi-tenant environment and then review and manage Vouchers for child tenants. 
+To change tenants, open the left menu and tap the Company name. A list of available 
+tenants appears. Tap the tenant you want to switch to.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img017](/img/case-2-approver-app/image017.png)
+</div>
+
+:::note NOTE 
+You must have access to the parent tenant to switch to a child tenant. When you are 
+logged in to a child tenant, you will not be able to see any other tenants except 
+your own.
+:::
+
+### Advanced Search
+
+The Approver application includes an advanced search engine that lets you filter 
+Vouchers by Voucher ID, date range, date type, and status, and sort results in the 
+desired order. After you set the search parameters, results are displayed on the 
+*All Vouchers* screen.
+
+- **Simple search example**: a user needs to find a specific Voucher by *Voucher ID*. 
+They enter the Voucher ID in the *Search data* field and adjust the *date range*.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img019](/img/case-2-approver-app/image019.png)
+</div>
+
+- **Advanced search example**: a user needs to review all Vouchers with the *Awaiting 
+Approval* status, starting with those with the largest amounts. They specify the 
+*date range*, *Voucher status*, and *Sort* order.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img021](/img/case-2-approver-app/image021.png)
+</div>
+
+### Voucher Details
+
+**Vouchers** are listed on the *My Approvals* screen, which opens as the default 
+start page. To review a Voucher’s contents and details, tap a Voucher to open the 
+*Voucher Details* screen:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img022](/img/case-2-approver-app/image022.png)
+</div>
+
+1. **Voucher recap**: shows the Voucher’s State, Currency, Amount, and Settlement Date.
+2. **Notes**: tap to open the *Notes* screen with Internal and external Notes of the 
+Voucher.
+3. **Outputs**: tap to open the *Outputs* screen, where you can download the generated 
+Voucher’s output messages.
+4. **Advance**: tap to open the screen with *Audit* data and *Attachments*
+5. **Wires**: list of the Wires that constitute the Voucher. Tap on the Wire to open 
+the Wire’s Details screen.
+6. **Approve/Reject**: buttons you use to approve or reject the Voucher.
+
+:::info INFORMATION
+You can control whether users can download output messages and 
+attached files using the *Mobile Device File Download Option* (no spaces) Company 
+Preference:
+
+![approver-img023](/img/case-2-approver-app/image023.png)
+:::
+
+This preference supports four values:
+
+- **None**: attachments and output messages are unavailable for download on the 
+handheld device.
+- **Attachments**: users can download only attachments clipped to the Vouchers.
+- **Outputs**: users can download only the Vouchers’ output messages.
+- **AttachmentsAndOutputs**: users can download both Attachments and Outputs.
+
+#### Notes
+
+**The Notes section** contains internal notes (for users) and external notes 
+(for external users). It is displayed only if internal or external notes were added 
+during Voucher submission.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img024](/img/case-2-approver-app/image024.png)
+</div>
+
+You can select Notes text by tapping and holding your finger on 
+the screen.
+
+#### Outputs
+
+The **Outputs** section contains output messages in XML format (UTF-8 encoding). 
+You can download them and review transfer details before the transfer is sent to 
+the receiving party. **NOTE:** If no outputs are generated for a Voucher, this section is not displayed.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img025](/img/case-2-approver-app/image025.png)
+</div>
+
+#### Advanced
+
+The **Advanced section** contains additional Voucher information: *Audit* (logs that 
+show all actions applied to the Voucher and its contents) and *Attachments* (files 
+such as confirmation letters, agreements, and invoices that are attached to the 
+Voucher and can be downloaded to your device).
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img026](/img/case-2-approver-app/image026.png)
+</div>
+
+:::tip TIP
+For security reasons, follow general safety policies and remove any 
+downloaded attachments from your handheld device after approving or declining the 
+Voucher.
+:::
+
+#### Wires
+
+**Vouchers** consist of one or more Wires. To review a Wire, tap it to open a detailed 
+recap:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img029](/img/case-2-approver-app/image029.png)
+</div>
+
+1. **General section**: contains *Settlement Date*, *Currency*, and *Type*
+2. **From/To**: shows the sender’s and receiver’s *Portfolio*, *Account*, and 
+the *Amount* of transferred money.
+3. **Notes**: contains *Internal* and *External* notes created for this Wire.
+4. **Advance**: contains *Audit*, *Attachments*, and *SSI/DI*
+5. **Cancel**: tap to cancel this Wire. **NOTE:** This action must be approved. 
+Refer to [Approval confirmation](#approval-confirmation).
+
+## Approve/Reject/Lock Voucher
+
+**Approval** or **Rejection** of a Voucher is a mandatory step in the Voucher 
+Workflow. Depending on the workflow configuration, a Voucher may require multiple 
+approvals before it is delivered to the operational institute. Users with delegated 
+approval permissions can approve or reject a Voucher in the Approver application.
+
+Approver offers three ways to approve or reject a Voucher:
+
+- **Directly from the Voucher**: open the *Voucher Details* screen and tap one of 
+the buttons at the bottom of the screen.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img030](/img/case-2-approver-app/image030.png)
+</div>
+
+
+- **Bulk Approval/Rejection**: select multiple Vouchers on the *All Vouchers* screen 
+(tap and hold any Voucher to activate the *Select All* checkbox), then approve or 
+reject your selection using the buttons at the bottom of the screen. The number of 
+selected Vouchers is not limited.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img031](/img/case-2-approver-app/image031.png)
+</div>
+
+
+- **Swiping Right/Left**: on the *All Vouchers* screen, place your finger on a 
+Voucher and swipe (right to approve or left to reject). After swiping, tap *Approve* 
+or *Reject* to complete the action.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img033](/img/case-2-approver-app/image033.png)
+</div>
+
+
+### Approval confirmation
+
+**Approval confirmation** is mandatory for approve, reject, or cancel actions. The 
+confirmation code is delivered to your device based on the selected notification 
+delivery method (*push* or *email*). The action is completed only after you enter 
+the confirmation code in the corresponding field.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img034](/img/case-2-approver-app/image034.png)
+</div>
+
+You must enter a supplementary note before you can confirm the Voucher 
+for approval or rejection.
+
+### Reject for Edit
+
+**Reject for Edit** is an option available within the Reject action. It assigns 
+the Voucher the *Rejected for Edit* status, allowing you to update the Voucher 
+details and resubmit it. To reject for edit, tap *Reject* on the Voucher screen to 
+open the *Confirmation* screen. Then select the *Reject for Edit* checkbox, add a 
+comment, and tap *Submit reject*:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img035](/img/case-2-approver-app/image035.png)
+</div>
+
+### Lock Voucher
+
+You can lock a Voucher to prevent other users from editing it. To lock the Voucher, 
+tap the unlocked lock icon in the top-right corner of the Voucher interface.
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img036](/img/case-2-approver-app/image036.png)
+</div>
+
+A locked Voucher can be unlocked only by the user who locked it or by users with 
+permission to unlock Vouchers. To unlock the Voucher, tap the locked lock icon:
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img037](/img/case-2-approver-app/image037.png)
+</div>
+
+Vouchers with a *Failed* or *Rejected* status cannot be locked.
+
+To complete the lock/unlock action, you must confirm it with the code delivered to 
+your device based on the selected notification delivery method (*push* or *email*):
+
+<div style={{ maxWidth: '300px' }}>
+![approver-img038](/img/case-2-approver-app/image038.png)
+</div>

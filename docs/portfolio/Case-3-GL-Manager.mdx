@@ -2,16 +2,367 @@
 id: Case-3-GL-Manager
 title: "Case 3: Getting Started with GL Manager"
 ---
+
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+import ClickableSteps from '@site/src/components/ClickableSteps';
+import Example from '@site/src/components/Example';
+
+
 # Case 3: Getting Started with GL Manager
 
-**Format:** A Getting Started guide designed to introduce readers to the key features of the GL Manager screen, supplemented with real business use cases. The article walks users through the interface and explains core functionality.
+<div style={{
+  border: '1px solid rgba(131,131,131,0.2)',
+  borderLeft: '3px solid #999999',
+  borderRadius: '8px',
+  padding: '24px 28px',
+  marginBottom: '40px',
+  background: 'rgba(131,131,131,0.04)',
+}}>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
 
-**Description:** An onboarding article for the GL Manager screen, which is part of the Transaction Manager module. The guide helps new and existing users orient quickly within the interface. and understand common practices.
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Format</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Getting Started guide introducing key features of the GL Manager screen, supplemented with real business use cases.</p>
+</div>
 
-**Business impact:** GL Manager brings full transparency to ledger records within a unified system, giving users a single point of visibility across their accounting data. This allows accountants, analysts, and operations staff to immediately identify discrepancies in their own accounting systems or their banking counterparty's records and react immediately.
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Target Readers</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Fund accountants, general ledger accountants, financial controllers, and NAV reporting specialists.</p>
+</div>
 
-**Target readers:** Fund accountants, general ledger accountants, financial controllers, and NAV reporting specialists.
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Description</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Onboarding article for the GL Manager screen within the Transaction Manager module. Helps new and existing users orient quickly within the interface and understand common practices.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Brings full transparency to ledger records within a unified system — a single point of visibility across accounting data. Allows accountants, analysts, and operations staff to immediately identify discrepancies in their own or counterparty records and react in real time.</p>
+</div>
+
+</div>
+</div>
+---
+
+## Introduction
+
+**GL (General Ledger)** entries are ledger records produced from Transactions and 
+Vouchers for clients’ accounting systems.
 
 ---
 
-# Getting Started with GL Manager
+:::note GENERAL LEDGER ENTRIES
+
+Accounting systems typically use double-entry bookkeeping, where each Transaction is 
+represented by two cash flow movements—a debit and a credit—that affect different 
+accounting categories. These categories are defined in the Chart of Accounts (CoA), 
+which may include multiple hierarchical levels. The CoA example is presented below.
+
+| **Category** | **Bank Account** | **GL Account** | **Description** | **Transaction Types** |
+| --- | --- | --- | --- | --- |
+| Assets | Account A | 10556 | *Cash Account A* | Income |
+|  |  |  |  | Expense |
+|  | - | 10557 | *General Investments* | Buy |
+|  |  |  |  | Sell |
+| Liabilities | Account B | 10558 | *Loan Account B* | Drawdown |
+|  |  |  |  | Paydown |
+|  | - | 10559 | *Distributions* | Loan Allocation |
+|  |  |  |  | Capital Call |
+
+Any Voucher or Transaction that represents an actual money movement can contain 
+multiple General Ledger entries required for downstream accounting systems.
+
+GL entries are produced according to GL allocation rules—system and/or custom. GL 
+Allocation Rules define the General Ledger entry templates applied to the target 
+Transactions.
+:::
+
+## General Ledger entries
+
+**GL entries** are created and edited in the Voucher Details screen. For each Voucher 
+or Transaction that must be reported to the accounting system, create or update the GL 
+entries on the General Ledger Entries tab. Once created, they automatically populate 
+the aggregating grid in the *GL Manager* screen.
+
+![gl-manager-image-003](/img/case-3-gl-manager/image003.png)
+
+1. **General Ledger entries tab**: go to this tab to create and manage GL entries for 
+the transactions.
+2. **Operational bar**: contains buttons to create (*Add*), modify (*Edit*), save, 
+cancel, automatically generate GL entries (*Generate Entries*), and preview the GL 
+entry output (*Preview Output*).
+3. **Grid**: lists the GL entries created for this voucher.
+4. **Details**: GL entry parameters section. You can modify these parameters after 
+switching the entry to Edit mode. It contains the following parameters:
+<div style={{ paddingLeft: '24px' }}>
+- **Transaction***: select the transaction within the voucher for which you want to 
+create the GL entry. This field is mandatory and is automatically populated if the 
+voucher contains only one transaction. If the voucher contains more than one 
+transaction, you must specify it manually.
+- **Description**: provide a brief description for the GL entry. By default, this 
+field is populated with the transaction’s External notes (if specified) or Internal 
+notes.
+- **Chart of Accounts parameters***: select the parameters of the GL hierarchy. All 
+parameters are created, managed, and customized in the Dictionary tool 
+(path:* Reference Data module > Preference folder > Dictionaries screen*).
+- **Effective Date***: select the date when the GL entry can be included in the 
+ledger books. This field is mandatory. NOTE:** By default, the Effective Date 
+repeats the Settlement Date of the selected transaction but can be changed manually.
+- **Credit/Debit***: choose the direction of the asset movement. This field is 
+mandatory.* **INFORMATION***:* In accounting systems, a Credit GL entry for one 
+account must be paired with a Debit GL entry for another account, and vice versa. 
+When GL entries are generated automatically, these credit/debit entries are created 
+automatically.
+- **Currency***: select the GL entry currency. By default, the transaction’s currency 
+is filled in automatically. This field is mandatory.
+- **Amount***: enter the transaction amount related to the GL entry. This field is 
+mandatory.
+- **Allocation Rule**: select the allocation rule from the dropdown. This parameter’s 
+values are created and managed in the Dictionary tool.
+- **Reference and External Reference**: provide the GL entry with reference numbers. 
+By default, the Reference number is taken from the transaction.
+</div>
+
+:::info INFORMATION
+The Details section of the GL Allocation Rule may also contain UDFs 
+(User defined fields), if they were implemented for the environment.
+:::
+
+---
+
+:::note CHART OF ACCOUNTS PARAMETERS
+
+The Details section of a GL Entry includes Chart of Accounts parameters that 
+define the customizable GL hierarchy. These parameters help categorize General 
+Ledger Entries and add specificity.
+
+![gl-manager-image-011](/img/case-3-gl-manager/image011.png)
+
+You can customize these parameters in the Dictionary tool in the Reference Data 
+module (*Reference Data module > Preference folder > Dictionaries screen*).
+
+![gl-manager-image-009](/img/case-3-gl-manager/image009.png)
+
+Chart of Accounts parameters are displayed across three levels (Level 1, Level 2, 
+Level 3), with *GL Type* and *GL Account Level* grouped by level. Each GL Type can be 
+linked to a parent parameter. For example, if the General Expenses parameter has a 
+parent Account Level parameter BBHY-1, selecting the GL Transaction Type in the Details
+section automatically populates the remaining parameters (in this case, *Account*, 
+*Group*, and *Class*).
+
+If you modify captions for Account-level parameters, the corresponding 
+field names in the Details section of the General Ledger Entries tab will also change.
+
+:::info INFORMATION
+You can control how many Chart of Accounts parameters are shown 
+in the Details section of the Allocation Rule Editor by using the Company Preference 
+General Ledger Available Account Levels. This preference can be set to 1, 2, or 3, 
+and it defines how many Chart of Accounts parameters are displayed in the *Details* 
+section:
+
+![gl-manager-image-007](/img/case-3-gl-manager/image007.png)
+:::
+
+---
+
+### GL User Defined Fields
+
+**User Defined Fields** for the GL entries are bespoke fields tailored for every individual 
+client on the step of the system implementation. UDF fields can capture any 
+required additional information.
+
+![gl-manager-image-014](/img/case-3-gl-manager/image014.png)
+
+### Operational buttons
+
+**The Operational bar** on the General Ledger entries tab lets you add, edit, save, and 
+remove GL entries for the voucher. It also includes two special buttons that enhance the 
+tab’s capabilities:
+
+![gl-manager-image-016](/img/case-3-gl-manager/image016.png)
+
+- **Generate Entries**: click to have the system automatically create all GL entries 
+according to the GL Allocation Rule that targets the voucher.
+- **Preview Output**: click to generate and download the preview output file based on 
+the GL Message Layout. The file contains all created GL entries and their parameters—a 
+snapshot of the output that will be delivered to the accounting system.
+
+:::info INFORMATION 
+The system includes a default system GL Allocation Rule that 
+produces either two or four records (depending on the number of accounts that participate 
+in the transaction). For every account, the system automatically creates Credit and Debit 
+entries and populates Details parameters with the transaction details (*Amount, Currency, 
+Date, Notes*). You can create an unlimited number of custom GL Allocation Rules to produce 
+GL Entries of your own design.
+:::
+
+#### GL Message Layout
+
+**GL Message Layout** defines the GL output file that contains all generated GL entries and 
+is delivered from the system to the client’s endpoint. The default GL Message Layout is 
+shipped with the system and includes pre-designed markup.
+
+You can modify the output file markup here: *Reference Data module > Message Layouts 
+folder > Message Layouts screen*. Find the Message Layout with the *GL Output* Message 
+Type parameter and switch it to Edit mode:
+
+![gl-manager-image-018](/img/case-3-gl-manager/image018.png)
+
+:::note NOTE
+You can modify certain parameters (*Output format\*, File Name*, File Extension*) 
+and redesign the output message markup (click the* Edit in Designer* button to open the 
+DevExpress designer).
+:::
+
+<Example title="General Ledger entries">
+The voucher contains a single transaction with a settlement date of 7/23/2023: a simple cash wire transfer for $555.000:
+
+![gl-manager-image-025](/img/case-3-gl-manager/image025.png)
+
+The user, Author Curry, must create the corresponding GL entries that will be posted and delivered to Aqua Trading’s in-house accounting system when the transaction is settled. They use the *Generate Entries* button to create all GL entries automatically: four entries—two for each account involved in the transfer (*Credit* and *Debit*):
+
+![gl-manager-image-023](/img/case-3-gl-manager/image023.png)
+
+To verify the integrity of the GL entry output before it is delivered to the accounting system, Author Curry generates the preview, downloads it, and confirms that the output message follows the Message Layout markup they established.
+
+![gl-manager-image-021](/img/case-3-gl-manager/image021.png)
+
+Once the General Ledger entries are created for the Transaction, they automatically populate a special GL Manager grid that is developed specifically for aggregating GL Entries:
+
+![gl-manager-image-027](/img/case-3-gl-manager/image027.png)
+</Example>
+
+## GL Allocation Rules
+
+**GL Allocation Rule** is a Reference Data item that defines how to generate GL entries for 
+a selected set of Transactions. The GL Allocation Rules grid is located here: *Reference Data 
+module > Cash/Wires folder > GL Allocation Rules screen*.
+
+The GL Allocation Rules screen displays a grid that contains all existing GL Allocation Rules 
+in the system, both default and custom:
+
+![gl-manager-image-030](/img/case-3-gl-manager/image030.png)
+
+1. **Upper toolbar**: a set of buttons used to create (*Add*), modify (*Edit*), duplicate 
+(*Copy*), and remove (*Delete*) GL Allocation Rules. You can also *Export* Rules as JSON 
+configuration files and *Import* them into new environments.
+2. **Grid**: a list of all GL Allocation Rule configurations in the system.
+
+:::info INFORMATION
+The system can contain an unlimited number of GL Allocation Rules. Rule 
+priority is determined by the *Order* parameter you define in the GL Allocation Rule Editor. 
+Note that no user can modify or remove the default system GL Allocation Rule. Its priority is 
+generally the lowest.
+:::
+
+### GL Allocation Rule Editor
+
+**GL Allocation Editor** is the tool for building rules. Use the *Add* or *Edit* buttons on 
+the upper toolbar to open the editor in a pop-up window.
+
+The GL Allocation Rule Editor includes the following parameters:
+
+![gl-manager-image-032](/img/case-3-gl-manager/image032.png)
+
+1. **Code***: specify the code for the GL Allocation Rule. No spaces are allowed. This 
+parameter is mandatory.
+2. **Name***: specify the name of the GL Allocation Rule. This parameter is mandatory.
+3. **Order***: enter the priority number that determines when the GL Allocation Rule is 
+applied. The order is ascending: 1 is the highest priority, 2 is lower than 1, 3 is lower 
+than 2, and so on. This parameter is mandatory. NOTE:** If a Transaction matches the 
+conditions of multiple rules, the rule with the highest priority is applied.
+4. **Active**: select this checkbox to activate the rule. Inactive rules are not applied 
+to Transactions.
+5. **Description**: provide a brief description of the rule.
+6. **Matching Rule***: build the matching rule that determines which Transactions the rule 
+targets. In the screenshot above, the clause includes Transactions with amounts between 
+100 and 150 USD.
+7. **Advanced Mapping Mode**: select this checkbox to enable the Mapping Expression field, 
+where you can write the expression manually. Clear it to return to the Mapping Templates grid.
+8. **Mapping Templates grid**: lists the rule’s templates and their parameters.
+9. **Template parameters**: select a template from the grid and define the parameters and 
+their sources.
+
+#### Mapping Templates
+
+**Mapping Templates** section defines how many GL entries will be generated for the target 
+Transaction, and which parameters will be used. The section also includes UDFs, if they are 
+configured for the environment:
+
+![gl-manager-image-034](/img/case-3-gl-manager/image034.png)
+
+:::info INFORMATION
+In custom GL Allocation Rules, you can control the number of GL entries 
+produced and their parameters. For example, the Mapping Template in the screenshot above 
+produces only two GL entries for the *Credit* and *Debit* sides.
+:::
+
+The Mapping Template parameters can be selected from two sources:
+
+- **From Constant**: system or custom Dictionary parameters.
+
+![gl-manager-image-036](/img/case-3-gl-manager/image036.png)
+
+- **From Transaction**: Transaction’s fields.
+
+![gl-manager-image-038](/img/case-3-gl-manager/image038.png)
+
+- **NOTE:** You can also select a third source (**Not mapped)** which hides the drop-down 
+field and leaves the parameter unspecified:
+
+![gl-manager-image-040](/img/case-3-gl-manager/image040.png)
+
+
+<Example title="GL Allocation Rule">
+
+The above GL Allocation Rule includes Transactions with amounts between 100 and 150 USD. 
+The rule’s Mapping Template produces only two GL entries for the *Credit* and *Debit* sides. 
+As a result, Generate Entries for the 123 USD Transaction produces the following GL entries:
+
+![gl-manager-image-042](/img/case-3-gl-manager/image042.png)
+
+This simplified example demonstrates the logic behind custom GL Allocation Rules. In practice, 
+you can create numerous Mapping Templates that reflect transaction details in different ways.
+</Example>
+
+## GL Manager
+
+The **GL Manager** screen contains an aggregation grid of all GL Entries generated within 
+Vouchers. It lets you review GL entries and their statuses for specific dates, and it also 
+provides direct access to the General Ledger Entries tab, where you can edit an entry.
+
+The GL Manager screen contains the following tools:
+
+![gl-manager-image-045](/img/case-3-gl-manager/image045.png)
+
+1. **Date selector**: specify *From* and *To* dates to display GL entries for that period. 
+**NOTE:** The date parameter used by the selector is *Effective Date*. By default, 
+*Effective Date* matches the transaction’s *Settlement Date*, but it can be changed on the 
+Transaction entry screen.
+2. **Filters**: use the Chart of Accounts filters to narrow the entries in the grid. In the 
+screenshot above, the filters are *GL Trans Type, GL Account,* and *GL entry Status*. Keep 
+in mind that customizing Chart of Accounts captions also changes the filter names.
+3. **Edit**: click to open the Voucher Details screen on the General Ledger Entries tab. 
+There, you can manage the voucher’s GL entries.
+4. **Grid**: lists GL entries for the selected period.
+5. **Context menu**: contains the *Edit* action.
+
+### GL entries delivery
+
+Created **GL entries** are stored in the GL Manager grid and can be reviewed and amended at 
+any time. Their main purpose is to be delivered to the client’s endpoint (for example, an 
+accounting system where ledger records are kept). GL entries are generated by a dedicated 
+action within the *Voucher Workflow*. Voucher Workflows can be reviewed and configured here: 
+*Reference Data module > Cash/Wires folder > Voucher Workflow screen*.
+
+The screenshot below shows an example of two consecutive workflow steps: one generates GL 
+entries according to the GL Allocation Rule, and the next delivers output messages to the 
+endpoint:
+
+![gl-manager-image-047](/img/case-3-gl-manager/image047.png)
+
+**NOTE:** When the *Deliver Output* action runs, GL entries are delivered to the location 
+and through the channel specified in the Communication Profile linked to this Voucher Workflow 
+action. For details on Voucher Workflow configuration, refer to the dedicated Voucher 
+Workflow Guide.

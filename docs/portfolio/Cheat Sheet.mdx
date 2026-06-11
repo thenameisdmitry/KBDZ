@@ -1,0 +1,247 @@
+---
+id: cheat-sheet
+title: MDX Cheat Sheet
+---
+
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+import Example from '@site/src/components/Example';
+
+# MDX Cheat Sheet
+
+Quick reference for all custom elements used across the Portfolio documentation.
+
+---
+
+## Metadata Card
+
+```mdx
+<div style={{
+  border: '1px solid rgba(131,131,131,0.2)',
+  borderLeft: '3px solid #999999',
+  borderRadius: '8px',
+  padding: '24px 28px',
+  marginBottom: '40px',
+  background: 'rgba(131,131,131,0.04)',
+}}>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Format</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Your format here.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Target Readers</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Your target readers here.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Description</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Your description here.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Your business impact here.</p>
+</div>
+
+</div>
+</div>
+```
+
+---
+
+## Admonitions
+
+```mdx
+:::warning Important
+Your important notice here.
+:::
+
+:::info Information
+Your informational note here.
+:::
+
+:::note Note
+Your general note here.
+:::
+
+:::tip Tip
+Your tip here.
+:::
+
+:::danger Warning
+Your critical warning here.
+:::
+```
+
+---
+
+## Term Definition
+
+```mdx
+<Term name="Term Name">
+  Your definition here.
+</Term>
+```
+
+---
+
+## Example Block
+
+```mdx
+<Example title="Your Example Title">
+  Your example text here. Supports **bold**, *italic*, and other markdown.
+</Example>
+```
+
+---
+
+## Images
+
+### Standard image — full width
+```mdx
+![Alt text](/img/your-folder/image.png)
+```
+
+### Standard image — reduced size
+```mdx
+<div style={{ maxWidth: '350px' }}>
+
+![Alt text](/img/your-folder/image.png)
+
+</div>
+```
+
+### Lightbox image — clickable to expand
+```mdx
+<LightboxImage
+  src="/img/your-folder/image.png"
+  alt="Alt text"
+/>
+```
+
+### Lightbox image — reduced size, clickable to expand
+```mdx
+<LightboxImage
+  src="/img/your-folder/image.png"
+  alt="Alt text"
+  style={{ maxWidth: '350px' }}
+/>
+```
+
+---
+
+## Links
+
+### External link
+```mdx
+[Link text](https://example.com)
+```
+
+### Internal page link
+```mdx
+[Link text](/docs/portfolio/Case-1-Algo-Recon)
+```
+
+### Anchor link (jump to heading on same page)
+```mdx
+[Link text](#heading-in-lowercase-with-hyphens)
+```
+
+### Anchor link (jump to heading on another page)
+```mdx
+[Link text](/docs/portfolio/Case-1-Algo-Recon#heading-anchor)
+```
+
+---
+
+## Text Formatting
+
+```mdx
+**Bold text**
+*Italic text*
+~~Strikethrough~~
+`inline code`
+```
+
+---
+
+## Headings
+
+```mdx
+## Section heading (H2)
+### Subsection heading (H3)
+#### Minor heading (H4)
+```
+
+---
+
+## Tables
+
+```mdx
+| Column 1 | Column 2 | Column 3 |
+|---|---|---|
+| Value 1  | Value 2  | Value 3  |
+| Value 4  | Value 5  | Value 6  |
+```
+
+---
+
+## Code Blocks
+
+### Generic
+````mdx
+```
+your code here
+```
+````
+
+### With language syntax highlighting
+````mdx
+```python
+def hello():
+    print("Hello, world!")
+```
+````
+
+````mdx
+```bash
+npm run start
+```
+````
+
+---
+
+## Unordered List
+
+```mdx
+- Item one
+- Item two
+- Item three
+```
+
+## Ordered List
+
+```mdx
+1. Step one
+2. Step two
+3. Step three
+```
+
+---
+
+## Blockquote
+
+```mdx
+> Your quoted text here.
+```
+
+---
+
+## Horizontal Divider
+
+```mdx
+---
+```

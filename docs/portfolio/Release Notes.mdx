@@ -1,12 +1,170 @@
 ---
 id: releasenotes
 title: Release Notes
+sidebar_position: 4
 ---
 
-## Release 5.5
+import DocLink from '@site/src/components/DocLink';
+
+# Release Notes
+
+This page documents product updates, new features, improvements, and bug fixes across releases. 
+Where relevant, items are linked to the corresponding documentation guides.
+
+---
+
+export const Badge = ({ type }) => {
+  const styles = {
+    NEW:      { background: '#052e16', color: '#008832ff', border: '1px solid #00521fff' },
+    FEATURE:  { background: '#172554', color: '#7eb4f2ff', border: '1px solid #1e40af' },
+    FIX:      { background: '#2a0a0a', color: '#f87171', border: '1px solid #7f1d1d' },
+  };
+  const s = styles[type] || styles.NEW;
+  return (
+    <span style={{
+      ...s,
+      fontSize: '0.62rem',
+      fontWeight: 700,
+      letterSpacing: '0.1em',
+      padding: '2px 7px',
+      borderRadius: '4px',
+      fontFamily: "'IBM Plex Mono', monospace",
+      flexShrink: 0,
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      marginRight: '10px',
+    }}>
+      {type}
+    </span>
+  );
+};
+
+export const ReleaseItem = ({ type, children }) => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: '4px',
+    padding: '10px 0',
+    borderBottom: '1px solid rgba(131,131,131,0.1)',
+    fontSize: '1rem',
+    lineHeight: 1.65,
+    color: 'var(--ifm-font-color-base)',
+  }}>
+    <span style={{ flexShrink: 0, paddingTop: '1px' }}>
+      <Badge type={type} />
+    </span>
+    <span>{children}</span>
+  </div>
+);
+
+export const Module = ({ name }) => (
+  <p style={{
+    fontSize: '0.87rem',
+    fontWeight: 700,
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: '#999999',
+    margin: '20px 0 4px',
+    fontFamily: "'IBM Plex Mono', monospace",
+  }}>
+    {name}
+  </p>
+);
+
+export const Release = ({ version, date, children }) => (
+  <div style={{ marginBottom: '48px' }}>
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '14px',
+      marginBottom: '4px',
+      paddingBottom: '16px',
+      borderBottom: '2px solid rgba(131,131,131,0.2)',
+    }}>
+      <span style={{
+        fontSize: '1.35rem',
+        fontWeight: 800,
+        letterSpacing: '-0.02em',
+        color: 'var(--ifm-font-color-base)',
+        fontFamily: "'IBM Plex Mono', monospace",
+      }}>
+        v{version}
+      </span>
+      <span style={{
+        fontSize: '0.78rem',
+        color: '#999999',
+        fontWeight: 500,
+      }}>
+        {date}
+      </span>
+    </div>
+    {children}
+  </div>
+);
 
 
+<Release version="2.4.0" date="June 2026">
 
+<Module name="Algorithmic Security Recon" />
 
-## Release 5.4
+<ReleaseItem type="NEW">
+  <strong>Not Mapped Securities screen.</strong> Introduces a dedicated screen providing visibility into Securities extracted from incoming feed files that fell outside all Position search spaces during Algorithmic Reconciliation. Reprocessing can be initiated directly from the screen. See <DocLink href="/docs/portfolio/Case-1-Algo-Recon#not-mapped-securities">Algorithmic Recon Guide →</DocLink>
+</ReleaseItem>
 
+<ReleaseItem type="FIX">
+  <strong>Unmap Security confirmation.</strong> The Unmap Security action now requires explicit confirmation before execution, preventing accidental unmapping of reconciled Securities.
+</ReleaseItem>
+
+<Module name="Approver" />
+
+<ReleaseItem type="FEATURE">
+  <strong>Access Code length and Login attempts.</strong> Two new Company Preference settings - Mobile Device Pin Length and Mobile Device Login Attempts - allow administrators to define Access Code length and maximum login attempt limits for mobile users. See <a href="/docs/portfolio/Case-2-Approver-App#access-code-length-and-login-attempts">Approver App Guide →</a>
+</ReleaseItem>
+
+<Module name="GL Manager" />
+
+<ReleaseItem type="NEW">
+  <strong>User Defined Fields (UDFs) support.</strong> GL Manager now supports UDFs, allowing users to add and remove custom fields within GL entries to accommodate organisation-specific data requirements. See <a href="/docs/portfolio/Case-3-GL-Manager#udfs">GL Manager Guide →</a>
+</ReleaseItem>
+
+</Release>
+
+---
+
+<Release version="2.3.0" date="March 2026">
+
+<Module name="GL Manager" />
+
+<ReleaseItem type="NEW">
+  <strong>Export and Import Allocation Rules.</strong> Allocation Rules can now be exported and imported in JSON format, enabling consistent rule configuration across environments without manual re-entry.
+</ReleaseItem>
+
+<Module name="Optimizer" />
+
+<ReleaseItem type="NEW">
+  <strong>Expression Map in Algo Editor.</strong> The Algo Editor now includes an Expression Map - a miniature interactive overview of the Expression field that enables rapid navigation through large code sheets without scrolling. See <a href="/docs/portfolio/Case-4-Optimizer#algo-editor">Optimizer Guide →</a>
+</ReleaseItem>
+
+<ReleaseItem type="FEATURE">
+  <strong>Blotter run notification.</strong> The Blotter screen now displays a colour-coded Notification Plate upon Solution run completion. A green plate indicates a successful run; a red plate indicates an interruption. Provides immediate status visibility without requiring manual log review.
+</ReleaseItem>
+
+</Release>
+
+---
+
+<Release version="2.2.0" date="December 2025">
+
+<Module name="Algorithmic Security Recon" />
+
+<ReleaseItem type="NEW">
+  <strong>Rejected Mappings screen.</strong> Introduces the Rejected Mappings screen, consolidating Security mappings from the Weak certainty group that were rejected on the Security Analysis screen. Provides a dedicated audit trail for mapping decisions. See <a href="/docs/portfolio/Case-1-Algo-Recon#rejected-mappings">Algorithmic Recon Guide →</a>
+</ReleaseItem>
+
+<Module name="Approver" />
+
+<ReleaseItem type="FIX">
+  <strong>Mandatory approval note.</strong> A supplementary note is now required before confirming Voucher approval or rejection. This change aligns with compliance requirements of financial institutions executing Transaction orders.
+</ReleaseItem>
+
+</Release>

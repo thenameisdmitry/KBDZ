@@ -12,10 +12,10 @@ export default function LightboxImage({ src, alt, style }) {
   onClick={() => setOpen(true)}
   style={{
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '500px',
     cursor: 'zoom-in',
     borderRadius: '8px',
-    border: '1px solid #333',
+    border: '1px solid rgba(131,131,131,0.2)',
     ...style
   }}
 />

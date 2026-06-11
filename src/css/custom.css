@@ -288,6 +288,23 @@ html[data-theme='light'] .guideCard:hover {
 }
 
 /*  BLOG ARTICLE IMAGES WITH ROUNDED CORNERS */
+
 .blog-wrapper article .markdown img {
   border-radius: 12px;
+}
+
+/* PORTFOLIO DOCUMENTS IMAGES */
+
+.markdown img {
+  border-radius: 8px;
+  border: 1px solid rgba(131,131,131,0.2);
+}
+
+/*FIX FOR RELEASE NOTE LINK TO DOCS*/
+.anchor {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 16px);
+}
+
+html {
+  scroll-padding-top: calc(var(--ifm-navbar-height) + 20px);
 }

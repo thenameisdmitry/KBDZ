@@ -74,7 +74,7 @@ export default function ApiIntroduction() {
         </div>
 
 {/* ── Quick-nav cards ── */}
-<h2 style={{ fontSize: '1px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#666', marginBottom: '16px', fontFamily: "'IBM Plex Mono', monospace" }}>
+<h2 style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#666', marginBottom: '16px', fontFamily: "'IBM Plex Mono', monospace" }}>
   Getting Started
 </h2>
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 300px)', gap: '14px', marginBottom: '40px' }}>

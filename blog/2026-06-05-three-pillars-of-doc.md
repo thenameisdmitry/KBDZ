@@ -14,7 +14,6 @@ The reason is simple. The primary goal of documentation is to educate people abo
 
 In the enterprise world, however, documentation is not optional. Whether we're talking about Fintech platforms, treasury systems, SaaS products, or enterprise software in general, documentation is one of the foundations upon which customer success is built.
 
-<!-- truncate -->
 
 Consider a simple analogy. When you purchase a sophisticated piece of equipment (a coffee maker, a water boiler, or perhaps a new piece of home electronics) you usually dive in the manual first. There are two obvious reasons for this. First, you don't want to break something expensive through trial and error. Second, you want to start using it as quickly and efficiently as possible.
 
@@ -32,9 +31,7 @@ If your documentation provides incorrect information, omits critical details, or
 
 Integrity is not achieved by accident. It requires continuous research, attention to detail, close collaboration with experts, participation in testing activities, thorough reviews, and an ability to react to issues at a speed of light before issues become customer problems. Ultimately, documentation integrity is the result of an efficient workflow.
 
-Clients rarely notice accurate documentation. They simply expect it. However, they notice inaccurate documentation immediately - and then they become very tempted to add an "ex-" to the word "client". 
-
-Once trust is lost, winning it back becomes a difficult task.
+Clients rarely notice accurate documentation. They simply expect it. However, they notice inaccurate documentation immediately - and then they become very tempted to add an "ex-" to the word "client". Once trust is lost, winning it back becomes a difficult task.
 
 ### ✅ Actionability
 
@@ -43,8 +40,6 @@ Technical documentation is not a novel.
 Nobody opens a knowledge base for entertainment. People arrive with a problem and expect to leave with a solution. The best documentation respects the reader's time. It is focused, practical, and designed to help users accomplish a specific goal with minimal effort. No one wants to navigate through a dozen paragraphs of background information just to discover the one step they actually need.
 
 This is where empathy becomes one of the most valuable skills a technical writer can possess. A strong technical writer constantly looks at documentation through the customer's eyes. They identify friction points, unclear explanations, missing examples, and unnecessary complexity.
-
-Mediocre documentation explains. Great documentation enables action.
 
 ### ✅ Beauty
 

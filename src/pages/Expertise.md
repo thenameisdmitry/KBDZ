@@ -1,5 +1,6 @@
 ---
 title: Competence & Expertise
+description: Skills, tools, domain knowledge, and methodologies of Dmitrii Zhukov - Senior Technical Writer and Product Documentation Lead
 ---
 
 

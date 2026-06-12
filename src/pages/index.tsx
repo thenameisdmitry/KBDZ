@@ -317,7 +317,7 @@ export default function Home(): JSX.Element {
 
             <div className={styles.navCards}>
                 <img
-                  src={require('/static/img/gtu.jpg').default}
+                  src={require('/static/img/gtu.png').default}
                   alt="GTU"
                   className={styles.gtu}
                 />

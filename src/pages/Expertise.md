@@ -6,19 +6,19 @@ description: Skills, tools, domain knowledge, and methodologies of Dmitrii Zhuko
 
 ## Core competencies
 
-Technical Writing | Knowledge Base Strategy | Developer & API Documentation | Docs-as-Code | Knowledge Management | Team Leadership | Release Coordination | Product Planning & Feature Scoping | Stakeholder Management | Business Requirements Analysis | UX Writing & UI Microcopy | AI Workflow Optimization
+Technical writing • Documentation strategy • Knowledge management • Developer & API documentation • Docs-as-code and DITA • CI/CD • Team leadership • Release coordination • Product planning • Feature scoping • Business requirements analysis • UX writing • AI workflow optimization • AI prompt engineering • Product implementation (UAT, Prod) • Client onboarding & support • Presentations and training materials
 
 ---
 
 ## Technical expertise
 
-- **Authoring & docs-as-code:** MadCap | Docusaurus | Markdown | MDX | XML | MS Office | GitHub | CI/CD | DITA
-- **API:** OpenAPI/Swagger | Postman | Insomnia
-- **Scripting & DB management:** Python | SQL
-- **Project & collaboration:** Jira | Confluence | Notion | SharePoint | Slack | Aha
-- **Design & media:** Adobe Photoshop | Adobe Illustrator | Snagit | UML
-- **Cloud & infrastructure:** AWS | Azure | Zendesk | Zabbix | MS Exchange
-- **AI:** Claude (Anthropic) | Copilot | ChatGPT | Grammarly | Prompt Engineering | AI Workflow Automation
+- **Authoring & docs-as-code:** MadCap • Docusaurus • Markdown • MDX • XML • MS Office • GitHub
+- **API:** OpenAPI/Swagger • Postman • Insomnia
+- **Scripting & DB management:** Python • SQL
+- **Project & collaboration:** Jira • Confluence • Notion • SharePoint • Slack • Aha
+- **Design & media:** Adobe Photoshop • Adobe Illustrator • Snagit • UML
+- **Cloud & infrastructure:** AWS • Azure • Zendesk • Zabbix • MS Exchange
+- **AI:** Claude (Anthropic) • Copilot • ChatGPT • Grammarly • AI Workflow Automation
 
 ---
 
@@ -38,7 +38,7 @@ Technical Writing | Knowledge Base Strategy | Developer & API Documentation | Do
 
 ## Extra
 
-- **Languages:** English (advanced) | Russian (native) | Ukrainian (advanced) | German (beginner) | Serbian (beginner)
-- **Education:** Specialist Degree in Information Systems Engineering (Economics & Management), Saint Petersburg State University of Engineering and Economics, 2008–2013 | Exchange Program in Computer Science & Mathematics, HTW Dresden (Hochschule für Technik und Wirtschaft), Germany, 2010–2011
+- **Languages:** English (advanced) • Ukrainian (advanced) • Russian (native) • German (beginner) • Serbian (beginner)
+- **Education:** Specialist Degree in Information Systems Engineering (Economics & Management), Saint Petersburg State University of Engineering and Economics, 2008–2013 • Exchange Program in Computer Science & Mathematics, HTW Dresden (Hochschule für Technik und Wirtschaft), Germany, 2010–2011
 - **Professional references and recommendations:** Available on request.
 - **Location:** Belgrade, Serbia

@@ -159,7 +159,7 @@ export default function PortfoliosPage() {
           </p>
           <p className={styles.pageSubtitle} style={{ marginBottom: '10px' }}>
             Portfolios aggragate assets from one or more Accounts. Each portfolio tracks its own total value, currency, and investment strategy.
-            To learn more about Portfolios and how to assemble them accross the DZ environment, proceed to the <a href="/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Reference Data User Guide</a>. 
+            To learn more about Portfolios and how to assemble them accross the DZ environment, proceed to the <a href="/KBDZ/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Reference Data User Guide</a>. 
           </p>
           
           <div className={styles.pageAccent} />

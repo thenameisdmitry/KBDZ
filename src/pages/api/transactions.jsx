@@ -157,7 +157,7 @@ export default function TransactionsPage() {
           </p>
           <p className={styles.pageSubtitle} style={{ marginBottom: '10px' }}>
             In <b>DZ Enterprise</b> environment Transactions are orders, which are submitted and processed within the Transactions module. When approved, the Transaction order is issued and sent to the specified institute (Bank, Hedge Fund, Counterparty Broker) for execution. 
-            To learn more about Transactions, Transaction workflows, and how to manage Transactions in the DZ Enterprise environment, refer to the <a href="/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Transactions Guide</a> .
+            To learn more about Transactions, Transaction workflows, and how to manage Transactions in the DZ Enterprise environment, refer to the <a href="/KBDZ/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Transactions Guide</a> .
           </p>
           
           <div className={styles.pageAccent} />

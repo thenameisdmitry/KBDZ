@@ -236,7 +236,7 @@ export default function Home(): JSX.Element {
               <h2 className={styles.aboutHeading}>Professional Summary</h2>
                 <p className={styles.aboutText}>
 
-                <b>Senior Technical Writer</b> and <b>Documentation Product Lead Manager</b> with 10 years of
+                <b>Senior Technical Writer</b> and <b>Product Documentation Lead</b> with 10 years of
                 experience in fintech, asset management, and B2B SaaS.
                 I specialize in transforming complex enterprise systems into clear, user-focused
                 documentation. My expertise covers the full documentation lifecycle, from knowledge
@@ -249,7 +249,7 @@ export default function Home(): JSX.Element {
                 documentation, release notes, and training materials.
               </p>
               <p className={styles.aboutText}>
-                Beyond technical writing, I lead teachnical writers teams, establish standards and
+                Beyond technical writing, I lead technical writers' teams, establish standards and
                 workflows, and take ownership of documentation quality and delivery. I collaborate
                 closely with development, product, support, and QA teams to align documentation
                 with business goals, product roadmaps, and customer needs.
@@ -315,7 +315,7 @@ export default function Home(): JSX.Element {
               ))}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+            <div style={{ display: 'flex', width: '100%', marginTop: '24px' }}>
               <img
                 src={require('/static/img/homepage/gtu.png').default}
                 alt="GTU"

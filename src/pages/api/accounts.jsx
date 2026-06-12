@@ -133,7 +133,7 @@ export default function AccountsPage() {
               Create and manage Accounts within your environment. API supports full CRUD operations.
             </p>
             <p className={styles.pageSubtitle} style={{ marginBottom: '10px' }}>
-              To learn more about Account management, Account parameters, and how to control your Reference Data in the DZ environment, proceed to the <a href="/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Reference Data User Guide</a>.
+              To learn more about Account management, Account parameters, and how to control your Reference Data in the DZ environment, proceed to the <a href="/KBDZ/docs/stub" style={{ color: '#838383', textDecoration: 'none'}}>Reference Data User Guide</a>.
             </p>
           
           <div className={styles.pageAccent} />

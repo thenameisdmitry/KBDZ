@@ -6,12 +6,12 @@ import styles from './ApiLayout.module.css';
 // ─── Nav structure ────────────────────────────────────────────────────────────
 const NAV = [
   { id: 'intro', label: 'Introduction', href: '/api', type: 'page' },
-  { id: 'auth', label: 'Base URL & Authentication', href: '/api/authentication', type: 'page' },
+  { id: 'auth', label: 'Base URL & Authentication', href: '/KBDZ/api/authentication', type: 'page' },
 
   { id: 'label-refdata', label: 'Reference Data', type: 'label' },
 
   {
-    id: 'accounts', label: 'Accounts', href: '/api/accounts', type: 'section',
+    id: 'accounts', label: 'Accounts', href: '/KBDZ/api/accounts', type: 'section',
     children: [
       { id: 'list-accounts',   method: 'GET',    label: 'List accounts',      anchor: '#list-accounts' },
       { id: 'get-account',     method: 'GET',    label: 'Get account by ID',  anchor: '#get-account' },
@@ -21,7 +21,7 @@ const NAV = [
     ],
   },
   {
-    id: 'portfolios', label: 'Portfolios', href: '/api/portfolios', type: 'section',
+    id: 'portfolios', label: 'Portfolios', href: '/KBDZ/api/portfolios', type: 'section',
     children: [
       { id: 'list-portfolios',   method: 'GET',    label: 'List portfolios',      anchor: '#list-portfolios' },
       { id: 'get-portfolio',     method: 'GET',    label: 'Get portfolio by ID',  anchor: '#get-portfolio' },
@@ -34,7 +34,7 @@ const NAV = [
   { id: 'label-finoperation', label: 'Financial Operations', type: 'label' },
 
   {
-    id: 'transactions', label: 'Transactions', href: '/api/transactions', type: 'section',
+    id: 'transactions', label: 'Transactions', href: '/KBDZ/api/transactions', type: 'section',
     children: [
       { id: 'list-transactions',   method: 'GET',    label: 'List transactions',      anchor: '#list-transactions' },
       { id: 'get-transaction',     method: 'GET',    label: 'Get transaction by ID',  anchor: '#get-transaction' },
@@ -47,7 +47,7 @@ const NAV = [
   { id: 'label-legal', label: 'Legal & Compliance', type: 'label' },
  
   {
-    id: 'agreements', label: 'Credit Agreements', href: '/api/agreements', type: 'section',
+    id: 'agreements', label: 'Credit Agreements', href: '/KBDZ/api/agreements', type: 'section',
     children: [
       { id: 'list-agreements',   method: 'GET',    label: 'List credit agreements',      anchor: '#list-agreements' },
       { id: 'get-agreement',     method: 'GET',    label: 'Get credit agreement by ID',  anchor: '#get-agreement' },

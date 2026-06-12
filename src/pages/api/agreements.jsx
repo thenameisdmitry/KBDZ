@@ -158,7 +158,7 @@ export default function AgreementsPage() {
             your organisation and a counterparty.
           </p>
           <p className={styles.pageSubtitle} style={{ marginBottom: '10px' }}>
-            Credit Agreements are scoped to an <a href="/api/accounts" style={{ color: '#838383', textDecoration: 'none' }}>Account</a> and
+            Credit Agreements are scoped to an <a href="/KBDZ/api/accounts" style={{ color: '#838383', textDecoration: 'none' }}>Account</a> and
             are independent of Portfolios. A single Account may have multiple Credit Agreements
             with different counterparties, currencies, and maturity profiles.
           </p>

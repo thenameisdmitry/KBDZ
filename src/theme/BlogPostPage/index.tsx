@@ -12,7 +12,7 @@ useEffect(() => {
     const header = document.querySelector('.blog-wrapper article > header');
     if (header && !document.querySelector('.blog-back-btn')) {
       const link = document.createElement('a');
-      link.href = '/blog';
+      link.href = '/KBDZ/blog';
       link.innerText = '← Back to Blog';
       link.className = 'blog-back-btn';
       header.insertBefore(link, header.firstChild);

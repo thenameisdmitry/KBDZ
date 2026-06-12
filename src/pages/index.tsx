@@ -316,11 +316,11 @@ export default function Home(): JSX.Element {
             </div>
 
             <div className={styles.navCards}>
-                <img
-                  src={require('/static/img/gtu.png').default}
-                  alt="GTU"
-                  className={styles.gtu}
-                />
+              <img
+                src={require('/static/img/homepage/gtu.png').default}
+                alt="GTU"
+                className={styles.gtu}
+              />
             </div>
 
           </section>

@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkbdz=globalThis.webpackChunkkbdz||[]).push([[1903],{1912(s){s.exports=JSON.parse('{"blogBasePath":"/KBDZ/articles","blogTitle":"Blog","authorsListPath":"/KBDZ/articles/authors"}')}}]);

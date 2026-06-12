@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkbdz=globalThis.webpackChunkkbdz||[]).push([[1607],{7165(a){a.exports=JSON.parse('{"metadata":{"permalink":"/KBDZ/articles","page":1,"postsPerPage":10,"totalPages":1,"totalCount":3,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkbdz=globalThis.webpackChunkkbdz||[]).push([[7472],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Integrity, Actionability, and Beauty: The Three Pillars of Great Documentation","permalink":"/KBDZ/articles/three-pillars-of-doc","unlisted":false,"date":"2026-06-05T00:00:00.000Z"}]}')}}]);

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://thenameisdmitry.github.io/KBDZ/articles</id>
+    <title>Dmitrii Zhukov Blog</title>
+    <updated>2026-06-05T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/articles"/>
+    <subtitle>Dmitrii Zhukov Blog</subtitle>
+    <icon>https://thenameisdmitry.github.io/KBDZ/img/Label.png</icon>
+    <entry>
+        <title type="html"><![CDATA[Integrity, Actionability, and Beauty: The Three Pillars of Great Documentation]]></title>
+        <id>https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc</id>
+        <link href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc"/>
+        <updated>2026-06-05T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[If you browse the GitHub long enough, you'll notice that while almost every repository has a README file, comprehensive guides remain surprisingly rare.]]></summary>
+        <content type="html"><![CDATA[<p>If you browse the GitHub long enough, you'll notice that while almost every repository has a README file, comprehensive guides remain surprisingly rare.</p>
+<p>The reason is simple. The primary goal of documentation is to educate people about a product: what it does, why it exists, how to use it efficiently, how to avoid mistakes, and how to get the most value from it. Creating good documentation requires time, effort, discipline, and a genuine desire to help others succeed with your product. Those who neglect documentation usually have other priorities, and educating users is not one of them.</p>
+<p>In the enterprise world, however, documentation is not optional. Whether we're talking about Fintech platforms, treasury systems, SaaS products, or enterprise software in general, documentation is one of the foundations upon which customer success is built.</p>
+<p>Consider a simple analogy. When you purchase a sophisticated piece of equipment (a coffee maker, a water boiler, or perhaps a new piece of home electronics) you usually dive in the manual first. There are two obvious reasons for this. First, you don't want to break something expensive through trial and error. Second, you want to start using it as quickly and efficiently as possible.</p>
+<p>The same principle applies to fintech products. Customers want exactly the same things. First, they do not want to lose money. Second, they want to generate more value from the product they purchased. Good documentation helps achieve both goals.</p>
+<p>Strictly speaking, customers can judge the maturity and class of a product simply by looking at the quality of its documentation. The line between "good" and "bad" documentation is very clear, yet remarkably hard to reach. In my experience, great documentation rests on three pillars: <em>Integrity, Actionability, and Beauty.</em></p>
+<p><img decoding="async" loading="lazy" alt="three-pillars1" src="https://thenameisdmitry.github.io/KBDZ/assets/images/three-pillars-1-5950f9c3cf387e91521e8829a3f2b285.png" width="1774" height="887" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-integrity">✅ Integrity<a href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc#-integrity" class="hash-link" aria-label="Direct link to ✅ Integrity" title="Direct link to ✅ Integrity" translate="no">​</a></h3>
+<p>This one almost goes without saying.</p>
+<p>If your documentation provides incorrect information, omits critical details, or misleads users, you can kiss your credibility goodbye.</p>
+<p>Integrity is not achieved by accident. It requires continuous research, attention to detail, close collaboration with experts, participation in testing activities, thorough reviews, and an ability to react to issues at a speed of light before issues become customer problems. Ultimately, documentation integrity is the result of an efficient workflow.</p>
+<p>Clients rarely notice accurate documentation. They simply expect it. However, they notice inaccurate documentation immediately - and then they become very tempted to add an "ex-" to the word "client". Once trust is lost, winning it back becomes a difficult task.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-actionability">✅ Actionability<a href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc#-actionability" class="hash-link" aria-label="Direct link to ✅ Actionability" title="Direct link to ✅ Actionability" translate="no">​</a></h3>
+<p>Technical documentation is not a novel.</p>
+<p>Nobody opens a knowledge base for entertainment. People arrive with a problem and expect to leave with a solution. The best documentation respects the reader's time. It is focused, practical, and designed to help users accomplish a specific goal with minimal effort. No one wants to navigate through a dozen paragraphs of background information just to discover the one step they actually need.</p>
+<p>This is where empathy becomes one of the most valuable skills a technical writer can possess. A strong technical writer constantly looks at documentation through the customer's eyes. They identify friction points, unclear explanations, missing examples, and unnecessary complexity.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-beauty">✅ Beauty<a href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc#-beauty" class="hash-link" aria-label="Direct link to ✅ Beauty" title="Direct link to ✅ Beauty" translate="no">​</a></h3>
+<p>I deliberately use the word "beauty" instead of "clear interface" or "intuitive design" because true beauty in documentation encompasses all of those things and then some.</p>
+<p>An exceptional knowledge base is beautifully structured, beautifully written, beautifully designed, and beautifully delivered. Users instinctively know where to go. They find answers quickly. Navigation feels natural, and their experience feels effortless.</p>
+<p>Beauty in documentation is not decoration, but a winning point amongst competition. So many companies treat their documentation just as a compliance checkbox: we don't really care about it, but it has to exist because customers expect it to exist. Winners treat sources of knowledge differently. They understand that documentation is part of the product experience itself.</p>
+<p>When users interact with your knowledge base, they are still interacting with your product, just through a different interface or access point.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thoughts">Final Thoughts<a href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc#final-thoughts" class="hash-link" aria-label="Direct link to Final Thoughts" title="Direct link to Final Thoughts" translate="no">​</a></h3>
+<p>Of course, these three principles do not capture the entire discipline of technical writing. Documentation also depends on maintenance, stakeholder collaboration, governance, localization, analytics, and now - AI-assisted workflows.</p>
+<p>Yet without <strong>Integrity</strong>, <strong>Actionability</strong>, and <strong>Beauty</strong>, everything else rests on shaky foundations.</p>
+<p>Before I finish, I'd like to offer my own analogy.</p>
+<p>Imagine attending a product presentation for a solution you're considering purchasing.</p>
+<p>The lights dim. The screen comes alive. The presenter walks onto the stage.</p>
+<p>She greets the audience with confident polite smile and quickly gets to the point. She highlights the most important features, demonstrates practical use cases, answers every question, and never wastes a minute of your time. Her presentation is clear, engaging, informative, and effortless to follow. As a cherry on top, her looks are breathtaking, her voice is warm, her eyes are clever, her outfit is top-notch.</p>
+<p>By the end of the presentation you are in love: both in the product, and in the presenter.</p>
+<p>Exceptional documentation creates the same effect.</p>
+<p>It becomes a place that customers turn to first because experience has taught them that answers can be found there quickly and reliably. When your documentation reaches that level, your support team may discover the most pleasant problem of all:</p>
+<p><em>There are very few tickets left to resolve.</em></p>]]></content>
+        <author>
+            <name>Dmitrii Zhukov</name>
+            <uri>https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/</uri>
+        </author>
+        <category label="Technical Writing" term="Technical Writing"/>
+        <category label="Knowledge Management" term="Knowledge Management"/>
+        <category label="Product Thinking" term="Product Thinking"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[AI and Technical Writing: Why only competent writers can use AI effectively]]></title>
+        <id>https://thenameisdmitry.github.io/KBDZ/articles/ai-and-tech-writing</id>
+        <link href="https://thenameisdmitry.github.io/KBDZ/articles/ai-and-tech-writing"/>
+        <updated>2026-06-04T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[AI has become a permanent feature in modern documentation workflows, and for a good reason. It can accelerate writers' research routine, keep an eye on wording, improve document consistency, and help teams move faster without sacrificing quality. Used properly, AI is an extra pair of hands and eyes. It allows writers and managers to spend less time on repetitive work and more time on solving real business problems.]]></summary>
+        <content type="html"><![CDATA[<p>AI has become a permanent feature in modern documentation workflows, and for a good reason. It can accelerate writers' research routine, keep an eye on wording, improve document consistency, and help teams move faster without sacrificing quality. Used properly, AI is an extra pair of hands and eyes. It allows writers and managers to spend less time on repetitive work and more time on solving real business problems.</p>
+<p>Over the last few years of the AI era, I have used the AI engines extensively. However, I have never ever allowed it to take the reins and replace my expertise. For example, Claude helped with sandbox code analysis, troubleshooting, and automated testing. ChatGPT proved new fintech concepts and world-wide laws of the industry. Grammarly became a reliable helping hand in catching typos and polishing wording. These tools saved time and improved efficiency. But they never owned the outcome. Every result was reviewed, challenged, and adapted to the actual needs of the product and its users.</p>
+<p>In my experience, effective AI adoption rests on three principles: <strong>Competence</strong>, <strong>Caution</strong>, and <strong>Control</strong>.</p>
+<p><img decoding="async" loading="lazy" alt="ai-and-writing-1" src="https://thenameisdmitry.github.io/KBDZ/assets/images/ai-and-writing-1-f6c32c706cce72e3344c7206b846c8de.png" width="1328" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="competence">Competence<a href="https://thenameisdmitry.github.io/KBDZ/articles/ai-and-tech-writing#competence" class="hash-link" aria-label="Direct link to Competence" title="Direct link to Competence" translate="no">​</a></h2>
+<p><strong>Competence</strong> comes first. There is a growing misconception that AI can compensate for a lack of expertise. Na-ah. It cannot. Giving someone access to powerful AI tools does not instantly make them a technical writer, an engineer, or a product manager. In fact, the opposite is often true. The less experience a person has, the more difficult it becomes to recognize inaccuracies, weak assumptions, or straightforward bs. AI produces its best results when guided by professionals who already understand the domain, the product, and the expected outcome.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="caution">Caution<a href="https://thenameisdmitry.github.io/KBDZ/articles/ai-and-tech-writing#caution" class="hash-link" aria-label="Direct link to Caution" title="Direct link to Caution" translate="no">​</a></h2>
+<p><strong>Caution</strong> is equally important. Every prompt carries information, and information has value. Documentation teams frequently work with proprietary business logic, customer data, or important internal processes. Before sharing anything with an AI, it is essential to understand exactly what is being disclosed. You can't just rely on luck or an infamous Russian avos' and hope that the provided data won't spill. Corporate knowledge belongs behind glass walls, not in public conversations with external systems. AI should help protect the business, not expose it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="control">Control<a href="https://thenameisdmitry.github.io/KBDZ/articles/ai-and-tech-writing#control" class="hash-link" aria-label="Direct link to Control" title="Direct link to Control" translate="no">​</a></h2>
+<p>Finally, there is <strong>control</strong>. AI should be integrated into workflows deliberately rather than allowed to shape those workflows on its own. Despite impressive capabilities, AI still lacks judgment, context, and accountability. It can misunderstand requirements, invent facts, overlook edge cases, or produce content that appears convincing while being fundamentally wrong. The responsibility for quality remains with the people operating the system. <em>Competent</em> and <em>cautious</em> professionals establish the rules, define the boundaries, validate the outputs, and continuously refine the process. That is how organizations extract the maximum value from AI while minimizing risk.</p>
+<p>The teams that benefit most from AI are not the ones pursuing full automation. They are the ones that combine cutting-edge technology with expertise and discipline. AI can sharpen the blade, but it still takes a skilled hand to wield it.</p>
+<hr>
+<p><strong>P.S.</strong> This article is written by an LLM. The final version, however, is the result of human judgment, editing, and direction. That distinction matters. AI can produce content in seconds; knowing what to keep, what to challenge, and what to improve is where professional experience earns its value.</p>]]></content>
+        <author>
+            <name>Dmitrii Zhukov</name>
+            <uri>https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/</uri>
+        </author>
+        <category label="Technical Writing" term="Technical Writing"/>
+        <category label="AI" term="AI"/>
+        <category label="Automation" term="Automation"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Being an effective Team Lead: Becoming a Force multiplier]]></title>
+        <id>https://thenameisdmitry.github.io/KBDZ/articles/how-to-lead-tech-writers</id>
+        <link href="https://thenameisdmitry.github.io/KBDZ/articles/how-to-lead-tech-writers"/>
+        <updated>2026-06-03T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[When I was promoted to Team Lead in 2021, I faced a challenge familiar to many first-time managers: how do you balance leadership responsibilities with your own day-to-day work without becoming a bottleneck?]]></summary>
+        <content type="html"><![CDATA[<p>When I was promoted to Team Lead in 2021, I faced a challenge familiar to many first-time managers: how do you balance leadership responsibilities with your own day-to-day work without becoming a bottleneck?</p>
+<p>Management occupied roughly 20–30% of my time. My focus was on building a sustainable documentation operation rather than simply supervising people. We introduced DITA-based practices in our XML-driven MadCap Flare environment, standardized terminology and writing conventions, and established quarterly quality reviews. Most importantly, I wanted the team to improve continuously while maintaining ownership of their work.</p>
+<p><img decoding="async" loading="lazy" alt="lead-tech-writers" src="https://thenameisdmitry.github.io/KBDZ/assets/images/lead-tech-writers-1-5fe8768aa49d046316d01467c1cd4101.png" width="1328" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="being-a-leader-is-simple-being-an-effective-leader-is-hard">Being a leader is simple, being an effective leader is hard<a href="https://thenameisdmitry.github.io/KBDZ/articles/how-to-lead-tech-writers#being-a-leader-is-simple-being-an-effective-leader-is-hard" class="hash-link" aria-label="Direct link to Being a leader is simple, being an effective leader is hard" title="Direct link to Being a leader is simple, being an effective leader is hard" translate="no">​</a></h2>
+<p>My leadership philosophy was simple: technical writers are professionals, not content-producing machines. Reviews should highlight opportunities for improvement rather than dwell on mistakes. When people feel trusted and supported, they are far more likely to raise their own standards.</p>
+<p>A good example involved one of our writers whose drafts frequently required multiple review cycles due to typos and inaccuracies in business examples. Instead of focusing on the symptoms, we addressed the process. I introduced a simple workflow diagram with an additional self-review step, encouraged earlier preparation of business examples during planning, and introduced Grammarly as a final quality check.</p>
+<p>The solution was simple but effective. The writer spent slightly more time reviewing drafts before submission, yet the number of review iterations dropped significantly. Documentation quality improved, reviewers regained valuable time, and the writer became more consistent because fewer documents were returned for rework.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="real-test">Real test<a href="https://thenameisdmitry.github.io/KBDZ/articles/how-to-lead-tech-writers#real-test" class="hash-link" aria-label="Direct link to Real test" title="Direct link to Real test" translate="no">​</a></h2>
+<p>The real test came in 2022 when I had to rebuild the documentation team after the company's relocation to the United Kingdom. Different people, same principles: clear workflows, professional standards, continuous improvement, and respect for the people behind the process. Within six months, the team's output increased fourfold compared to the early stages of rebuilding.</p>
+<p>Looking back, I learned that effective leadership is not about personally solving every problem. It is about creating an environment where talented people can do their best work. Strong processes matter. Quality standards matter. But the real multiplier is a team that trusts the workflow, trusts its leader, and takes pride in the result.</p>]]></content>
+        <author>
+            <name>Dmitrii Zhukov</name>
+            <uri>https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/</uri>
+        </author>
+        <category label="Leadership" term="Leadership"/>
+        <category label="Knowledge Management" term="Knowledge Management"/>
+    </entry>
+</feed>

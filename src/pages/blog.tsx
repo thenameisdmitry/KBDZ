@@ -11,7 +11,7 @@ const POSTS = [
   {
     slug: 'three-pillars-of-doc',
     href: '/articles/three-pillars-of-doc',
-    image: '/img/blog/three-pillars-of-doc.png',
+    image: '/KBDZ/img/blog/three-pillars-of-doc.png',
     title: 'Integrity, Actionability, and Beauty: The Three Pillars of Great Documentation',
     excerpt:
       'After a decade in fintech technical writing, creating documentation frameworks and leading writers, I have learned that great documentation is supported by three whales. That is why I keep returning to three paramount principles that define the difference.',
@@ -22,18 +22,18 @@ const POSTS = [
   {
     slug: 'ai-and-tech-writing',
     href: '/articles/ai-and-tech-writing',
-    image: '/img/blog/ai-and-tech-writing.png',
+    image: '/KBDZ/img/blog/ai-and-tech-writing.png',
     title: 'AI and Technical Writing: Why only competent writers can use AI effectively',
     excerpt:
       'Few technologies have changed the IT industry as quickly as AI. As technical writers, we were among the first specialists expected to adapt, experiment, and redefine established workflows. This article examines where AI adds value to technical writing, and where human expertise remains indispensable.',
     tags: ['AI', 'Automation', 'Technical Writing'],
     date: 'June 4, 2026',
-    readTime: '5 min read',
+    readTime: '4 min read',
   },
   {
     slug: 'how-to-lead-tech-writers',
     href: '/articles/how-to-lead-tech-writers',
-    image: '/img/blog/how-to-lead-tech-writers.png',
+    image: '/KBDZ/img/blog/how-to-lead-tech-writers.png',
     title: 'Being an effective Team Lead: How to lead a team of technical writers',
     excerpt:
       'When I was promoted to the Team Lead, I faced a complicationg: how do I balance my management tasks with everyday tasks and build an effective team that deliveres up-to-date documentation. This is a story about how I became a force multiplier instead of a bottleneck.',

@@ -214,7 +214,7 @@ export default function Home(): JSX.Element {
           </p>
           <a
             className={styles.cvButton}
-            href="/cv/CV Dmitrii Zhukov - Senior Technical Writer.pdf"
+            href={require('/static/cv/CV Dmitrii Zhukov - Senior Technical Writer.pdf').default}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -265,7 +265,7 @@ export default function Home(): JSX.Element {
               <ul className={styles.contactList}>
 
                 <img
-                  src={require('/static/img/Ava.jpg').default}
+                  src={require('/static/img/Ava.png').default}
                   alt="Dmitrii Zhukov"
                   className={styles.avatar}
                 />
@@ -315,7 +315,7 @@ export default function Home(): JSX.Element {
               ))}
             </div>
 
-            <div className={styles.navCards}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
               <img
                 src={require('/static/img/homepage/gtu.png').default}
                 alt="GTU"

@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function LightboxImage({ src, alt, style }) {
   const [open, setOpen] = useState(false);
+  const resolvedSrc = useBaseUrl(src);
 
   return (
     <>
-      {/* Thumbnail */}
       <img
-  src={src}
-  alt={alt}
-  onClick={() => setOpen(true)}
-  style={{
-    width: '100%',
-    maxWidth: '500px',
-    cursor: 'zoom-in',
-    borderRadius: '8px',
-    border: '1px solid rgba(131,131,131,0.2)',
-    ...style
-  }}
-/>
+        src={resolvedSrc}
+        alt={alt}
+        onClick={() => setOpen(true)}
+        style={{
+          width: '100%',
+          maxWidth: '500px',
+          cursor: 'zoom-in',
+          borderRadius: '8px',
+          border: '1px solid rgba(131,131,131,0.2)',
+          ...style
+        }}
+      />
 
-      {/* Modal */}
       {open && (
         <div
           onClick={() => setOpen(false)}
@@ -39,11 +39,11 @@ export default function LightboxImage({ src, alt, style }) {
           }}
         >
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             style={{
-              maxWidth: '150vw',
-              maxHeight: '150vh',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
               borderRadius: '8px',
             }}
           />

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const STEPS = [
-  { label: 'Step 1', anchor: '#step-1-search-space-formation',   left: '2.5%',  width: '17%' },
-  { label: 'Step 2', anchor: '#step-2-pair-similarity-calculation', left: '22%', width: '17%' },
-  { label: 'Step 3', anchor: '#step-3-best-pair-selection',       left: '41.5%', width: '17%' },
-  { label: 'Step 4', anchor: '#step-4-mapping-strength',          left: '61%', width: '17%' },
-  { label: 'Step 5', anchor: '#step-5-reconciliation-results',    left: '80.5%', width: '17%' },
+  { label: 'Step 1', anchor: '#step-1-search-space-formation',     left: '2.5%',  width: '17%' },
+  { label: 'Step 2', anchor: '#step-2-pair-similarity-calculation', left: '22%',   width: '17%' },
+  { label: 'Step 3', anchor: '#step-3-best-pair-selection',         left: '41.5%', width: '17%' },
+  { label: 'Step 4', anchor: '#step-4-mapping-strength',            left: '61%',   width: '17%' },
+  { label: 'Step 5', anchor: '#step-5-reconciliation-results',      left: '80.5%', width: '17%' },
 ];
 
 export default function ClickableSteps({ src, alt }) {
   const [hovered, setHovered] = useState(null);
+  const resolvedSrc = useBaseUrl(src);
 
   return (
     <div style={{
@@ -20,9 +22,8 @@ export default function ClickableSteps({ src, alt }) {
       overflow: 'hidden',
       border: '1px solid rgba(131,131,131,0.2)',
     }}>
-      {/* Base image */}
       <img
-        src={src}
+        src={resolvedSrc}
         alt={alt || 'Algorithmic Recon steps'}
         style={{
           width: '100%',
@@ -31,9 +32,8 @@ export default function ClickableSteps({ src, alt }) {
         }}
       />
 
-      {/* Clickable overlays */}
       {STEPS.map((step, i) => (
-        <a
+        
           key={i}
           href={step.anchor}
           title={step.label}
@@ -51,14 +51,11 @@ export default function ClickableSteps({ src, alt }) {
             paddingBottom: '8px',
             textDecoration: 'none',
             borderRadius: '4px',
-            backgroundColor: hovered === i
-              ? 'rgba(0, 0, 0, 0.18)'
-              : 'transparent',
+            backgroundColor: hovered === i ? 'rgba(0,0,0,0.18)' : 'transparent',
             transition: 'background-color 0.2s ease',
             cursor: 'pointer',
           }}
         >
-          {/* Tooltip label on hover */}
           {hovered === i && (
             <span style={{
               position: 'absolute',

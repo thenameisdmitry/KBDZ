@@ -14,64 +14,12 @@ export default function ClickableSteps({ src, alt }) {
   const resolvedSrc = useBaseUrl(src);
 
   return (
-    <div style={{
-      position: 'relative',
-      display: 'inline-block',
-      width: '100%',
-      borderRadius: '8px',
-      overflow: 'hidden',
-      border: '1px solid rgba(131,131,131,0.2)',
-    }}>
-      <img
-        src={resolvedSrc}
-        alt={alt || 'Algorithmic Recon steps'}
-        style={{
-          width: '100%',
-          display: 'block',
-          borderRadius: '8px',
-        }}
-      />
-
+    <div style={{ position: 'relative', display: 'inline-block', width: '100%', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(131,131,131,0.2)' }}>
+      <img src={resolvedSrc} alt={alt || 'Algorithmic Recon steps'} style={{ width: '100%', display: 'block', borderRadius: '8px' }} />
       {STEPS.map((step, i) => (
-        
-          key={i}
-          href={step.anchor}
-          title={step.label}
-          onMouseEnter={() => setHovered(i)}
-          onMouseLeave={() => setHovered(null)}
-          style={{
-            position: 'absolute',
-            top: '0',
-            left: step.left,
-            width: step.width,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-            paddingBottom: '8px',
-            textDecoration: 'none',
-            borderRadius: '4px',
-            backgroundColor: hovered === i ? 'rgba(0,0,0,0.18)' : 'transparent',
-            transition: 'background-color 0.2s ease',
-            cursor: 'pointer',
-          }}
-        >
+        <a key={i} href={step.anchor} title={step.label} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} style={{ position: 'absolute', top: '0', left: step.left, width: step.width, height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '8px', textDecoration: 'none', borderRadius: '4px', backgroundColor: hovered === i ? 'rgba(0,0,0,0.18)' : 'transparent', transition: 'background-color 0.2s ease', cursor: 'pointer' }}>
           {hovered === i && (
-            <span style={{
-              position: 'absolute',
-              bottom: '10px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: 'rgba(0,0,0,0.75)',
-              color: '#ffffff',
-              fontSize: '0.7rem',
-              fontWeight: 600,
-              letterSpacing: '0.06em',
-              padding: '3px 8px',
-              borderRadius: '4px',
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none',
-            }}>
+            <span style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.75)', color: '#ffffff', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.06em', padding: '3px 8px', borderRadius: '4px', whiteSpace: 'nowrap', pointerEvents: 'none' }}>
               {step.label} ↓
             </span>
           )}

@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 // ── NAV CARD DATA ─────────────────────────────────────────────────────────────
 
@@ -12,25 +11,25 @@ const navCards = [
     label: 'Documentation Portfolio',
     description: 'Knowledge Base articles, end-user guides, release notes samples for the enterprise fintech product.',
     href: '/docs/portfolio/portfolio-overview',
-    icon: <img src={useBaseUrl('/img/homepage/home-1-icon.png')} alt="" width="45" height="45" />,
+    icon: <img src={require('/static/img/homepage/home-1-icon.png').default} alt="" width="45" height="45" />,
   },
   {
     label: 'API Documentation',
     description: 'OpenAPI specification, reference documentation, endpoint guides, and integration examples.',
     href: '/api',
-    icon: <img src={useBaseUrl('/img/homepage/home-2-icon.png')} alt="" width="45" height="45" />,
+    icon: <img src={require('/static/img/homepage/home-2-icon.png').default} alt="" width="45" height="45" />,
   },
   {
     label: 'Blog',
     description: 'Personally written articles on my thoughts about technical writing practice, documentation tooling, and AI-assisted workflows.',
     href: '/blog',
-    icon: <img src={useBaseUrl('/img/homepage/home-3-icon.png')} alt="" width="45" height="45" />,
+    icon: <img src={require('/static/img/homepage/home-3-icon.png').default} alt="" width="45" height="45" />,
   },
   {
     label: 'My Expertise',
     description: 'Skills, tools, domain knowledge, work experience, and the methodologies behind my documentation practice.',
     href: '/expertise',
-    icon: <img src={useBaseUrl('/img/homepage/home-4-icon.png')} alt="" width="45" height="45" />,
+    icon: <img src={require('/static/img/homepage/home-4-icon.png').default} alt="" width="45" height="45" />,
   },
 ];
 

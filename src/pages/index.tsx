@@ -4,7 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
-// ── NAV CARD DATA ─────────────────────────────────────────────────────────────
+// NAV CARDS
 
 const navCards = [
   {
@@ -33,7 +33,7 @@ const navCards = [
   },
 ];
 
-// ── ANIMATED TAGLINE ──────────────────────────────────────────────────────────
+// ANIMATED TAGLINE
 
 const tags = [
   'Technical Writing',
@@ -73,7 +73,7 @@ function AnimatedTagline() {
   );
 }
 
-// ── PARTICLE NETWORK CANVAS ───────────────────────────────────────────────────
+// PARTICLE NETWORK CANVAS - HEADER
 
 interface Particle {
   x: number;
@@ -196,7 +196,7 @@ function NetworkCanvas() {
   );
 }
 
-// ── MAIN PAGE ─────────────────────────────────────────────────────────────────
+// MAIN PAGE
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -265,7 +265,7 @@ export default function Home(): JSX.Element {
               <ul className={styles.contactList}>
 
                 <img
-                  src="/img/Ava.png"
+                  src={require('/static/img/Ava.jpg').default}
                   alt="Dmitrii Zhukov"
                   className={styles.avatar}
                 />
@@ -317,7 +317,7 @@ export default function Home(): JSX.Element {
 
             <div className={styles.navCards}>
                 <img
-                  src="/img/homepage/gtu.png"
+                  src={require('/static/img/gtu.jpg').default}
                   alt="GTU"
                   className={styles.gtu}
                 />

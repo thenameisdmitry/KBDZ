@@ -222,7 +222,7 @@ export default function Home(): JSX.Element {
               <path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M3 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            Download Curriculum Vitae
+            Download CV
           </a>
         </div>
       </header>

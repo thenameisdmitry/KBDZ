@@ -75,7 +75,7 @@ const config: Config = {
     image: 'img/social-card.png',
     colorMode: {
         defaultMode: 'dark',
-        disableSwitch: false,
+        disableSwitch: true,
         respectPrefersColorScheme: false,
     },
     tableOfContents: {

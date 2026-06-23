@@ -96,18 +96,30 @@ html[data-theme='dark'] .hero {
   color: #eeeeee;
 }
 
-/**
- * NAVBAR LINKS
- */
+/* NAVBAR LINKS */
 
- .navbar__title {
-  margin-left: 315px;
-                }
-.navbar__items {
-  gap: 20px;
-                }
+.navbar__inner {
+  display: flex;
+  align-items: center;
+}
+
 .navbar__brand {
-  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.navbar__item {
+  padding: 0 6px;
+}
+
+.navbar__items--left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.navbar__items--right {
+  flex-shrink: 0;
 }
 
 .navbar__link,
@@ -115,6 +127,27 @@ html[data-theme='dark'] .hero {
   color: var(--site-muted-text) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
+  margin-left: 12px;
+}
+
+.navbar__title:hover {
+  color: #eeeeee !important;
+  text-shadow:
+    0 0 4px #eeeeee,
+    0 0 10px #f0a0ff,
+    0 0 20px #cc44ff,
+    0 0 40px #9900cc;
+  transition: all 0.2s ease;
+}
+
+.navbar__link:hover {
+  color: #eeeeee !important;
+  text-shadow:
+    0 0 4px #eeeeee,
+    0 0 10px #f0a0ff,
+    0 0 20px #cc44ff,
+    0 0 40px #9900cc;
+  transition: all 0.2s ease;
 }
 
 /**

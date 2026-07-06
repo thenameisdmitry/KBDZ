@@ -12,7 +12,7 @@ Technical writing • Documentation strategy • Knowledge management • Develo
 
 ## Technical expertise
 
-- **Authoring & docs-as-code:** MadCap • Docusaurus • Markdown • MDX • XML • MS Office • GitHub
+- **Authoring & docs-as-code:** MadCap Flare • Docusaurus • Astro • Markdown • MDX • TypeScript • XML • MS Office • GitHub
 - **API:** OpenAPI/Swagger • Postman • Insomnia
 - **Scripting & DB management:** Python • SQL
 - **Project & collaboration:** Jira • Confluence • Notion • SharePoint • Slack • Aha

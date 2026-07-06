@@ -286,7 +286,7 @@ export default function Home(): JSX.Element {
                     Telegram: <a href="https://t.me/moneywrapping" target="_blank" rel="noopener noreferrer">@moneywrapping</a>
                   </li>
                   <li>
-                    Residence: <a href="https://www.google.com/maps/place/Block+64,+%D0%91%D0%B5%D0%BB%D0%B3%D1%80%D0%B0%D0%B4/@44.8084621,20.3887459,15.52z/data=!4m15!1m8!3m7!1s0x475a6f75c3e024c5:0xe6866a73d4bdda43!2z0J3QvtCy0Lgt0JHQtdC-0LPRgNCw0LQsINCR0LXQu9Cz0YDQsNC0!3b1!8m2!3d44.8160756!4d20.3948181!16zL20vMDN4ajNo!3m5!1s0x475a6f776a5d17e5:0x4aac3f6e12ca3135!8m2!3d44.808996!4d20.3917616!16s%2Fg%2F1tglg2ys?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Serbia, Belgrade, Novi Beograd, Block 64</a>
+                    Residence: <a href="https://www.google.com/maps/place/Block+64,+%D0%91%D0%B5%D0%BB%D0%B3%D1%80%D0%B0%D0%B4/@44.8084621,20.3887459,15.52z/data=!4m15!1m8!3m7!1s0x475a6f75c3e024c5:0xe6866a73d4bdda43!2z0J3QvtCy0Lgt0JHQtdC-0LPRgNCw0LQsINCR0LXQu9Cz0YDQsNC0!3b1!8m2!3d44.8160756!4d20.3948181!16zL20vMDN4ajNo!3m5!1s0x475a6f776a5d17e5:0x4aac3f6e12ca3135!8m2!3d44.808996!4d20.3917616!16s%2Fg%2F1tglg2ys?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Serbia, Belgrade</a>
                   </li>
                 </ul>
             </div>

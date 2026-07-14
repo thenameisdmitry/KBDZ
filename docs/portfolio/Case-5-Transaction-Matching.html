@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-portfolio/Case-5-Transaction-Matching" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.1">
+<title data-rh="true">Case 5: Transaction Matching Guide | Dmitrii Zhukov</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" property="og:url" content="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Case 5: Transaction Matching Guide | Dmitrii Zhukov"><meta data-rh="true" name="description" content="&lt;div style={{"><meta data-rh="true" property="og:description" content="&lt;div style={{"><link data-rh="true" rel="icon" href="/KBDZ/img/Label.png"><link data-rh="true" rel="canonical" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching" hreflang="en"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Guides","item":"https://thenameisdmitry.github.io/KBDZ/docs/portfolio/"},{"@type":"ListItem","position":2,"name":"Case 5: Transaction Matching Guide","item":"https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"}]}</script><link rel="alternate" type="application/rss+xml" href="/KBDZ/articles/rss.xml" title="Dmitrii Zhukov RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/KBDZ/articles/atom.xml" title="Dmitrii Zhukov Atom Feed"><link rel="stylesheet" href="/KBDZ/assets/css/styles.83465259.css">
+<script src="/KBDZ/assets/js/runtime~main.1f0a2895.js" defer="defer"></script>
+<script src="/KBDZ/assets/js/main.b375603d.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>document.documentElement.setAttribute("data-theme","dark"),document.documentElement.setAttribute("data-theme-choice","dark"),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/KBDZ/img/Label.png"><link rel="preload" as="image" href="/KBDZ/img/case-5-transactions-matching/image003.png"><link rel="preload" as="image" href="/KBDZ/img/case-5-transactions-matching/image006.png"><link rel="preload" as="image" href="/KBDZ/img/case-5-transactions-matching/image007.png"><link rel="preload" as="image" href="/KBDZ/img/case-5-transactions-matching/image012.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/KBDZ/"><div class="navbar__logo"><img src="/KBDZ/img/Label.png" alt="Label" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/KBDZ/img/Label.png" alt="Label" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Home</b></a><a class="navbar__item navbar__link" href="/KBDZ/docs/portfolio/portfolio-overview">Portfolio</a><a class="navbar__item navbar__link" href="/KBDZ/api">API Documentation</a><a class="navbar__item navbar__link" href="/KBDZ/blog">My Blog</a><a class="navbar__item navbar__link" href="/KBDZ/expertise">My Expertise</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/thenameisdmitry/" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">DZ GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/KBDZ/docs/portfolio/portfolio-overview"><span title="Overview" class="linkLabel_WmDU">Overview</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/KBDZ/docs/portfolio"><span title="Guides" class="categoryLinkLabel_W154">Guides</span></a><button aria-label="Collapse sidebar category &#x27;Guides&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/KBDZ/docs/portfolio/Case-1-Algo-Recon"><span title="Case 1: Algorithmic Reconciliation Guide" class="linkLabel_WmDU">Case 1: Algorithmic Reconciliation Guide</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/KBDZ/docs/portfolio/Case-2-Approver-App"><span title="Case 2: Approver Application Guide" class="linkLabel_WmDU">Case 2: Approver Application Guide</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/KBDZ/docs/portfolio/Case-3-GL-Manager"><span title="Case 3: Getting Started with GL Manager" class="linkLabel_WmDU">Case 3: Getting Started with GL Manager</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/KBDZ/docs/portfolio/Case-4-Optimizer"><span title="Case 4: Optimizer Guide" class="linkLabel_WmDU">Case 4: Optimizer Guide</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/KBDZ/docs/portfolio/Case-5-Transaction-Matching"><span title="Case 5: Transaction Matching Guide" class="linkLabel_WmDU">Case 5: Transaction Matching Guide</span></a></li></ul></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/KBDZ/docs/portfolio/releasenotes"><span title="Release Notes" class="linkLabel_WmDU">Release Notes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/KBDZ/docs/portfolio/code-samples"><span title="Automation Script Samples" class="linkLabel_WmDU">Automation Script Samples</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/KBDZ/docs/portfolio/How-I-Work"><span title="How I Work" class="linkLabel_WmDU">How I Work</span></a></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_JQG6"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_Iseg"><g fill="#838383"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/KBDZ/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/KBDZ/docs/portfolio"><span>Guides</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Case 5: Transaction Matching Guide</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Case 5: Transaction Matching Guide</h1></header>
+<div style="border:1px solid rgba(131,131,131,0.2);border-left:3px solid #999999;border-radius:8px;padding:24px 28px;margin-bottom:40px;background:rgba(131,131,131,0.04)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 32px"><div><p style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#999999;margin-bottom:4px">Format</p><p style="font-size:0.9rem;color:var(--ifm-font-color-base);margin:0;line-height:1.6">Knowledge base guide combining an explanation of algorithmic transaction matching principles with a practical user guide for the Transaction Matching module.</p></div><div><p style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#999999;margin-bottom:4px">Target Readers</p><p style="font-size:0.9rem;color:var(--ifm-font-color-base);margin:0;line-height:1.6">Reconciliation analysts, operations analysts, accountants, and financial operations specialists responsible for validating and resolving transaction discrepancies.</p></div><div><p style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#999999;margin-bottom:4px">Description</p><p style="font-size:0.9rem;color:var(--ifm-font-color-base);margin:0;line-height:1.6">Technical reference and onboarding guide explaining the scientific principles behind algorithmic transaction matching across heterogeneous data sources. Also provides a complete walkthrough of the Transaction Matching interface supported by real-world reconciliation scenarios and live case examples.</p></div><div><p style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#999999;margin-bottom:4px">Business Impact</p><p style="font-size:0.9rem;color:var(--ifm-font-color-base);margin:0;line-height:1.6">Served as the primary reference for six of the company&#x27;s largest reconciliation clients, improving adoption of advanced transaction matching workflows and reducing analyst onboarding time. The documentation also supported customer enablement efforts that contributed to two existing clients purchasing the Reconciliation Manager module.</p></div></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="introduction">Introduction<a href="#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction" translate="no">​</a></h2>
+<p><strong>Transaction Matching</strong> is a critical step of the Transaction Reconciliation process. It
+matches Transaction records between the House side (Company) and the Counterparty side
+(Broker, Bank, or Accounting system). The Algorithmic Transaction Matching process runs on
+Hazeltree&#x27;s in-house engine, built on Fuzzy logic at its core.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>ALGORITHMIC TRANSACTION MATCHING PROCESS</div><div class="admonitionContent_BuS1"><p>The purpose of comparing Transactions from two sources (House and Counterparty) with the Fuzzy
+logic is to provide customers with control over the integrity and correctness of real live assets
+movements. The variety and complexity of financial operations wired through multiple institutions
+requires a special approach that is embodied in the Fuzzy logic engine.</p><p>For example, when a set of international Transactions is wired, they go through intermediary
+Banks before the assets are deposited on the receiving Account. The client needs to understand
+what Transactions have been settled and what Transactions are still in progress. The Bank forms
+the report files of today’s operations and sends them to the client. Then the Hazeltree party
+processes these files and compares retrieved data with the House data. Consequently, the client
+sees the big picture and understands what Transactions have been completed and what Transaction
+are yet to come.</p><p>The Algorithmic self-learning engine allows to significantly streamline the process of Transactions
+matching and mitigates the risk of inaccurate matching, providing clients with quick and solid
+results</p></div></div>
+<div style="margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid rgba(131,131,131,0.15)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:rgba(131,131,131,0.07);border:none;border-bottom:1px solid rgba(131,131,131,0.15);cursor:pointer;text-align:left"><div style="display:flex;align-items:center;gap:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#999999" stroke-width="1.5"></circle><path d="M5.5 5.5C5.5 4.7 6.1 4 7 4s1.5.7 1.5 1.5c0 1-1.5 1.5-1.5 2.5" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><circle cx="7" cy="10.5" r="0.75" fill="#999999"></circle></svg><span style="font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999">Example</span><span style="font-size:0.88rem;font-weight:600;color:var(--ifm-font-color-base);letter-spacing:0">Algorithmic Transaction Matching in a Private Equity deal</span></div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="#999999" stroke-width="1.5"></rect><path d="M4 5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><line x1="1" y1="9" x2="13" y2="9" stroke="#999999" stroke-width="1.5"></line></svg></button><div style="padding:16px 18px;background:rgba(131,131,131,0.03);font-size:1rem;line-height:1.75;color:#c2c2c2ff"><p>Algorithmic Transaction Matching is best illustrated through a Private Equity scenario.</p><p>A client issues an Investor Call letter and creates a Voucher with multiple Transactions
+from the posted Cashflow Transfers. Naturally, the client needs to track the incoming
+investments until the call is fulfilled, and such investments usually take time to be
+agreed on and wired.</p><p>The Transaction Matching screen gives the client a single control point for monitoring the
+steady stream of incoming investment Transactions. Because the number of incoming
+Transactions can be large and their settlement timing varies, the client delegates
+Transaction comparison and matching to the Fuzzy engine. The user&#x27;s job is to verify the
+integrity of the matching process and analyze the results.</p><p>Once the final Transactions are wired and reported, the client can confirm whether
+everything was transferred according to the business plan, or whether there are
+discrepancies to raise with the Investors.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="working-principle-and-logic">Working Principle and Logic<a href="#working-principle-and-logic" class="hash-link" aria-label="Direct link to Working Principle and Logic" title="Direct link to Working Principle and Logic" translate="no">​</a></h2>
+<p>The Algorithmic Transaction Matching process combines several approaches that improve
+accuracy and integrity. It is a multi-step procedure, shown in the diagram below:</p>
+<img src="/KBDZ/img/case-5-transactions-matching/image003.png" alt="Image 003" style="width:100%;max-width:100%;cursor:zoom-in;border-radius:8px;border:1px solid rgba(131,131,131,0.2)">
+<ol>
+<li class=""><strong>Input</strong>: the Fuzzy algorithm starts with the full set of Transactions that participate
+in the algorithmic matching process. This set is assembled on the Transaction Matching
+screen when the user starts Algorithmic Matching.</li>
+<li class=""><strong>Fuzzy Transaction Matching</strong>: the process runs in two parallel modes — 1:1 Matching
+and M<!-- -->:N<!-- --> Matching.</li>
+<li class=""><strong>1:1 relations</strong>: relations are established between a single right-side Transaction
+(Broker) and a single left-side Transaction (House). This mode is called One-To-One and is
+based on the calculated Confidence Level.</li>
+<li class=""><strong>M<!-- -->:N<!-- --> relations</strong>: relations are established among right-side Transactions (Broker) and
+left-side Transactions (House). This mode is called Many-To-Many and works in several
+combinations (Many-To-One, One-To-Many, and Many-To-Many). Matching in this mode is based
+on the Reference Number ID.</li>
+<li class=""><strong>Cross-group link identification</strong>: an auxiliary step of the M<!-- -->:N<!-- --> relations that looks
+for possible matches among the individual Transactions in the groups formed by M<!-- -->:N<!-- -->
+matching. The search is based on the Reference Number ID.</li>
+<li class=""><strong>Cross-group relations</strong>: cross-group matches are established. As a result, a single
+Transaction can belong to two or more subgroups (for example, when it carries multiple
+Reference Number IDs in the Description field).</li>
+<li class=""><strong>Subgroups merge</strong>: the subgroups formed by M<!-- -->:N<!-- --> mode are fused through a 1:1 match
+established between members of different groups. This mode is called Cross Grouping through
+1:1 Matching.</li>
+<li class=""><strong>Output</strong>: the resulting groups are displayed on the Transaction Matching grid with
+their calculated Confidence Levels.</li>
+</ol>
+<p>Because Transaction records are held differently across accounting institutions, the
+Transaction Matching process runs in three modes:</p>
+<ul>
+<li class=""><strong>One-To-One</strong> — one Transaction to one Transaction.</li>
+<li class=""><strong>M<!-- -->:N<!-- --> Matching</strong>, with three variations:<!-- -->
+<ul>
+<li class=""><strong>One-To-Many</strong> — one Transaction to many Transactions.</li>
+<li class=""><strong>Many-To-One</strong> — many Transactions to one Transaction.</li>
+<li class=""><strong>Many-To-Many</strong> — many Transactions to many Transactions.</li>
+</ul>
+</li>
+<li class=""><strong>Cross Grouping through 1:1 Matching</strong> — Many-To-Many groups linked through a
+One-To-One match and an established cross-group connection.</li>
+</ul>
+<p>These different approaches exist because the number of Transaction records can differ
+between the House and Counterparty sides.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>NOTE</div><div class="admonitionContent_BuS1"><p>The One-To-One mode follows a dedicated algorithm that involves forming a search space.
+The One-To-Many, Many-To-One, and Many-To-Many modes are special cases of M<!-- -->:N<!-- --> matching,
+which follows a separate algorithm based on finding and matching Transactions by their
+Reference Number. Both matching processes run in parallel, with neither taking priority.
+Cross Grouping runs after the 1:1 and M<!-- -->:N<!-- --> matching processes finish.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="case-1-one-to-one-matching">Case 1: One-To-One Matching<a href="#case-1-one-to-one-matching" class="hash-link" aria-label="Direct link to Case 1: One-To-One Matching" title="Direct link to Case 1: One-To-One Matching" translate="no">​</a></h2>
+<p><strong>One-To-One Transaction Matching</strong> connects one Transaction from the House side to one
+Transaction from the Counterparty side. It is the simplest matching case, and the process
+proceeds as follows:
+<img decoding="async" loading="lazy" alt="transaction-matching-image-004" src="/KBDZ/assets/images/image004-aba6449f1f9cfedd838da0da020b6e66.png" width="1032" height="241" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-1-search-space-formation">Step 1: Search space formation<a href="#step-1-search-space-formation" class="hash-link" aria-label="Direct link to Step 1: Search space formation" title="Direct link to Step 1: Search space formation" translate="no">​</a></h3>
+<p>A search space is formed for the ungrouped Transactions from the left side (House) and the
+right side (Counterparty).</p>
+<div style="display:inline-block;width:100%;margin:12px 0;padding:14px 18px;background:rgba(131,131,131,0.06);border:1px solid rgba(131,131,131,0.2);border-left:5px solid #999999;border-radius:6px;font-family:inherit"><span style="display:block;font-size:0.78rem;font-style:italic;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999;margin-bottom:6px">Term</span><span style="font-size:1rem;font-weight:700;color:var(--ifm-font-color-base);margin-right:6px">Search space</span><span style="font-size:1rem;color:var(--site-muted-text);line-height:1.65"><p>A set of right-side and left-side Transactions that participate in the Algorithmic Matching
+process. Before the process starts, the search space is filtered: Transactions with the
+Vetted status and Transaction groups are excluded.</p></span></div>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>Once the search space is formed, the right-side and left-side Transactions are multiplied
+using the Cross Join method (every right-side Transaction is compared with every left-side
+Transaction). To optimize the process and avoid server memory overload, the Cross Join
+method compares a set of parameters: Currency, Amount, Settlement Date, and Trade Date. The
+Amount, Settlement Date, and Trade Date parameters have configurable thresholds that widen
+the room for matching. These thresholds are configured through Company Preferences.</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="launching-algorithmic-matching">Launching Algorithmic Matching<a href="#launching-algorithmic-matching" class="hash-link" aria-label="Direct link to Launching Algorithmic Matching" title="Direct link to Launching Algorithmic Matching" translate="no">​</a></h4>
+<p>Transaction data is loaded by the regular Sync Manager process, Client Writer Update. By
+default, this process is launched by Sync Manager according to the Sync Manager Scheduler.
+It takes all Transactions from the House and Counterparty sides for a period of T-30 days
+(today minus thirty).</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>Users can also re-run Algorithmic Matching from the Hazeltree interface and set the
+coverage period manually. On the Transaction Matching screen, set the following Upper
+toolbar filters before starting Algorithmic Matching:
+<img decoding="async" loading="lazy" alt="transaction-matching-image-005" src="data:image/png;base64,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" width="733" height="39" class="img_ev3q"></p><ul>
+<li class="">Date Type (Trade Date or Settlement Date)</li>
+<li class="">Date From</li>
+<li class="">Date To</li>
+</ul><p>Once these parameters are set, the Transactions appear on the grid. To launch the Fuzzy
+logic engine, click <strong>Reprocess</strong>.</p></div></div>
+<p>Forming the search space from the full set of Transactions is unique to One-To-One mode;
+it does not apply to M<!-- -->:N<!-- --> mode.</p>
+<p>All manually ungrouped Transactions (those removed from groups by users) are excluded from
+matching in later iterations of Algorithmic Matching. The system seeks new pairs and leaves
+the ungrouped Transactions out of the pool of candidates. A Transaction&#x27;s ungrouped state
+is marked in a dedicated column on the Transaction Matching screen: Is Ungrouped.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-2-pair-similarity-calculation">Step 2: Pair Similarity calculation<a href="#step-2-pair-similarity-calculation" class="hash-link" aria-label="Direct link to Step 2: Pair Similarity calculation" title="Direct link to Step 2: Pair Similarity calculation" translate="no">​</a></h3>
+<p>Pair Similarity is calculated for the Transactions inside the search space using three
+Predicates for particular field groups. A search space can contain multiple matching
+candidates, so to decide which candidate is correct, the Recon engine calculates Pair
+Similarity. This value is assembled from three Predicates computed for every candidate.</p>
+<div style="display:inline-block;width:100%;margin:12px 0;padding:14px 18px;background:rgba(131,131,131,0.06);border:1px solid rgba(131,131,131,0.2);border-left:5px solid #999999;border-radius:6px;font-family:inherit"><span style="display:block;font-size:0.78rem;font-style:italic;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999;margin-bottom:6px">Term</span><span style="font-size:1rem;font-weight:700;color:var(--ifm-font-color-base);margin-right:6px">Predicate</span><span style="font-size:1rem;color:var(--site-muted-text);line-height:1.65"><p>A variable representing Transaction matching strength, used to compute Pair Similarity.
+Predicates are based on the matching fields of the reconciled right-side (Counterparty) and
+left-side (House) Transactions. The Algorithmic Transaction Matching process uses three
+Predicates: Main qualitative required features (Trade Date, Settlement Date, Currency,
+Security, Account, Portfolio), Main quantitative required features (Quantity, Net Amount
+Local, Market Value Book, Notional Net Amount), and Additional natural-language fuzzy
+features (Description, Type).</p></span></div>
+<p>Main qualitative required features carry the heaviest weight, 0.4; Main quantitative
+required features carry a lighter weight, 0.35; and Additional natural-language fuzzy
+features carry the lightest weight, 0.25. All Predicate weights are dynamic and can range
+between zero and their maximum value. In an ideal case, when all three Predicates reach
+their maximum during this step, they add up to a total weight of 1.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Fuzzy engine uses a special system column that holds a cumulative description of the
+internal Transaction&#x27;s Cashflow, which is compared with the data received from the
+Counterparty side. This system field is not visible in the Hazeltree interface. It contains
+the following parameters: Cashflow Name, Legal Entity, Investment, Investor (with their text
+UDFs), Cashflow Description, and Transfer Name.</p></div></div>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>ENTROPY (INFORMATION THEORY) IN MATCHING PROCESS</div><div class="admonitionContent_BuS1"><p>During the Predicates’ weight calculation, the Algorithmic Matching process compares the left
+and right Transactions’ Quantities (Main quantitative required features group), and this is
+where the Fuzzy engine uses the principle of Entropy (information theory).</p><p>In the information theory the entropy is a concept that tells how much information there is
+in a certain event (in our case, in the Transactions comparison). In general, the more certain
+or deterministic the comparison is, the less information it needs. Therefore, the comparison
+of the Quantity values of both Transactions can either increase or decrease in the entropy.</p><ul>
+<li class="">Example 1: the Quantity of both Transactions is $100,000,000.00. The uncertainty increases, since such flat Quantity can be not unique in the Search space that contains a lot of Transactions. The weight calculated for the Main quantitative required features will decrease.</li>
+<li class="">Example 2: the Quantity of both Transactions is $98,104,637.89. The uncertainty decreases, since such number diverse Quantity is most certainly unique in the Search space. The weight calculated for the Main quantitative required features will increase.</li>
+</ul></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-3-best-pair-selection">Step 3: Best pair selection<a href="#step-3-best-pair-selection" class="hash-link" aria-label="Direct link to Step 3: Best pair selection" title="Direct link to Step 3: Best pair selection" translate="no">​</a></h3>
+<p>Based on the calculated Pair Similarity, the algorithm selects the best Transactions to map.
+The computed Pair Similarities are compared, and the winner is matched. The winner&#x27;s Pair
+Similarity becomes the Confidence Level (the mapping certainty value). Based on the
+Confidence Level, the algorithm decides whether the Transactions should be grouped
+automatically on the Transaction Matching screen.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-4-automatic-grouping-and-vetting">Step 4: Automatic grouping and vetting<a href="#step-4-automatic-grouping-and-vetting" class="hash-link" aria-label="Direct link to Step 4: Automatic grouping and vetting" title="Direct link to Step 4: Automatic grouping and vetting" translate="no">​</a></h3>
+<p>Reconciled Transactions are grouped on the grid. Using the winner&#x27;s Confidence Level, the
+Fuzzy logic algorithm decides whether the Transactions should be grouped automatically or
+require manual approval. To do this, it compares the calculated Confidence Level with the
+system value Min Confidence Level:</p>
+<ul>
+<li class=""><strong>Confidence Level of 100%</strong>: the two matching Transactions have identical Accounts,
+Amounts, Settlement Dates, Reference Numbers, and Currencies. The algorithm matches and
+groups the Transactions automatically.</li>
+<li class=""><strong>Below 100% but above the Min Confidence Level</strong>: the algorithm matches and groups the
+Transactions automatically.</li>
+<li class=""><strong>Below the Min Confidence Level but with the same Reference Numbers in the Description or
+Notes fields</strong>: the algorithm groups the Transactions automatically and sets the Require
+Approval indicator. It does not match the Transactions automatically.</li>
+</ul>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Algorithmic Transaction Matching process also considers the Payee Codes and Payee Names
+in the Transaction Description field.</p></div></div>
+<div style="margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid rgba(131,131,131,0.15)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:rgba(131,131,131,0.07);border:none;border-bottom:1px solid rgba(131,131,131,0.15);cursor:pointer;text-align:left"><div style="display:flex;align-items:center;gap:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#999999" stroke-width="1.5"></circle><path d="M5.5 5.5C5.5 4.7 6.1 4 7 4s1.5.7 1.5 1.5c0 1-1.5 1.5-1.5 2.5" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><circle cx="7" cy="10.5" r="0.75" fill="#999999"></circle></svg><span style="font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999">Example</span><span style="font-size:0.88rem;font-weight:600;color:var(--ifm-font-color-base);letter-spacing:0">One-To-One matching</span></div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="#999999" stroke-width="1.5"></rect><path d="M4 5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><line x1="1" y1="9" x2="13" y2="9" stroke="#999999" stroke-width="1.5"></line></svg></button><div style="padding:16px 18px;background:rgba(131,131,131,0.03);font-size:1rem;line-height:1.75;color:#c2c2c2ff"><p>In 1:1 mode, the engine forms a search space for the House-side Transaction and calculates
+the most accurate pair from the sum of three Predicates that analyze the matching fields.</p><img src="/KBDZ/img/case-5-transactions-matching/image006.png" alt="Image 006" style="width:100%;max-width:100%;cursor:zoom-in;border-radius:8px;border:1px solid rgba(131,131,131,0.2)"><p>Once the connection between the two Transactions is established, they are grouped and
+displayed on the Transaction Matching screen:</p><img src="/KBDZ/img/case-5-transactions-matching/image007.png" alt="Image 007" style="width:100%;max-width:100%;cursor:zoom-in;border-radius:8px;border:1px solid rgba(131,131,131,0.2)"><ol>
+<li class=""><strong>Grouped Transactions</strong>: the group of Transactions matched in 1:1 mode. The group Status
+is Matched, and the Description shows the details of the matching process.</li>
+<li class=""><strong>Expanded group with details</strong>: the user can expand the group and review the
+Transactions matched during the Algorithmic process. If the match was erroneous, the user
+can manually ungroup the cluster, which excludes the ungrouped pair from the search space in
+subsequent iterations of Algorithmic Matching.</li>
+</ol></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="case2-m-matching">Case2: M<!-- -->:N<!-- --> Matching<a href="#case2-m-matching" class="hash-link" aria-label="Direct link to case2-m-matching" title="Direct link to case2-m-matching" translate="no">​</a></h2>
+<p><strong>M<!-- -->:N<!-- --> Transaction Matching</strong> applies when the number of matched entities differs between the
+House and Counterparty records. To connect the Transaction records correctly, the Fuzzy
+engine relies on the Reference Number value.</p>
+<div style="display:inline-block;width:100%;margin:12px 0;padding:14px 18px;background:rgba(131,131,131,0.06);border:1px solid rgba(131,131,131,0.2);border-left:5px solid #999999;border-radius:6px;font-family:inherit"><span style="display:block;font-size:0.78rem;font-style:italic;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999;margin-bottom:6px">Term</span><span style="font-size:1rem;font-weight:700;color:var(--ifm-font-color-base);margin-right:6px">Reference Number</span><span style="font-size:1rem;color:var(--site-muted-text);line-height:1.65"><p>A unique numeric identifier assigned to a financial Transaction. It is generated by the
+system and tied to a single Transaction, helping an institution identify Transactions in
+its records and databases.</p></span></div>
+<p>In the Transaction matching process, the Reference Number is a strong anchor that helps
+identify all interlinked Transactions from the House and Counterparty sides and match them
+accurately. When searching for a Reference Number, the Fuzzy algorithm scans two fields:
+the Reference Number field and the Transaction Description.</p>
+<p>M<!-- -->:N<!-- --> mode has three variations:</p>
+<ul>
+<li class="">One Transaction to many Transactions (One-To-Many)</li>
+<li class="">Many Transactions to one Transaction (Many-To-One)</li>
+<li class="">Many Transactions to many Transactions (Many-To-Many)</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>NOTE</div><div class="admonitionContent_BuS1"><p>This mode does not build a search space of one or several matching candidates. Instead, all
+Transactions in the algorithmic matching process form the search space. The algorithm
+assumes there can be an unlimited number of money transfers (additional Transactions,
+difference returns, corrections, and so on).</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="one-to-many">One-To-Many<a href="#one-to-many" class="hash-link" aria-label="Direct link to One-To-Many" title="Direct link to One-To-Many" translate="no">​</a></h3>
+<p>One-To-Many Transaction Matching connects one Transaction from the House side to several
+Transactions from the Counterparty side. It covers cases where a single House-side
+Transaction stands for several Counterparty-side Transactions.</p>
+<div style="margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid rgba(131,131,131,0.15)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:rgba(131,131,131,0.07);border:none;border-bottom:1px solid rgba(131,131,131,0.15);cursor:pointer;text-align:left"><div style="display:flex;align-items:center;gap:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#999999" stroke-width="1.5"></circle><path d="M5.5 5.5C5.5 4.7 6.1 4 7 4s1.5.7 1.5 1.5c0 1-1.5 1.5-1.5 2.5" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><circle cx="7" cy="10.5" r="0.75" fill="#999999"></circle></svg><span style="font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999">Example</span><span style="font-size:0.88rem;font-weight:600;color:var(--ifm-font-color-base);letter-spacing:0">One-To-Many matching</span></div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="#999999" stroke-width="1.5"></rect><path d="M4 5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><line x1="1" y1="9" x2="13" y2="9" stroke="#999999" stroke-width="1.5"></line></svg></button><div style="padding:16px 18px;background:rgba(131,131,131,0.03);font-size:1rem;line-height:1.75;color:#c2c2c2ff"><ul>
+<li class="">The House Transaction shows a cash movement of $266,596,105 settled on 10/8/2022.</li>
+<li class="">The Counterparty shows three Transactions: a cash movement of $266,373,400, a cash
+movement of $1,290, and a cash movement of $221,415.</li>
+</ul><p>In reality, the first Transaction moved $222,705 less than required, and the shortfall was
+later transferred in two portions because of an accountant&#x27;s miscalculation. In Hazeltree,
+only one Transaction was created to represent this cash movement.</p><p>During algorithmic matching, the three Counterparty Transactions should be matched to the
+single House Transaction. The Fuzzy algorithm searches for the Transaction Reference ID in
+the Ref ID and Description fields. The match can be Strong (Confidence Level of 100%) or
+Weak (Confidence Level below 100%).</p><p><img decoding="async" loading="lazy" alt="transaction-matching-image-009" src="/KBDZ/assets/images/image009-9322507f27e8336f6efe6cb7d2a48a53.png" width="1117" height="433" class="img_ev3q"></p><p>The House Transaction is matched to the three Counterparty Transactions using the Reference
+Number ID MONSTSTHK125101IHRA2B5S, found in the Transaction Ref ID field (for the primary
+Transaction with the incorrect Amount) and the Description field (for the two complementary
+Transactions). The Transaction Matching screen then displays the group:
+<img decoding="async" loading="lazy" alt="transaction-matching-image-008" src="/KBDZ/assets/images/image008-a7bc4cb01ee9d759a6d3ecc0e0d3420d.png" width="1526" height="323" class="img_ev3q"></p><ol>
+<li class=""><strong>Grouped Transactions</strong>: the group of Transactions matched in M<!-- -->:N<!-- --> mode. The group
+Status is Matched, and the Description shows the details of the matching process.</li>
+<li class=""><strong>Expanded group with details</strong>: the same group, expanded to show each matched
+Transaction and its Confidence Level.</li>
+</ol></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="many-to-one">Many-To-One<a href="#many-to-one" class="hash-link" aria-label="Direct link to Many-To-One" title="Direct link to Many-To-One" translate="no">​</a></h3>
+<p>Many-To-One Transaction Matching connects several Transactions from the House side to one
+Transaction from the Counterparty side. It covers cases where multiple House-side
+Transactions stand for a single Counterparty-side Transaction.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>This is a special case where several Transactions are created in Hazeltree under one
+Voucher, all sharing the same Transaction Reference Number (inherited from the Voucher).
+The Counterparty side sends a single wire for the sum of all Transactions in the Voucher
+and reports the Voucher&#x27;s Reference Number. The Fuzzy logic then groups the Hazeltree
+Transactions with the single Broker wire based on the identical Reference Number.</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="many-to-many">Many-To-Many<a href="#many-to-many" class="hash-link" aria-label="Direct link to Many-To-Many" title="Direct link to Many-To-Many" translate="no">​</a></h3>
+<p>Many-To-Many Transaction Matching connects several Transactions from the House side to
+several Transactions from the Counterparty side. It covers cases where multiple House-side
+Transactions stand for a set of multiple Counterparty-side Transactions.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>NOTE</div><div class="admonitionContent_BuS1"><p>The number of House Transactions and Counterparty Transactions can differ (for example,
+four House Transactions matched to three Counterparty Transactions) or be equal. In either
+case, the matching process relies on the Reference Number value across the whole set of
+grouped Transactions.</p></div></div>
+<div style="margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid rgba(131,131,131,0.15)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:rgba(131,131,131,0.07);border:none;border-bottom:1px solid rgba(131,131,131,0.15);cursor:pointer;text-align:left"><div style="display:flex;align-items:center;gap:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#999999" stroke-width="1.5"></circle><path d="M5.5 5.5C5.5 4.7 6.1 4 7 4s1.5.7 1.5 1.5c0 1-1.5 1.5-1.5 2.5" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><circle cx="7" cy="10.5" r="0.75" fill="#999999"></circle></svg><span style="font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#999999">Example</span><span style="font-size:0.88rem;font-weight:600;color:var(--ifm-font-color-base);letter-spacing:0">Many-To-Many matching</span></div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="#999999" stroke-width="1.5"></rect><path d="M4 5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#999999" stroke-width="1.5" stroke-linecap="round"></path><line x1="1" y1="9" x2="13" y2="9" stroke="#999999" stroke-width="1.5"></line></svg></button><div style="padding:16px 18px;background:rgba(131,131,131,0.03);font-size:1rem;line-height:1.75;color:#c2c2c2ff"><p>The Many-To-Many case is the most common in Transaction Matching. To display all right-side
+Transactions matched to the set of left-side Transactions, expand the group and scroll its
+Transaction list.</p><p><img decoding="async" loading="lazy" alt="transaction-matching-image-010" src="/KBDZ/assets/images/image010-e7984d4c973a806803c9e1bb12d40a02.png" width="1475" height="321" class="img_ev3q"></p><ol>
+<li class=""><strong>Grouped Transactions</strong>: the group of Transactions matched in M<!-- -->:N<!-- --> mode. The group
+Status is Matched, and the Description shows the details of the matching process.</li>
+<li class=""><strong>Expanded group with details</strong>: the same group, expanded to show every matched
+Transaction on both sides.</li>
+</ol><p>The Many-To-Many case carries the highest risk of error because of the number of entities
+involved, especially early in the Fuzzy engine&#x27;s self-learning process for a given client.
+To correct a Many-To-Many group manually, users can exclude the excess Transactions from it.
+<img decoding="async" loading="lazy" alt="transaction-matching-image-011" src="/KBDZ/assets/images/image011-8f5df7f2538a1490fec59d762040276d.png" width="818" height="164" class="img_ev3q"></p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cross-grouping-through-11-matching">Cross Grouping Through 1:1 Matching<a href="#cross-grouping-through-11-matching" class="hash-link" aria-label="Direct link to Cross Grouping Through 1:1 Matching" title="Direct link to Cross Grouping Through 1:1 Matching" translate="no">​</a></h2>
+<p>The Fuzzy logic of Transaction matching includes a special mode that extends the algorithm
+and adds precision. It is called Cross Grouping through 1:1 Matching.</p>
+<p>Cross Grouping works through an additional algorithm step in which one Transaction from an
+already formed group is matched with one Transaction from a different formed group. As a
+result, the two groups are merged into one.</p>
+<img src="/KBDZ/img/case-5-transactions-matching/image012.png" alt="Image 012" style="width:100%;max-width:100%;cursor:zoom-in;border-radius:8px;border:1px solid rgba(131,131,131,0.2)">
+<ol>
+<li class="">The Counterparty Transaction with ID 649130 is matched in M<!-- -->:N<!-- --> mode via the Transaction
+Reference Number (Ref ID) T320365BGH0. Under the Fuzzy logic of M<!-- -->:N<!-- --> matching, a matching
+Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%.</li>
+<li class="">The Counterparty Transaction with ID 650085 is matched in M<!-- -->:N<!-- --> mode via the Ref ID
+T320365BGH0. Here the Ref ID was retrieved from the Transaction Description field, so the
+calculated Confidence Level is 95%. Transactions 649130 and 650085 are grouped as a Voucher
+from the Broker (Counterparty side).</li>
+<li class="">The House Transaction with ID 640951 is matched in M<!-- -->:N<!-- --> mode via the Ref ID 4714978. A
+matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%.</li>
+<li class="">The House Transaction with ID 637179 is matched in M<!-- -->:N<!-- --> mode via the Ref ID 4714978.
+Again, a matching Ref ID in the Transaction Reference ID field yields a Confidence Level of
+100%. Transactions 640951 and 637179 are grouped as a Voucher on the House side.</li>
+<li class="">During the parallel 1:1 matching process, Transaction 649130 (Counterparty side) and
+Transaction 640951 (House side) are matched on similar values in the following fields:<!-- -->
+<ul>
+<li class="">Net Amount Local</li>
+<li class="">Currency Code</li>
+<li class="">Account</li>
+<li class="">Trade Date</li>
+<li class="">Settlement Date</li>
+</ul>
+</li>
+</ol>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>NOTE</div><div class="admonitionContent_BuS1"><p>The calculated Confidence Level is 82%. The drop from 100% is caused by an unmatched
+Transaction Type field (the House-side field is empty). 82% is still enough for automatic
+matching, since it is below 100% but above the Min Confidence Level threshold. All
+Transactions are shown as one group on the Transaction Matching screen.</p></div></div>
+<p>If the automatic grouping through 1:1 Matching is erroneous, users can manually ungroup the
+Transactions on the Transaction Matching screen:</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-013" src="/KBDZ/assets/images/image013-1757972fff046eb92734b55a4e95142b.png" width="690" height="237" class="img_ev3q"></p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>IMPORTANT</div><div class="admonitionContent_BuS1"><p>When a Transaction group created through Cross Grouping is ungrouped manually, the 1:1
+connection between the two linking Transactions is broken and barred from future algorithmic
+matching. This connection is excluded from the search space for 1:1 Matching, and the system
+looks for a new pair. The M<!-- -->:N<!-- --> connections established before the Cross Grouping remain intact.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="transaction-matching-screen">Transaction Matching Screen<a href="#transaction-matching-screen" class="hash-link" aria-label="Direct link to Transaction Matching Screen" title="Direct link to Transaction Matching Screen" translate="no">​</a></h2>
+<p><strong>The Transaction Matching screen</strong> is the result screen of the Algorithmic Matching
+reconciliation process. It displays the Transaction groups formed by the Fuzzy engine,
+along with the single Transactions that remain unmatched.</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-014" src="/KBDZ/assets/images/image014-511e9c463345573da7b6c828f7fc41cb.png" width="1208" height="421" class="img_ev3q"></p>
+<ol>
+<li class=""><strong>Upper toolbar filters</strong>: filters that narrow the Transactions shown on the grid.</li>
+<li class=""><strong>Upper toolbar buttons</strong>: operational buttons for working with the Transaction entities
+on the grid (Reprocess, Group, Vet, Merge, Create Internal Transaction).</li>
+<li class=""><strong>Grid</strong>: the list of Transactions (Grouped, Internal, and External) for the selected
+period.</li>
+<li class=""><strong>Context menu</strong>: the options available for the selected Transaction or Transactions.</li>
+</ol>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Transaction Matching screen provides tools that let users control the Algorithmic
+Matching process: Grouping, Vetting, and Merging.</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="group-transactions">Group Transactions<a href="#group-transactions" class="hash-link" aria-label="Direct link to Group Transactions" title="Direct link to Group Transactions" translate="no">​</a></h3>
+<p>Group Transactions is a context-menu option that appears when two or more Transactions are
+selected on the grid. It combines the Transactions into a single group.</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-015" src="/KBDZ/assets/images/image015-387bf6e9b1282c764edb2df3387d4aad.png" width="405" height="198" class="img_ev3q"></p>
+<p>When clicked, it opens the Transaction Group Editor in a pop-up window that shows the
+selected Transactions from the House side and the Counterparty side. Here you can add a
+Status, Tags, Business Status, and Description to the group.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Transaction Group Editor is also used to edit Transaction Groups — for example, to
+exclude incorrectly added Transactions. The editor is described below:</p></div></div>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-016" src="/KBDZ/assets/images/image016-53780c9af5d46a9d84be4290fb00e272.png" width="765" height="635" class="img_ev3q"></p>
+<ol>
+<li class=""><strong>General group settings</strong>: the Group Name, Status, Business Status, and Tags parameters.</li>
+<li class=""><strong>Internal</strong>: the collection of House-side (Internal) Transactions matched with the
+External Transactions. The sub-grid shows the Confidence Level from the Algorithmic Matching
+results and other system parameters (Vet status, Group status).</li>
+<li class=""><strong>External</strong>: the collection of Counterparty-side (External) Transactions matched with
+the Internal Transactions. The sub-grid shows the Confidence Level from the Algorithmic
+Matching results and other system parameters (Vet status, Group status).</li>
+<li class=""><strong>Description</strong>: a note field for adding commentary about the nature of the group and the
+technical details of how it was formed.</li>
+</ol>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>Status and Business Status are different parameters of the Transaction Group. The Status
+field shows the state of matching progress (Matched, Partially Matched, Unmatched, Other).
+Business Status is a customizable value that shows additional information about the group
+(Awaiting More Transactions, Free to Edit, and so on). Business Status values are customized
+through the Dictionaries tool in the Reference Data module.</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vet-transactions-and-transaction-groups">Vet Transactions and Transaction Groups<a href="#vet-transactions-and-transaction-groups" class="hash-link" aria-label="Direct link to Vet Transactions and Transaction Groups" title="Direct link to Vet Transactions and Transaction Groups" translate="no">​</a></h3>
+<p>Vet Transactions and Transaction Groups is an option that lets users flag entities as Vetted
+(that is, checked). Once a Transaction or Transaction Group is vetted, it no longer
+participates in subsequent iterations of the Algorithmic Matching process.</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-017" src="/KBDZ/assets/images/image017-1db630895291b5238bce7ef8bf3c8e80.png" width="496" height="170" class="img_ev3q"></p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>This option lets users regulate how many entities go through the Algorithmic Matching
+procedure. When the Vet status is removed from Transactions, they immediately become
+candidates again for the next iterations of the process.</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="merge-transaction-groups">Merge Transaction Groups<a href="#merge-transaction-groups" class="hash-link" aria-label="Direct link to Merge Transaction Groups" title="Direct link to Merge Transaction Groups" translate="no">​</a></h3>
+<p>The Merge Transaction Groups option lets users manually combine formed Transaction Groups
+into a single unit. This context-menu option appears when two or more Transaction Groups
+are selected on the grid.</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-018" src="/KBDZ/assets/images/image018-04c8ee8fdfd34acd23ba53d5f03785a6.png" width="538" height="126" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="use-of-the-dictionary">Use of the Dictionary<a href="#use-of-the-dictionary" class="hash-link" aria-label="Direct link to Use of the Dictionary" title="Direct link to Use of the Dictionary" translate="no">​</a></h3>
+<p>Algorithmic Transaction Matching uses a self-learning Fuzzy engine that improves its
+accuracy with every iteration by analyzing the processed data and manual corrections. Fuzzy
+matching precision is further improved by custom tags assigned to Transactions. These tags,
+called Transaction Classifications, are created and managed on the Dictionaries screen
+(Reference Data module).
+<img decoding="async" loading="lazy" alt="transaction-matching-image-019" src="/KBDZ/assets/images/image019-3228d7230f4e47c28551aeb9528e91ca.png" width="809" height="303" class="img_ev3q"></p>
+<p>Transaction Classification tags can be mapped to the Transaction attributes Transaction Code
+and Source. The mapping screen is opened with the context-menu option Add Transaction
+Classification Mapping:</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-020" src="/KBDZ/assets/images/image020-2526d60a43c5470914681147844b6884.png" width="508" height="228" class="img_ev3q"></p>
+<p>For example, a user maps the Transaction Classification S103_T to the Internal code (see the
+screenshot below). The Classification Code for this Transaction then takes the Internal
+value. If no mapping is found, the Classification Code field stays empty.</p>
+<p><img decoding="async" loading="lazy" alt="transaction-matching-image-021" src="/KBDZ/assets/images/image021-34e8a3f63f377d80f365e5ac8a808a1c.png" width="693" height="321" class="img_ev3q"></p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>Transaction Classification mapping has a positive effect on the Predicates calculated during
+1:1 Matching, so the Confidence Level rises and matching becomes more reliable.</p></div></div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/KBDZ/docs/portfolio/Case-4-Optimizer"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Case 4: Optimizer Guide</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/KBDZ/docs/portfolio/releasenotes"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Release Notes</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#introduction" class="table-of-contents__link toc-highlight">Introduction</a></li><li><a href="#working-principle-and-logic" class="table-of-contents__link toc-highlight">Working Principle and Logic</a></li><li><a href="#case-1-one-to-one-matching" class="table-of-contents__link toc-highlight">Case 1: One-To-One Matching</a><ul><li><a href="#step-1-search-space-formation" class="table-of-contents__link toc-highlight">Step 1: Search space formation</a><ul><li><a href="#launching-algorithmic-matching" class="table-of-contents__link toc-highlight">Launching Algorithmic Matching</a></li></ul></li><li><a href="#step-2-pair-similarity-calculation" class="table-of-contents__link toc-highlight">Step 2: Pair Similarity calculation</a></li><li><a href="#step-3-best-pair-selection" class="table-of-contents__link toc-highlight">Step 3: Best pair selection</a></li><li><a href="#step-4-automatic-grouping-and-vetting" class="table-of-contents__link toc-highlight">Step 4: Automatic grouping and vetting</a></li></ul></li><li><a href="#case2-m-matching" class="table-of-contents__link toc-highlight">Case2: M Matching</a><ul><li><a href="#one-to-many" class="table-of-contents__link toc-highlight">One-To-Many</a></li><li><a href="#many-to-one" class="table-of-contents__link toc-highlight">Many-To-One</a></li><li><a href="#many-to-many" class="table-of-contents__link toc-highlight">Many-To-Many</a></li></ul></li><li><a href="#cross-grouping-through-11-matching" class="table-of-contents__link toc-highlight">Cross Grouping Through 1:1 Matching</a></li><li><a href="#transaction-matching-screen" class="table-of-contents__link toc-highlight">Transaction Matching Screen</a><ul><li><a href="#group-transactions" class="table-of-contents__link toc-highlight">Group Transactions</a></li><li><a href="#vet-transactions-and-transaction-groups" class="table-of-contents__link toc-highlight">Vet Transactions and Transaction Groups</a></li><li><a href="#merge-transaction-groups" class="table-of-contents__link toc-highlight">Merge Transaction Groups</a></li><li><a href="#use-of-the-dictionary" class="table-of-contents__link toc-highlight">Use of the Dictionary</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Dmitrii Zhukov. Powered with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

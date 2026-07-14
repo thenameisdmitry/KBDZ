@@ -98,8 +98,8 @@ Actions produced by the Algos it contains.
 4. **Blotter**: generated Suggested Actions populate the Suggested Actions Blotter, where 
 users can review the recommendations and post them.
 5. **Suggested Actions Posting**: users can post selected Suggested Actions as 
-Transactions (*Vouchers*), Payments (*Cashflows*), Overrides (*Security* *Finance*), 
-Book Movements (*Collateral* *Management*), or bulk-post all generated Suggested Actions.
+Transactions (*Vouchers*), Payments (*Cashflows*), Overrides (*Security Finance*), 
+Book Movements (*Collateral Management*), or bulk-post all generated Suggested Actions.
 
 :::info INFORMATION
 Each Algo has an individual objective, which is described in the Algo’s description. For example, an Algo can suggest closing negative balances with high interest rates by moving funds to the account with the lowest rate within a portfolio. Below is an example of this Algo:
@@ -202,7 +202,7 @@ It also includes an Expression field where the Algo code is written and validate
 field name, it will automatically populate the Expression window.
 2. **Expression**: the Algo’s code. Code is written using the C# programming language.
 3. **Expression map**: minimized image of the Expression code sheet.
-4. **General settings**: specify *Name*, *Description*, *Algo Type*, *and* *Public state*.
+4. **General settings**: specify *Name*, *Description*, *Algo Type*, and *Public state*.
 5. **Custom parameters**: set up custom parameters used in the Algo’s Expression.
 6. **Data Source parameters**: set up Data Source parameters used in the Algo’s Expression.
 7. **Collapse button**: use it to shrink the *Data source fields* (1) and the *Settings* 
@@ -235,7 +235,7 @@ accordingly.
 3. **Status**: after the Expression is validated, you can proceed to the *Test Run* tab 
 for testing.
 
-In case of failed validation, the logs with errors description and troubleshooting tips 
+In case of failed validation, the logs with error descriptions and troubleshooting tips 
 are displayed at the bottom of the Expression window:
 
 ![optimizer-014](/img/case-4-optimizer/image014.png)
@@ -265,7 +265,7 @@ in the base currency that must be covered and generates Suggested Actions to cov
 
 ![optimizer-017](/img/case-4-optimizer/image017.png)
 
-If we look at the Cash Board prior to running the Algo, we can see two Positions with 
+If we look at the Cashboard prior to running the Algo, we can see two Positions with 
 negative Free Cash:
 
 ![optimizer-016](/img/case-4-optimizer/image016.png)
@@ -281,7 +281,7 @@ This is a simplified example that demonstrates the Optimizer’s approach and po
 
 ## Solutions screen
 
-**Solutions** screen lists Solutions in a single grid. It includes an embedded Solutions 
+**Solutions** screen lists Solutions in a single grid. It includes an embedded Solution 
 Editor for configuring Solutions and running test runs.
 
 <Term name="Solution">
@@ -327,10 +327,10 @@ test runs:
 
 1. **Upper toolbar**: operational buttons for *Test Run, Update* and *Cancel*.
 2. **Tabs**: the *Details* tab is used for Solution configuration and the *Test Run* tab is 
-used to Solution’s test.
-3. **General settings**: Solution’s parameters (*Name\*, Description, Solution Type, Is 
-Public *and* Module*)
-4. **Algos ribbon**: allows to add Algos to the Solution, apply preconfigured Filters, and 
+used to test the Solution.
+3. **General settings**: Solution’s parameters (*Name*, *Description*, *Solution Type*, *Is 
+Public*, and *Module*).
+4. **Algos ribbon**: lets you add Algos to the Solution, apply preconfigured Filters, and 
 establish the work order of the Algos.
 5. **Algos**: list of the Algos that constitute the Solution. The top Algo runs first when 
 the Solution is triggered.
@@ -349,7 +349,7 @@ are registered in the Sessions screen:
 ![optimizer-023](/img/case-4-optimizer/image023.png)
 
 1. **Test Run button**: launch the test process.
-2. **Algos parameters**: specify the parameters of all Algos comprised within the Solution.
+2. **Algos parameters**: specify the parameters of all Algos included in the Solution.
 3. **Tabs**: Suggested Actions, Trace Messages (test run logs) and Data Sources used in the 
 Solution’s Test Run.
 4. **Suggested Actions**: generated during the test run.
@@ -379,7 +379,7 @@ the Blotter grid.
 1. **Solution**: select the Solution from the list.
 2. **AutoPosting**: check the box to enable the system to automatically publish 
 Suggested Actions (as *Transactions, Overrides, Book Movements, Payments, etc.*).
-3. **Data parameters**: specify all parameters required for Solution’s process.
+3. **Data parameters**: specify all parameters required for the Solution run.
 4. **Run**: after all data parameters are specified, click Run to start the Optimizer 
 engine. After the Optimizer job completes, all generated Suggested Actions populate the 
 Blotter grid.
@@ -422,7 +422,7 @@ after the cause of the issue is fixed.
 
 ## Filters screen
 
-**Filters** screen stores filters used in Solutions to control the Algos outcome:
+**Filters** screen stores filters used in Solutions to control the Algos’ outcome:
 
 ![optimizer-030](/img/case-4-optimizer/image030.png)
 
@@ -446,15 +446,15 @@ The user goes to the Filters screen and opens the Filter Editor:
 
 ![optimizer-032](/img/case-4-optimizer/image032.png)
 
-1. **Upper toolbar**: use to *Validate*, *Update* or *Cancel.*
+1. **Upper toolbar**: use to *Validate*, *Update*, or *Cancel*.
 2. **Data Sources**: list of available fields from the selected Data Source.
 3. **Expression**: write a filter’s expression. This example demonstrates how the filter 
-hides results higher than minus million.
+hides results higher than minus one million.
 4. **General settings**: filter’s *Name, Description, Type* and *Public status*, plus the 
-custom and Data Source parameters
+custom and Data Source parameters.
 
 When the filter is ready (validated and saved), it can be applied to Solutions within the system. 
-The user then opens the Solutions Editor and selects the new filter for the Solution that runs 
+The user then opens the Solution Editor and selects the new filter for the Solution that runs 
 the *Cover Debits in Base Currencies* Algo.
 
 ![optimizer-031](/img/case-4-optimizer/image031.png)
@@ -498,7 +498,7 @@ want to see the results for.
 the working area.
 3. **Widget properties**: use to customize the widgets.
 
-The Optimizer screen stores the following widgets:
+The Portal screen stores the following widgets:
 
 | **Widget Name** | **Widget Type** | **Description** |
 | --- | --- | --- |
@@ -513,7 +513,7 @@ This section contains the full library of Solutions and Algos shipped with the O
 
 :::warning IMPORTANT
 Due to strict confidentiality policy, the **System Algos Registry** cannot be 
-published as part of this portfolio. The registry contains Algo’s name, business purpose, 
+published as part of this portfolio. The registry contains each Algo’s name, business purpose, 
 underlying logic/working algorithm, and C# source code with detailed inline comments. The 
 registry is designed to enable third‑party developers to build their own Algos by extending 
 system patterns and modifying specific clauses or programmed actions. Sharing this material 

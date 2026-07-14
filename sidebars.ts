@@ -19,11 +19,12 @@ const sidebars: SidebarsConfig = {
         'portfolio/Case-2-Approver-App',
         'portfolio/Case-3-GL-Manager',
         'portfolio/Case-4-Optimizer',
+        'portfolio/Case-5-Transaction-Matching',
       ],
     },
     'portfolio/releasenotes',
     'portfolio/code-samples',
-    
+    'portfolio/How-I-Work',
   ],
 
 };

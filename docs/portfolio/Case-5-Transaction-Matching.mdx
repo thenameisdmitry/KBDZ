@@ -1,0 +1,580 @@
+---
+id: Case-5-Transaction-Matching
+title: "Case 5: Transaction Matching Guide"
+---
+
+import LightboxImage from '@site/src/components/ExpandSchemas';
+import Term from '@site/src/components/Term';
+import Example from '@site/src/components/Example';
+
+# Case 5: Transaction Matching Guide
+
+<div style={{
+  border: '1px solid rgba(131,131,131,0.2)',
+  borderLeft: '3px solid #999999',
+  borderRadius: '8px',
+  padding: '24px 28px',
+  marginBottom: '40px',
+  background: 'rgba(131,131,131,0.04)',
+}}>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Format</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Knowledge base guide combining an explanation of algorithmic transaction matching principles with a practical user guide for the Transaction Matching module.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Target Readers</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Reconciliation analysts, operations analysts, accountants, and financial operations specialists responsible for validating and resolving transaction discrepancies.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Description</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Technical reference and onboarding guide explaining the scientific principles behind algorithmic transaction matching across heterogeneous data sources. Also provides a complete walkthrough of the Transaction Matching interface supported by real-world reconciliation scenarios and live case examples.</p>
+</div>
+
+<div>
+  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Served as the primary reference for six of the company's largest reconciliation clients, improving adoption of advanced transaction matching workflows and reducing analyst onboarding time. The documentation also supported customer enablement efforts that contributed to two existing clients purchasing the Reconciliation Manager module.</p>
+</div>
+
+</div>
+</div>
+
+## Introduction
+
+**Transaction Matching** is a critical step of the Transaction Reconciliation process. It 
+matches Transaction records between the House side (Company) and the Counterparty side 
+(Broker, Bank, or Accounting system). The Algorithmic Transaction Matching process runs on 
+Hazeltree's in-house engine, built on Fuzzy logic at its core.
+
+:::note ALGORITHMIC TRANSACTION MATCHING PROCESS
+
+The purpose of comparing Transactions from two sources (House and Counterparty) with the Fuzzy 
+logic is to provide customers with control over the integrity and correctness of real live assets 
+movements. The variety and complexity of financial operations wired through multiple institutions 
+requires a special approach that is embodied in the Fuzzy logic engine.
+
+For example, when a set of international Transactions is wired, they go through intermediary 
+Banks before the assets are deposited on the receiving Account. The client needs to understand 
+what Transactions have been settled and what Transactions are still in progress. The Bank forms 
+the report files of today’s operations and sends them to the client. Then the Hazeltree party 
+processes these files and compares retrieved data with the House data. Consequently, the client 
+sees the big picture and understands what Transactions have been completed and what Transaction 
+are yet to come. 
+
+The Algorithmic self-learning engine allows to significantly streamline the process of Transactions 
+matching and mitigates the risk of inaccurate matching, providing clients with quick and solid 
+results
+:::
+
+<Example title="Algorithmic Transaction Matching in a Private Equity deal">
+
+Algorithmic Transaction Matching is best illustrated through a Private Equity scenario.
+
+A client issues an Investor Call letter and creates a Voucher with multiple Transactions 
+from the posted Cashflow Transfers. Naturally, the client needs to track the incoming 
+investments until the call is fulfilled, and such investments usually take time to be 
+agreed on and wired.
+
+The Transaction Matching screen gives the client a single control point for monitoring the 
+steady stream of incoming investment Transactions. Because the number of incoming 
+Transactions can be large and their settlement timing varies, the client delegates 
+Transaction comparison and matching to the Fuzzy engine. The user's job is to verify the 
+integrity of the matching process and analyze the results.
+
+Once the final Transactions are wired and reported, the client can confirm whether 
+everything was transferred according to the business plan, or whether there are 
+discrepancies to raise with the Investors.
+
+</Example>
+
+## Working Principle and Logic
+
+The Algorithmic Transaction Matching process combines several approaches that improve 
+accuracy and integrity. It is a multi-step procedure, shown in the diagram below:
+
+<LightboxImage
+  src="/img/case-5-transactions-matching/image003.png"
+  alt="Image 003"
+  style={{ width: '100%', maxWidth: '100%' }}
+/>
+
+1. **Input**: the Fuzzy algorithm starts with the full set of Transactions that participate 
+in the algorithmic matching process. This set is assembled on the Transaction Matching 
+screen when the user starts Algorithmic Matching.
+2. **Fuzzy Transaction Matching**: the process runs in two parallel modes — 1:1 Matching 
+and M:N Matching.
+3. **1:1 relations**: relations are established between a single right-side Transaction 
+(Broker) and a single left-side Transaction (House). This mode is called One-To-One and is 
+based on the calculated Confidence Level.
+4. **M:N relations**: relations are established among right-side Transactions (Broker) and 
+left-side Transactions (House). This mode is called Many-To-Many and works in several 
+combinations (Many-To-One, One-To-Many, and Many-To-Many). Matching in this mode is based 
+on the Reference Number ID.
+5. **Cross-group link identification**: an auxiliary step of the M:N relations that looks 
+for possible matches among the individual Transactions in the groups formed by M:N 
+matching. The search is based on the Reference Number ID.
+6. **Cross-group relations**: cross-group matches are established. As a result, a single 
+Transaction can belong to two or more subgroups (for example, when it carries multiple 
+Reference Number IDs in the Description field).
+7. **Subgroups merge**: the subgroups formed by M:N mode are fused through a 1:1 match 
+established between members of different groups. This mode is called Cross Grouping through 
+1:1 Matching.
+8. **Output**: the resulting groups are displayed on the Transaction Matching grid with 
+their calculated Confidence Levels.
+
+Because Transaction records are held differently across accounting institutions, the 
+Transaction Matching process runs in three modes:
+
+- **One-To-One** — one Transaction to one Transaction.
+- **M:N Matching**, with three variations:
+  - **One-To-Many** — one Transaction to many Transactions.
+  - **Many-To-One** — many Transactions to one Transaction.
+  - **Many-To-Many** — many Transactions to many Transactions.
+- **Cross Grouping through 1:1 Matching** — Many-To-Many groups linked through a 
+One-To-One match and an established cross-group connection.
+
+These different approaches exist because the number of Transaction records can differ 
+between the House and Counterparty sides.
+
+:::note NOTE
+The One-To-One mode follows a dedicated algorithm that involves forming a search space. 
+The One-To-Many, Many-To-One, and Many-To-Many modes are special cases of M:N matching, 
+which follows a separate algorithm based on finding and matching Transactions by their 
+Reference Number. Both matching processes run in parallel, with neither taking priority. 
+Cross Grouping runs after the 1:1 and M:N matching processes finish.
+:::
+
+## Case 1: One-To-One Matching
+
+**One-To-One Transaction Matching** connects one Transaction from the House side to one 
+Transaction from the Counterparty side. It is the simplest matching case, and the process 
+proceeds as follows:
+![transaction-matching-image-004](/img/case-5-transactions-matching/image004.png)
+
+### Step 1: Search space formation
+
+A search space is formed for the ungrouped Transactions from the left side (House) and the 
+right side (Counterparty).
+
+<Term name="Search space">
+A set of right-side and left-side Transactions that participate in the Algorithmic Matching 
+process. Before the process starts, the search space is filtered: Transactions with the 
+Vetted status and Transaction groups are excluded.
+</Term>
+
+:::info INFORMATION
+Once the search space is formed, the right-side and left-side Transactions are multiplied 
+using the Cross Join method (every right-side Transaction is compared with every left-side 
+Transaction). To optimize the process and avoid server memory overload, the Cross Join 
+method compares a set of parameters: Currency, Amount, Settlement Date, and Trade Date. The 
+Amount, Settlement Date, and Trade Date parameters have configurable thresholds that widen 
+the room for matching. These thresholds are configured through Company Preferences.
+:::
+
+#### Launching Algorithmic Matching
+
+Transaction data is loaded by the regular Sync Manager process, Client Writer Update. By 
+default, this process is launched by Sync Manager according to the Sync Manager Scheduler. 
+It takes all Transactions from the House and Counterparty sides for a period of T-30 days 
+(today minus thirty).
+
+:::info INFORMATION
+Users can also re-run Algorithmic Matching from the Hazeltree interface and set the 
+coverage period manually. On the Transaction Matching screen, set the following Upper 
+toolbar filters before starting Algorithmic Matching:
+![transaction-matching-image-005](/img/case-5-transactions-matching/image005.png)
+
+- Date Type (Trade Date or Settlement Date)
+- Date From
+- Date To
+
+Once these parameters are set, the Transactions appear on the grid. To launch the Fuzzy 
+logic engine, click **Reprocess**.
+:::
+
+Forming the search space from the full set of Transactions is unique to One-To-One mode; 
+it does not apply to M:N mode.
+
+All manually ungrouped Transactions (those removed from groups by users) are excluded from 
+matching in later iterations of Algorithmic Matching. The system seeks new pairs and leaves 
+the ungrouped Transactions out of the pool of candidates. A Transaction's ungrouped state 
+is marked in a dedicated column on the Transaction Matching screen: Is Ungrouped.
+
+### Step 2: Pair Similarity calculation
+
+Pair Similarity is calculated for the Transactions inside the search space using three 
+Predicates for particular field groups. A search space can contain multiple matching 
+candidates, so to decide which candidate is correct, the Recon engine calculates Pair 
+Similarity. This value is assembled from three Predicates computed for every candidate.
+
+<Term name="Predicate">
+A variable representing Transaction matching strength, used to compute Pair Similarity. 
+Predicates are based on the matching fields of the reconciled right-side (Counterparty) and 
+left-side (House) Transactions. The Algorithmic Transaction Matching process uses three 
+Predicates: Main qualitative required features (Trade Date, Settlement Date, Currency, 
+Security, Account, Portfolio), Main quantitative required features (Quantity, Net Amount 
+Local, Market Value Book, Notional Net Amount), and Additional natural-language fuzzy 
+features (Description, Type).
+</Term>
+
+
+Main qualitative required features carry the heaviest weight, 0.4; Main quantitative 
+required features carry a lighter weight, 0.35; and Additional natural-language fuzzy 
+features carry the lightest weight, 0.25. All Predicate weights are dynamic and can range 
+between zero and their maximum value. In an ideal case, when all three Predicates reach 
+their maximum during this step, they add up to a total weight of 1.
+
+
+:::info INFORMATION
+The Fuzzy engine uses a special system column that holds a cumulative description of the 
+internal Transaction's Cashflow, which is compared with the data received from the 
+Counterparty side. This system field is not visible in the Hazeltree interface. It contains 
+the following parameters: Cashflow Name, Legal Entity, Investment, Investor (with their text 
+UDFs), Cashflow Description, and Transfer Name.
+:::
+
+:::note ENTROPY (INFORMATION THEORY) IN MATCHING PROCESS
+During the Predicates’ weight calculation, the Algorithmic Matching process compares the left 
+and right Transactions’ Quantities (Main quantitative required features group), and this is 
+where the Fuzzy engine uses the principle of Entropy (information theory).
+
+In the information theory the entropy is a concept that tells how much information there is 
+in a certain event (in our case, in the Transactions comparison). In general, the more certain 
+or deterministic the comparison is, the less information it needs. Therefore, the comparison 
+of the Quantity values of both Transactions can either increase or decrease in the entropy.
+
+- Example 1: the Quantity of both Transactions is $100,000,000.00. The uncertainty increases, since such flat Quantity can be not unique in the Search space that contains a lot of Transactions. The weight calculated for the Main quantitative required features will decrease.
+- Example 2: the Quantity of both Transactions is $98,104,637.89. The uncertainty decreases, since such number diverse Quantity is most certainly unique in the Search space. The weight calculated for the Main quantitative required features will increase.
+:::
+
+### Step 3: Best pair selection
+
+Based on the calculated Pair Similarity, the algorithm selects the best Transactions to map. 
+The computed Pair Similarities are compared, and the winner is matched. The winner's Pair 
+Similarity becomes the Confidence Level (the mapping certainty value). Based on the 
+Confidence Level, the algorithm decides whether the Transactions should be grouped 
+automatically on the Transaction Matching screen.
+
+### Step 4: Automatic grouping and vetting
+
+Reconciled Transactions are grouped on the grid. Using the winner's Confidence Level, the 
+Fuzzy logic algorithm decides whether the Transactions should be grouped automatically or 
+require manual approval. To do this, it compares the calculated Confidence Level with the 
+system value Min Confidence Level:
+
+- **Confidence Level of 100%**: the two matching Transactions have identical Accounts, 
+Amounts, Settlement Dates, Reference Numbers, and Currencies. The algorithm matches and 
+groups the Transactions automatically.
+- **Below 100% but above the Min Confidence Level**: the algorithm matches and groups the 
+Transactions automatically.
+- **Below the Min Confidence Level but with the same Reference Numbers in the Description or 
+Notes fields**: the algorithm groups the Transactions automatically and sets the Require 
+Approval indicator. It does not match the Transactions automatically.
+
+:::info INFORMATION
+The Algorithmic Transaction Matching process also considers the Payee Codes and Payee Names 
+in the Transaction Description field.
+:::
+
+<Example title="One-To-One matching">
+
+In 1:1 mode, the engine forms a search space for the House-side Transaction and calculates 
+the most accurate pair from the sum of three Predicates that analyze the matching fields.
+
+<LightboxImage
+  src="/img/case-5-transactions-matching/image006.png"
+  alt="Image 006"
+  style={{ width: '100%', maxWidth: '100%' }}
+/>
+
+Once the connection between the two Transactions is established, they are grouped and 
+displayed on the Transaction Matching screen:
+
+<LightboxImage
+  src="/img/case-5-transactions-matching/image007.png"
+  alt="Image 007"
+  style={{ width: '100%', maxWidth: '100%' }}
+/>
+
+1. **Grouped Transactions**: the group of Transactions matched in 1:1 mode. The group Status 
+is Matched, and the Description shows the details of the matching process.
+2. **Expanded group with details**: the user can expand the group and review the 
+Transactions matched during the Algorithmic process. If the match was erroneous, the user 
+can manually ungroup the cluster, which excludes the ungrouped pair from the search space in 
+subsequent iterations of Algorithmic Matching.
+
+</Example>
+
+## Case2: M:N Matching
+
+**M:N Transaction Matching** applies when the number of matched entities differs between the 
+House and Counterparty records. To connect the Transaction records correctly, the Fuzzy 
+engine relies on the Reference Number value.
+
+<Term name="Reference Number">
+A unique numeric identifier assigned to a financial Transaction. It is generated by the 
+system and tied to a single Transaction, helping an institution identify Transactions in 
+its records and databases.
+</Term>
+
+In the Transaction matching process, the Reference Number is a strong anchor that helps 
+identify all interlinked Transactions from the House and Counterparty sides and match them 
+accurately. When searching for a Reference Number, the Fuzzy algorithm scans two fields: 
+the Reference Number field and the Transaction Description.
+
+M:N mode has three variations:
+
+- One Transaction to many Transactions (One-To-Many)
+- Many Transactions to one Transaction (Many-To-One)
+- Many Transactions to many Transactions (Many-To-Many)
+
+:::note NOTE
+This mode does not build a search space of one or several matching candidates. Instead, all 
+Transactions in the algorithmic matching process form the search space. The algorithm 
+assumes there can be an unlimited number of money transfers (additional Transactions, 
+difference returns, corrections, and so on).
+:::
+
+### One-To-Many
+
+One-To-Many Transaction Matching connects one Transaction from the House side to several 
+Transactions from the Counterparty side. It covers cases where a single House-side 
+Transaction stands for several Counterparty-side Transactions.
+
+<Example title="One-To-Many matching">
+
+- The House Transaction shows a cash movement of $266,596,105 settled on 10/8/2022.
+- The Counterparty shows three Transactions: a cash movement of $266,373,400, a cash 
+movement of $1,290, and a cash movement of $221,415.
+
+In reality, the first Transaction moved $222,705 less than required, and the shortfall was 
+later transferred in two portions because of an accountant's miscalculation. In Hazeltree, 
+only one Transaction was created to represent this cash movement.
+
+During algorithmic matching, the three Counterparty Transactions should be matched to the 
+single House Transaction. The Fuzzy algorithm searches for the Transaction Reference ID in 
+the Ref ID and Description fields. The match can be Strong (Confidence Level of 100%) or 
+Weak (Confidence Level below 100%).
+
+![transaction-matching-image-009](/img/case-5-transactions-matching/image009.png)
+
+The House Transaction is matched to the three Counterparty Transactions using the Reference 
+Number ID MONSTSTHK125101IHRA2B5S, found in the Transaction Ref ID field (for the primary 
+Transaction with the incorrect Amount) and the Description field (for the two complementary 
+Transactions). The Transaction Matching screen then displays the group:
+![transaction-matching-image-008](/img/case-5-transactions-matching/image008.png)
+
+1. **Grouped Transactions**: the group of Transactions matched in M:N mode. The group 
+Status is Matched, and the Description shows the details of the matching process.
+2. **Expanded group with details**: the same group, expanded to show each matched 
+Transaction and its Confidence Level.
+
+</Example>
+
+### Many-To-One
+
+Many-To-One Transaction Matching connects several Transactions from the House side to one 
+Transaction from the Counterparty side. It covers cases where multiple House-side 
+Transactions stand for a single Counterparty-side Transaction.
+
+:::info INFORMATION
+This is a special case where several Transactions are created in Hazeltree under one 
+Voucher, all sharing the same Transaction Reference Number (inherited from the Voucher). 
+The Counterparty side sends a single wire for the sum of all Transactions in the Voucher 
+and reports the Voucher's Reference Number. The Fuzzy logic then groups the Hazeltree 
+Transactions with the single Broker wire based on the identical Reference Number.
+:::
+
+### Many-To-Many
+
+Many-To-Many Transaction Matching connects several Transactions from the House side to 
+several Transactions from the Counterparty side. It covers cases where multiple House-side 
+Transactions stand for a set of multiple Counterparty-side Transactions.
+
+:::note NOTE
+The number of House Transactions and Counterparty Transactions can differ (for example, 
+four House Transactions matched to three Counterparty Transactions) or be equal. In either 
+case, the matching process relies on the Reference Number value across the whole set of 
+grouped Transactions.
+:::
+
+<Example title="Many-To-Many matching">
+
+The Many-To-Many case is the most common in Transaction Matching. To display all right-side 
+Transactions matched to the set of left-side Transactions, expand the group and scroll its 
+Transaction list.
+
+![transaction-matching-image-010](/img/case-5-transactions-matching/image010.png)
+
+1. **Grouped Transactions**: the group of Transactions matched in M:N mode. The group 
+Status is Matched, and the Description shows the details of the matching process.
+2. **Expanded group with details**: the same group, expanded to show every matched 
+Transaction on both sides.
+
+The Many-To-Many case carries the highest risk of error because of the number of entities 
+involved, especially early in the Fuzzy engine's self-learning process for a given client. 
+To correct a Many-To-Many group manually, users can exclude the excess Transactions from it.
+![transaction-matching-image-011](/img/case-5-transactions-matching/image011.png)
+
+</Example>
+
+## Cross Grouping Through 1:1 Matching
+
+The Fuzzy logic of Transaction matching includes a special mode that extends the algorithm 
+and adds precision. It is called Cross Grouping through 1:1 Matching.
+
+Cross Grouping works through an additional algorithm step in which one Transaction from an 
+already formed group is matched with one Transaction from a different formed group. As a 
+result, the two groups are merged into one.
+
+<LightboxImage
+  src="/img/case-5-transactions-matching/image012.png"
+  alt="Image 012"
+  style={{ width: '100%', maxWidth: '100%' }}
+/>
+
+1. The Counterparty Transaction with ID 649130 is matched in M:N mode via the Transaction 
+Reference Number (Ref ID) T320365BGH0. Under the Fuzzy logic of M:N matching, a matching 
+Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%.
+2. The Counterparty Transaction with ID 650085 is matched in M:N mode via the Ref ID 
+T320365BGH0. Here the Ref ID was retrieved from the Transaction Description field, so the 
+calculated Confidence Level is 95%. Transactions 649130 and 650085 are grouped as a Voucher 
+from the Broker (Counterparty side).
+3. The House Transaction with ID 640951 is matched in M:N mode via the Ref ID 4714978. A 
+matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%.
+4. The House Transaction with ID 637179 is matched in M:N mode via the Ref ID 4714978. 
+Again, a matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 
+100%. Transactions 640951 and 637179 are grouped as a Voucher on the House side.
+5. During the parallel 1:1 matching process, Transaction 649130 (Counterparty side) and 
+Transaction 640951 (House side) are matched on similar values in the following fields:
+   - Net Amount Local
+   - Currency Code
+   - Account
+   - Trade Date
+   - Settlement Date
+
+:::note NOTE
+The calculated Confidence Level is 82%. The drop from 100% is caused by an unmatched 
+Transaction Type field (the House-side field is empty). 82% is still enough for automatic 
+matching, since it is below 100% but above the Min Confidence Level threshold. All 
+Transactions are shown as one group on the Transaction Matching screen.
+:::
+
+If the automatic grouping through 1:1 Matching is erroneous, users can manually ungroup the 
+Transactions on the Transaction Matching screen:
+
+![transaction-matching-image-013](/img/case-5-transactions-matching/image013.png)
+
+:::warning IMPORTANT
+When a Transaction group created through Cross Grouping is ungrouped manually, the 1:1 
+connection between the two linking Transactions is broken and barred from future algorithmic 
+matching. This connection is excluded from the search space for 1:1 Matching, and the system 
+looks for a new pair. The M:N connections established before the Cross Grouping remain intact.
+:::
+
+## Transaction Matching Screen
+
+**The Transaction Matching screen** is the result screen of the Algorithmic Matching 
+reconciliation process. It displays the Transaction groups formed by the Fuzzy engine, 
+along with the single Transactions that remain unmatched.
+
+![transaction-matching-image-014](/img/case-5-transactions-matching/image014.png)
+
+1. **Upper toolbar filters**: filters that narrow the Transactions shown on the grid.
+2. **Upper toolbar buttons**: operational buttons for working with the Transaction entities 
+on the grid (Reprocess, Group, Vet, Merge, Create Internal Transaction).
+3. **Grid**: the list of Transactions (Grouped, Internal, and External) for the selected 
+period.
+4. **Context menu**: the options available for the selected Transaction or Transactions.
+
+:::info INFORMATION
+The Transaction Matching screen provides tools that let users control the Algorithmic 
+Matching process: Grouping, Vetting, and Merging.
+:::
+
+### Group Transactions
+
+Group Transactions is a context-menu option that appears when two or more Transactions are 
+selected on the grid. It combines the Transactions into a single group.
+
+![transaction-matching-image-015](/img/case-5-transactions-matching/image015.png)
+
+When clicked, it opens the Transaction Group Editor in a pop-up window that shows the 
+selected Transactions from the House side and the Counterparty side. Here you can add a 
+Status, Tags, Business Status, and Description to the group.
+
+:::info INFORMATION
+The Transaction Group Editor is also used to edit Transaction Groups — for example, to 
+exclude incorrectly added Transactions. The editor is described below:
+:::
+
+![transaction-matching-image-016](/img/case-5-transactions-matching/image016.png)
+
+1. **General group settings**: the Group Name, Status, Business Status, and Tags parameters.
+2. **Internal**: the collection of House-side (Internal) Transactions matched with the 
+External Transactions. The sub-grid shows the Confidence Level from the Algorithmic Matching 
+results and other system parameters (Vet status, Group status).
+3. **External**: the collection of Counterparty-side (External) Transactions matched with 
+the Internal Transactions. The sub-grid shows the Confidence Level from the Algorithmic 
+Matching results and other system parameters (Vet status, Group status).
+4. **Description**: a note field for adding commentary about the nature of the group and the 
+technical details of how it was formed.
+
+:::info INFORMATION
+Status and Business Status are different parameters of the Transaction Group. The Status 
+field shows the state of matching progress (Matched, Partially Matched, Unmatched, Other). 
+Business Status is a customizable value that shows additional information about the group 
+(Awaiting More Transactions, Free to Edit, and so on). Business Status values are customized 
+through the Dictionaries tool in the Reference Data module.
+:::
+
+### Vet Transactions and Transaction Groups
+
+Vet Transactions and Transaction Groups is an option that lets users flag entities as Vetted 
+(that is, checked). Once a Transaction or Transaction Group is vetted, it no longer 
+participates in subsequent iterations of the Algorithmic Matching process.
+
+![transaction-matching-image-017](/img/case-5-transactions-matching/image017.png)
+
+:::info INFORMATION
+This option lets users regulate how many entities go through the Algorithmic Matching 
+procedure. When the Vet status is removed from Transactions, they immediately become 
+candidates again for the next iterations of the process.
+:::
+
+### Merge Transaction Groups
+
+The Merge Transaction Groups option lets users manually combine formed Transaction Groups 
+into a single unit. This context-menu option appears when two or more Transaction Groups 
+are selected on the grid.
+
+![transaction-matching-image-018](/img/case-5-transactions-matching/image018.png)
+
+### Use of the Dictionary
+
+Algorithmic Transaction Matching uses a self-learning Fuzzy engine that improves its 
+accuracy with every iteration by analyzing the processed data and manual corrections. Fuzzy 
+matching precision is further improved by custom tags assigned to Transactions. These tags, 
+called Transaction Classifications, are created and managed on the Dictionaries screen 
+(Reference Data module).
+![transaction-matching-image-019](/img/case-5-transactions-matching/image019.png)
+
+Transaction Classification tags can be mapped to the Transaction attributes Transaction Code 
+and Source. The mapping screen is opened with the context-menu option Add Transaction 
+Classification Mapping:
+
+![transaction-matching-image-020](/img/case-5-transactions-matching/image020.png)
+
+For example, a user maps the Transaction Classification S103_T to the Internal code (see the 
+screenshot below). The Classification Code for this Transaction then takes the Internal 
+value. If no mapping is found, the Classification Code field stays empty.
+
+![transaction-matching-image-021](/img/case-5-transactions-matching/image021.png)
+
+:::info INFORMATION
+Transaction Classification mapping has a positive effect on the Predicates calculated during 
+1:1 Matching, so the Confidence Level rises and matching becomes more reliable.
+:::

@@ -105,12 +105,12 @@ field is populated with the transaction’s External notes (if specified) or Int
 notes.
 - **Chart of Accounts parameters***: select the parameters of the GL hierarchy. All 
 parameters are created, managed, and customized in the Dictionary tool 
-(path:* Reference Data module > Preference folder > Dictionaries screen*).
+(path: *Reference Data module > Preference folder > Dictionaries screen*).
 - **Effective Date***: select the date when the GL entry can be included in the 
-ledger books. This field is mandatory. NOTE:** By default, the Effective Date 
+ledger books. This field is mandatory. **NOTE:** By default, the Effective Date 
 repeats the Settlement Date of the selected transaction but can be changed manually.
 - **Credit/Debit***: choose the direction of the asset movement. This field is 
-mandatory.* **INFORMATION***:* In accounting systems, a Credit GL entry for one 
+mandatory. **INFORMATION:** In accounting systems, a Credit GL entry for one 
 account must be paired with a Debit GL entry for another account, and vice versa. 
 When GL entries are generated automatically, these credit/debit entries are created 
 automatically.
@@ -126,7 +126,7 @@ By default, the Reference number is taken from the transaction.
 
 :::info INFORMATION
 The Details section of the GL Allocation Rule may also contain UDFs 
-(User defined fields), if they were implemented for the environment.
+(User Defined Fields), if they were implemented for the environment.
 :::
 
 ---
@@ -169,7 +169,7 @@ section:
 ### GL User Defined Fields
 
 **User Defined Fields** for the GL entries are bespoke fields tailored for every individual 
-client on the step of the system implementation. UDF fields can capture any 
+client during system implementation. UDFs can capture any 
 required additional information.
 
 ![gl-manager-image-014](/img/case-3-gl-manager/image014.png)
@@ -210,13 +210,13 @@ Type parameter and switch it to Edit mode:
 ![gl-manager-image-018](/img/case-3-gl-manager/image018.png)
 
 :::note NOTE
-You can modify certain parameters (*Output format\*, File Name*, File Extension*) 
-and redesign the output message markup (click the* Edit in Designer* button to open the 
+You can modify certain parameters (*Output format*, *File Name*, *File Extension*) 
+and redesign the output message markup (click the *Edit in Designer* button to open the 
 DevExpress designer).
 :::
 
 <Example title="General Ledger entries">
-The voucher contains a single transaction with a settlement date of 7/23/2023: a simple cash wire transfer for $555.000:
+The voucher contains a single transaction with a settlement date of 7/23/2023: a simple cash wire transfer for $555,000:
 
 ![gl-manager-image-025](/img/case-3-gl-manager/image025.png)
 
@@ -270,7 +270,7 @@ parameter is mandatory.
 2. **Name***: specify the name of the GL Allocation Rule. This parameter is mandatory.
 3. **Order***: enter the priority number that determines when the GL Allocation Rule is 
 applied. The order is ascending: 1 is the highest priority, 2 is lower than 1, 3 is lower 
-than 2, and so on. This parameter is mandatory. NOTE:** If a Transaction matches the 
+than 2, and so on. This parameter is mandatory. **NOTE:** If a Transaction matches the 
 conditions of multiple rules, the rule with the highest priority is applied.
 4. **Active**: select this checkbox to activate the rule. Inactive rules are not applied 
 to Transactions.
@@ -308,7 +308,7 @@ The Mapping Template parameters can be selected from two sources:
 
 ![gl-manager-image-038](/img/case-3-gl-manager/image038.png)
 
-- **NOTE:** You can also select a third source (**Not mapped)** which hides the drop-down 
+- **NOTE:** You can also select a third source (**Not mapped**), which hides the drop-down 
 field and leaves the parameter unspecified:
 
 ![gl-manager-image-040](/img/case-3-gl-manager/image040.png)

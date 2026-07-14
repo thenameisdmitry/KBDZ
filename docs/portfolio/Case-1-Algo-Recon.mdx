@@ -150,7 +150,7 @@ A calculated variable that represents the matching strength of Position and Secu
 entities and is used to compute the *Pair Similarity* value. Predicates are based 
 on the matching fields of reconciled right-side and left-side Position items. 
 Algorithmic Recon uses three Predicates: Position required fields (*Quantity* 
-and *Market Value Local*), Security description fields (*ISIN, Cusip, Underlying 
+and *Market Value Local*), Security description fields (*ISIN, CUSIP, Underlying 
 Security, Issuer, Description, etc.*), and Position additional fields (*Market Value 
 Book, Price Local, FX Rate, Daily Accrual Basis, etc.*).
 </Term> 
@@ -182,12 +182,12 @@ When both sides lack data in the compared field, the Recon Strategy is not appli
 does not affect the Predicate result.
 :::
 
-Click on the below image to see the complete Algorithminc reconciliation workflow 
+Click the image below to see the complete Algorithmic reconciliation workflow 
 schema:
 
 <LightboxImage
   src="/img/case-1-algo-recon/image009.png"
-  alt="Algoritchim Recon Schema"
+  alt="Algorithmic Recon Schema"
   style={{ width: '90%' }}
 />
 
@@ -237,7 +237,7 @@ and Settlement Date), there are four candidates for the right-side Security with
 appropriate Security Map Type. Pair Similarity is then calculated for each candidate:
 
 1. **GLTUK2022**: has only one matching *Security Description field*. Pair Similarity is computed as 13% probability.
-2. **GLTUK-RA**: has three matching fields, one of which adds points to the *Position required fields* Predicate. In addition, the critical values in the second *Security description* *field* Predicate match. Pair Similarity is computed at 76% probability.
+2. **GLTUK-RA**: has three matching fields, one of which adds points to the *Position required fields* Predicate. In addition, the critical values in the second *Security description field* Predicate match. Pair Similarity is computed at 76% probability.
 3. **GL-T-UK22**: also has three matching fields, but none align with the highest-weighted Predicate. Pair Similarity is computed at 59% probability.
 4. **GTU**: this candidate has the lowest Pair Similarity at 0 percent probability, since no fields match on the right side.
 
@@ -254,7 +254,7 @@ Based on the calculated Pair Similarity value, the system selects the best Secur
 for mapping.
 
 Position matching based on the highest Pair Similarity leads to a key step in Security 
-Recon: matching Securities within Positions. Securities inherit the Pair Similarity score of their Positions. This Security Pair Similarity determines the mapping strength applied in phase four.
+Recon: matching Securities within Positions. Securities inherit the Pair Similarity score of their Positions. This Security Pair Similarity determines the mapping strength applied in step 4.
 
 The Pair Similarity for Positions (and for Position Securities) is calculated 
 using the engine logic described in Step 2.
@@ -298,8 +298,8 @@ matrix table. The matrix table is available on the [Reinforcement Learning scree
 (#reinforcement-screen).
 
 <Term name = "Reinforcement Learning matrix table"> 
-Dynamic, self-modifying table. Columns represent Confidence Level diapason chanks, 
-and rows represent Distance diapason chanks. These diapason chanks are calculated 
+Dynamic, self-modifying table. Columns represent Confidence Level diapason chunks, 
+and rows represent Distance diapason chunks. These diapason chunks are calculated 
 based on the overall set of Algorithmic mappings: the more mappings are created with 
 different Confidence Levels and Distances, the shorter the diapason chanks become.
 </Term>
@@ -451,7 +451,7 @@ of the screen.
 6. **Owner Definition**: check the box to re-run the Algorithmic Recon for all 
 subsidiary Companies and the Owner company afterward. **NOTE:** If this checkbox is 
 not selected, the Algorithmic Recon will be re-run only for the company selected in 
-the *Override Company* dropdown (3).
+the *Override Company* dropdown (4).
 7. **Description**: brief information about the Algorithmic Recon.
 
 ---
@@ -565,7 +565,7 @@ search space. You can select the required columns in the Column Chooser:
 ![algo-recon-image-22](/img/case-1-algo-recon/image022.png)
 :::
 
-By default, only the most important predicates are stored in the database and are 
+By default, only the most important Predicates are stored in the database and are 
 visible on the Mapping Details screen. However, if the Algorithmic Recon is re-run 
 in debug mode, additional values will populate the Level grid.
 
@@ -864,8 +864,8 @@ enables the engine to calculate actual accuracy for each Confidence Level/Distan
 segment and apply a similar expected accuracy rate to future mappings within the same 
 segment. Segments are divided into three groups:
 
-- **Strong (matrix green cells)**: accuracy is higher than 99,5%.
-- **Weak (matrix yellow cells)**: accuracy is between 98% and 99,5% (that is, at most one error per hundred mappings).
+- **Strong (matrix green cells)**: accuracy is higher than 99.5%.
+- **Weak (matrix yellow cells)**: accuracy is between 98% and 99.5% (that is, at most one error per hundred mappings).
 - **Potential (matrix white cells)**: accuracy is less than 98%.
 
 As a result, the Reinforcement Learning matrix table dynamically adjusts the 
@@ -925,7 +925,7 @@ It also displays each group’s *Accuracy* and *Coverage*:
 - **Accuracy**: calculated as *the total number of suggested mappings verified 
 as correct divided by the total number of suggested verified mappings.*
 - **Coverage**: calculated as *the total number of suggested Broker Security-to-House 
-Security mappings divided by the total number of not mapped Broker Securities.*
+Security mappings divided by the total number of not-mapped Broker Securities.*
 
 ### Learning Details
 

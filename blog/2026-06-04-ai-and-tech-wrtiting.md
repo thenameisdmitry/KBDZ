@@ -1,6 +1,6 @@
 ---
 slug: ai-and-tech-writing
-title: "AI and Technical Writing: Why only competent writers can use AI effectively"
+title: "AI and Technical Writing: Why Only Competent Writers Can Use AI Well"
 authors: [dmitro]
 tags:
   - technical-writing
@@ -8,10 +8,11 @@ tags:
   - automation
 ---
 
+AI has become a permanent part of modern documentation workflows, and for good reason. It speeds up research, watches your wording, improves consistency, and helps teams move faster without giving up quality. Used well, AI is an extra pair of hands and an extra pair of eyes: it lets writers and managers spend less time on repetitive work and more time on real business problems.
 
-AI has become a permanent feature in modern documentation workflows, and for a good reason. It can accelerate writers' research routine, keep an eye on wording, improve document consistency, and help teams move faster without sacrificing quality. Used properly, AI is an extra pair of hands and eyes. It allows writers and managers to spend less time on repetitive work and more time on solving real business problems.
+<!-- truncate -->
 
-Over the last few years of the AI era, I have used the AI engines extensively. However, I have never ever allowed it to take the reins and replace my expertise. For example, Claude helped with sandbox code analysis, troubleshooting, and automated testing. ChatGPT proved new fintech concepts and world-wide laws of the industry. Grammarly became a reliable helping hand in catching typos and polishing wording. These tools saved time and improved efficiency. But they never owned the outcome. Every result was reviewed, challenged, and adapted to the actual needs of the product and its users.
+I have used these tools extensively over the past few years, but I have never handed them the reins. Claude helped with sandbox code analysis, troubleshooting, and automated testing. ChatGPT helped me check unfamiliar fintech concepts and international regulations. Grammarly caught typos and polished wording. They saved time and improved throughput, but they never owned the outcome. Every result was reviewed, challenged, and adapted to what the product and its users actually needed.
 
 In my experience, effective AI adoption rests on three principles: **Competence**, **Caution**, and **Control**.
 
@@ -19,20 +20,20 @@ In my experience, effective AI adoption rests on three principles: **Competence*
 
 ## Competence
 
-**Competence** comes first. There is a growing misconception that AI can compensate for a lack of expertise. Na-ah. It cannot. Giving someone access to powerful AI tools does not instantly make them a technical writer, an engineer, or a product manager. In fact, the opposite is often true. The less experience a person has, the more difficult it becomes to recognize inaccuracies, weak assumptions, or straightforward bs. AI produces its best results when guided by professionals who already understand the domain, the product, and the expected outcome.
+**Competence** comes first. There is a growing misconception that AI can compensate for a lack of expertise. It cannot. Access to a powerful model does not make anyone a technical writer, an engineer, or a product manager. If anything, the opposite is true: the less experience you have, the harder it is to spot an inaccuracy, a weak assumption, or an answer that is confidently wrong. AI produces its best work when it is guided by someone who already understands the domain, the product, and the expected outcome.
 
 ## Caution
 
-**Caution** is equally important. Every prompt carries information, and information has value. Documentation teams frequently work with proprietary business logic, customer data, or important internal processes. Before sharing anything with an AI, it is essential to understand exactly what is being disclosed. You can't just rely on luck or an infamous Russian avos' and hope that the provided data won't spill. Corporate knowledge belongs behind glass walls, not in public conversations with external systems. AI should help protect the business, not expose it.
+**Caution** matters just as much. Every prompt carries information, and information has value. Documentation teams work with proprietary business logic, customer data, and internal processes every day. Before you share anything with a model, know exactly what you are disclosing. Hoping the data will not leak is not a data-protection strategy. Corporate knowledge belongs inside the perimeter, not in a conversation with an external system. AI should protect the business, not expose it.
 
 ## Control
 
-Finally, there is **control**. AI should be integrated into workflows deliberately rather than allowed to shape those workflows on its own. Despite impressive capabilities, AI still lacks judgment, context, and accountability. It can misunderstand requirements, invent facts, overlook edge cases, or produce content that appears convincing while being fundamentally wrong. The responsibility for quality remains with the people operating the system. *Competent* and *cautious* professionals establish the rules, define the boundaries, validate the outputs, and continuously refine the process. That is how organizations extract the maximum value from AI while minimizing risk.
+Finally, **control**. AI should be built into a workflow deliberately, not left to reshape that workflow on its own. For all its capability, a model has no judgment, no context, and no accountability. It can misread requirements, invent facts, miss edge cases, or produce something that reads convincingly and is fundamentally wrong. Responsibility for quality stays with the people running the system. Competent, cautious professionals set the rules, draw the boundaries, validate the output, and keep refining the process. That is how an organization gets the most out of AI while carrying the least risk.
 
-The teams that benefit most from AI are not the ones pursuing full automation. They are the ones that combine cutting-edge technology with expertise and discipline. AI can sharpen the blade, but it still takes a skilled hand to wield it.
+The teams that get the most from AI are not the ones chasing full automation. They are the ones that pair the technology with expertise and discipline. AI can sharpen the blade; it still takes a skilled hand to wield it.
 
 ---
 
-**P.S.** This article is written by an LLM. The final version, however, is the result of human judgment, editing, and direction. That distinction matters. AI can produce content in seconds; knowing what to keep, what to challenge, and what to improve is where professional experience earns its value.
+**P.S.** Practising what I preach: the first draft of this article was written with an LLM, from my outline and my arguments. What you just read is the version that survived my editing. That distinction is the whole point. A model can produce a draft in seconds; knowing what to keep, what to challenge, and what to rewrite is where professional experience earns its value.
 
 

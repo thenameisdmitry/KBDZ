@@ -298,10 +298,10 @@ matrix table. The matrix table is available on the [Reinforcement Learning scree
 (#reinforcement-screen).
 
 <Term name = "Reinforcement Learning matrix table"> 
-Dynamic, self-modifying table. Columns represent Confidence Level diapason chunks, 
-and rows represent Distance diapason chunks. These diapason chunks are calculated 
-based on the overall set of Algorithmic mappings: the more mappings are created with 
-different Confidence Levels and Distances, the shorter the diapason chanks become.
+A dynamic, self-modifying table. Columns represent Confidence Level ranges and rows 
+represent Distance ranges. The system calculates these ranges from the full set of 
+Algorithmic mappings: the more mappings that exist across different Confidence Levels 
+and Distances, the narrower each range becomes.
 </Term>
 
 :::warning IMPORTANT
@@ -358,9 +358,9 @@ mappings alongside the Fuzzy engine.
 
 #### Step 5: Reconciliation results
 
-System populates **Security Mappings, Security Analysis,** and **Not Mapped Securities** 
-screens: for reconciled Security entities, these screens are populated with 
-Algorithmic Recon results.
+The system populates the **Security Mappings**, **Security Analysis**, and 
+**Not Mapped Securities** screens with the Algorithmic Recon results for every 
+reconciled Security entity.
 
 In the Algorithmic Recon final phase, the system populates the screen grids with 
 reconciliation results. There are three resultant screens of Security Algorithmic 
@@ -377,8 +377,8 @@ approve, reject, and break mappings.
 contains only not-mapped Securities, allowing users to review and manually map 
 entities that have no mappings.
 
-Once the results are allocated in the system, users can begin reviewing Securities 
-mappings, approving Weak mappings, creating Potential mappings, and correcting errors.
+Once the results are written to the system, users can begin reviewing Security mappings, 
+approving Weak mappings, creating Potential mappings, and correcting errors.
 
 ---
 
@@ -413,7 +413,7 @@ process.
 1. **Date selector**: specifies the date range for displaying Securities.
 2. **Filter set**: filters Securities using two filter types (*Security Type* and 
 *Security Code*).
-3. **Operation buttons**: a set of tools for Securities’ mappings management 
+3. **Operation buttons**: the tools for managing Security mappings 
 (*Reprocess, Details, Edit Security, Unmap Security, Create Mapping, Approve Mapping,* 
 and *Reject Mapping*).
 4. **Context menu**: options for operating with an individual selected Security.
@@ -422,27 +422,27 @@ and *Reject Mapping*).
 
 ### Operational buttons
 
-**The Upper toolbar** contains operation buttons for managing Securities’ mapping. 
-If a button is greyed out, the action is unavailable for the selected Security. 
-The available actions are described below.
+The upper toolbar contains the buttons for managing Security mappings. A greyed-out 
+button means the action is unavailable for the selected Security. The available actions 
+are described below.
 
 #### Reprocess button
 
-**Reprocess** button opens the Run Algorithmic Reconciliation pop-up screen, 
-which allows you to run the Security Algorithmic Recon. The Run Algorithmic 
+The **Reprocess** button opens the Run Algorithmic Reconciliation dialog, where you 
+run the Security Algorithmic Recon. The Run Algorithmic 
 Reconciliation screen is divided into three sections: *General, Tune Algorithm,* and 
 *Detail Settings*.
 
 ---
 
-**General** section is used to set primary Security Algorithmic Recon parameters.
+The **General** section sets the primary Security Algorithmic Recon parameters.
 
 ![algo-recon-image-15](/img/case-1-algo-recon/image015.png)
 
 1. **Model Type***: type of Algorithmic Recon to reprocess (*Security*). This option 
 is unavailable and is provided strictly for reference.
-2. **Definition**: dropdown with the *Security Reconciliation*. Other Algorithmic 
-Recon options will be added as capacity is developed.
+2. **Definition**: dropdown containing *Security Reconciliation*. Further Algorithmic 
+Recon options will be added as the capability expands.
 3. **Date**: select the date to re-run the Algorithmic Recon for.
 4. **Override Company**: select the Company from the dropdown list to re-run the 
 Algorithmic Recon for.
@@ -456,25 +456,25 @@ the *Override Company* dropdown (4).
 
 ---
 
-**Tune Algorithm** section is used to set the scope of the Security Algorithmic Recon.
+The **Tune Algorithm** section defines the scope of the Security Algorithmic Recon.
 
 ![algo-recon-image-16](/img/case-1-algo-recon/image016.png)
 
-1. **Matching Strategy Type**: select the Recon Strategy for the Algorithmic Recon 
-re-run (Pessimistic or Optimistic). Refer to the Principle of Work chapter to learn 
-about the Recon Missing Values Strategy.
+1. **Matching Strategy Type**: select the Recon Strategy for the re-run (Pessimistic or 
+Optimistic). See [Principle of Work](#security-algorithmic-recon-principle-of-work) for 
+details on the Recon Missing Values Strategy.
 2. **Confidence Level**: set the Confidence Level lower threshold. When the Algorithmic 
 Recon is launched in work mode, it rewrites Security entities above the threshold.
 
 :::info INFORMATION 
-Algorithmic Recon reprocess can be launched in *working* or *debug* mode. Working mode creates mappings, just like the regularly scheduled Algorithmic Recon. Debug mode does not create mappings; instead, it includes the source multiplicity of extracted Security entities for Fuzzy learning purposes. The debug mode results are allocated in the Reinforcement Learning matrix.
+Algorithmic Recon reprocess can be launched in *working* or *debug* mode. Working mode creates mappings, just like the regularly scheduled Algorithmic Recon. Debug mode does not create mappings; instead, it retains the full set of extracted Security entities for Fuzzy learning purposes. The debug mode results are allocated in the Reinforcement Learning matrix.
 :::
 
 The switch between working mode and debug mode is located in the Detail Settings section.
 
 ---
 
-**Detail Settings** section is used to specify parameters for Detail Mode. 
+The **Detail Settings** section specifies the parameters for Detail Mode. 
 
 :::note NOTE 
 This section becomes available only when the *Detail Mode* checkbox (5) in the *General* 
@@ -483,10 +483,10 @@ section is selected.
 
 ![algo-recon-image-17](/img/case-1-algo-recon/image017.png)
 
-1. **Detail Output Columns After Matching***: plurality of columns that are saved for 
-every compared pair in the search scope of the reconciliation process. This field is 
-unavailable. It is provided for reference and debugging purposes, to review Pair 
-Similarity and Predicate values during manual analysis.
+1. **Detail Output Columns After Matching***: the set of columns saved for every compared 
+pair in the reconciliation search space. This field is read-only. It is provided for 
+reference and debugging, so that you can review Pair Similarity and Predicate values 
+during manual analysis.
 2. **Reinforcement Learning Enabled**: switch between working mode and debug mode. 
 Check the box to launch Algorithmic Recon re-run in debug mode.
 
@@ -523,11 +523,11 @@ The mapping and candidates are distributed across the following levels:
 number of candidates varies by Security (a Security can have multiple candidates 
 in the Level 3 group or just one, depending on how the Algorithmic mapping performed 
 in that case).
-3. **Level Up/Level Down**: operational button that allows to descend or ascend 
-through the levels and review the candidates.
+3. **Level Up/Level Down**: buttons that move you up or down through the levels to 
+review the candidates.
 4. **Grid**: contains the list of mapping candidates and shows their technical 
 reconciliation background data (calculated *Similarities* and *Predicates* values).
-5. **Context menu**: contains options that can be executed against selected mapping.
+5. **Context menu**: the actions you can run against the selected mapping.
 
 ---
 
@@ -836,10 +836,10 @@ of Work section.
 ![algo-recon-image-38](/img/case-1-algo-recon/image038.png)
 
 1. **Date selector**: selects the time range for Reinforcement Learning statistics.
-2. **Distance rows**: Distance parameter diapason chunks.
+2. **Distance rows**: Distance value ranges.
 3. **Quality parameters**: sub-rows showing quality parameters (*Total verified, 
 Verified as correct, Unverified*).
-4. **Confidence Level columns**: Confidence Level diapason chunks.
+4. **Confidence Level columns**: Confidence Level value ranges.
 5. **Totals**: totals per Quality Parameter group for each Distance row.
 6. **Summary**: averages for *Strong, Weak,* and *Unused* mappings, including 
 *Accuracy* and *Coverage* for each group.
@@ -1003,8 +1003,8 @@ When applied, the mapping is changed to the Security Id from the left side:
 ---
 
 :::info INFORMATION 
-Always available options are Details (allows to switch to the Mapping Details screen 
-with a list of mapping candidates divided by levels) and Edit Security (allows to open 
+Two options are always available: Details (opens the Mapping Details screen with the 
+mapping candidates grouped by level) and Edit Security (opens 
 the Security Master Editor to adjust Security parameters and mappings).
 :::
 

@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkkbdz=globalThis.webpackChunkkbdz||[]).push([[8090],{98779(s){s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"apiSpec"}')}}]);

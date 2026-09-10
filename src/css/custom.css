@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -5,12 +7,11 @@
  */
 
 /* You can override the default Infima variables here. */
-/**
- * LIGHT THEME
- */
 
 /**
- * LIGHT THEME
+ * BASE TOKENS
+ * The site ships dark only (colorMode.disableSwitch), so these values are the
+ * fallback and html[data-theme='dark'] below is what actually renders.
  */
 
 :root {
@@ -76,15 +77,6 @@ body {
   background-color: #111111;
   padding: 0.75rem 0;
   font-size: 0.85rem;
-}
-
-/**
- * LIGHT THEME HERO
- */
-
-html[data-theme='light'] .hero {
-  background-color: #838383;
-  color: #111111;
 }
 
 /**
@@ -176,7 +168,7 @@ a {
 /* DOC LINKS FOR MD, MDX */
 
 .theme-doc-markdown a {
-  color: #838383;
+  color: #b0b0b0;
   font-weight: 500;
 }
 
@@ -184,59 +176,6 @@ a {
   text-decoration: underline;
 }
 
-html[data-theme='dark'] .theme-doc-markdown a {
-  color: #b0b0b0;
-}
-
-
-
-/* ==========================================
-   PORTFOLIO LANDING PAGE (GUIDES)
-========================================== */
-
-.guideCards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
-}
-
-.guideCard {
-  display: block;
-
-  padding: 24px;
-
-  border-radius: 16px;
-
-  text-decoration: none;
-
-  transition: all 0.25s ease;
-
-  border: 1px solid rgba(255,255,255,0.15);
-
-  background: rgba(255,255,255,0.05);
-}
-
-.guideCard:hover {
-  transform: translateY(-6px);
-
-  border-color: rgba(255,255,255,0.5);
-
-  text-decoration: none;
-}
-
-.guideCard h2 {
-  margin-bottom: 12px;
-}
-
-html[data-theme='light'] .guideCard {
-  background: #eeeeee;
-  border: 1px solid #ddd;
-}
-
-html[data-theme='light'] .guideCard:hover {
-  border-color: #999;
-}
 
 /* SIDEBAR HIDE BUTTON */
 .collapseSidebarButton {
@@ -257,7 +196,9 @@ html[data-theme='light'] .guideCard:hover {
   fill: #838383 !important;
 }
 
-/*GUIDE CARDS*/
+/* ==========================================
+   PORTFOLIO LANDING PAGE (GUIDES)
+========================================== */
 .guideCards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -271,7 +212,8 @@ html[data-theme='light'] .guideCard:hover {
 
   padding: 20px 24px;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
   text-decoration: none;
   color: inherit;
 
@@ -281,6 +223,8 @@ html[data-theme='light'] .guideCard:hover {
 
 .guideCard:hover {
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
 }
 
 .guideIcon {
@@ -310,9 +254,6 @@ html[data-theme='light'] .guideCard:hover {
   font-weight: 600;
 }
 
-/* API FONT JetBrains */
-
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /*API TEXT SPACE BETWEEN PARAGRAPHS*/
 
@@ -340,4 +281,82 @@ html[data-theme='light'] .guideCard:hover {
 
 html {
   scroll-padding-top: calc(var(--ifm-navbar-height) + 20px);
+}
+
+/* Pipeline Simulator Page buttons */
+
+.simulator-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #eeeeee;
+  background: rgba(153, 0, 204, 0.08);
+  border: 1px solid #cc44ff;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background: rgba(153, 0, 204, 0.18);
+}
+
+.simulator-cta:hover {
+  color: #eeeeee;
+  text-decoration: none;
+  background: rgba(153, 0, 204, 0.14);
+  border-color: #f0a0ff;
+  background: rgba(153, 0, 204, 0.28);
+  text-shadow:
+    0 0 4px #eeeeee,
+    0 0 10px #f0a0ff,
+    0 0 20px #cc44ff,
+    0 0 40px #9900cc;
+  box-shadow:
+    0 0 10px rgba(204, 68, 255, 0.5),
+    0 0 25px rgba(153, 0, 204, 0.35);
+}
+
+.simulator-cta p {
+  margin: 0;
+}
+
+/* ==========================================
+   NAVBAR SEARCH
+   Compact input on the right, sized to sit alongside the nav items.
+========================================== */
+
+/* The magnifier is an absolutely positioned <svg> inside .navbar__search, so
+   padding on the container would move the input but leave the icon behind. */
+.navbar__search > svg {
+  left: 0.95rem;
+}
+
+.navbar__search-input {
+  width: 190px;
+  padding-left: 2.5rem;
+  height: 34px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, width 0.2s ease;
+}
+
+.navbar__search-input::placeholder {
+  color: transparent;
+}
+
+.navbar__search-input:focus {
+  outline: none;
+  width: 240px;
+  border-color: #cc44ff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 996px) {
+  .navbar__search-input {
+    width: 100%;
+  }
 }

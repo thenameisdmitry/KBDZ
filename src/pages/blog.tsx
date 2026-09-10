@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './blog.module.css';
 
 // ─── Post data ────────────────────────────────────────────────────────────────
@@ -11,10 +12,10 @@ const POSTS = [
   {
     slug: 'three-pillars-of-doc',
     href: '/articles/three-pillars-of-doc',
-    image: '/KBDZ/img/blog/three-pillars-of-doc.png',
+    image: '/img/blog/three-pillars-of-doc.png',
     title: 'Integrity, Actionability, and Beauty: The Three Pillars of Great Documentation',
     excerpt:
-      'After a decade in fintech technical writing, creating documentation frameworks and leading writers, I have learned that great documentation is supported by three whales. That is why I keep returning to three paramount principles that define the difference.',
+      'After a decade of building documentation frameworks and leading writers in fintech, I keep returning to the same three principles. They are what separates documentation people trust from documentation people tolerate.',
     tags: ['Technical Writing', 'Product Thinking'],
     date: 'June 5, 2026',
     readTime: '6 min read',
@@ -22,10 +23,10 @@ const POSTS = [
   {
     slug: 'ai-and-tech-writing',
     href: '/articles/ai-and-tech-writing',
-    image: '/KBDZ/img/blog/ai-and-tech-writing.png',
+    image: '/img/blog/ai-and-tech-writing.png',
     title: 'AI and Technical Writing: Why only competent writers can use AI effectively',
     excerpt:
-      'Few technologies have changed the IT industry as quickly as AI. As technical writers, we were among the first specialists expected to adapt, experiment, and redefine established workflows. This article examines where AI adds value to technical writing, and where human expertise remains indispensable.',
+      'Few technologies have changed the industry as fast as AI, and technical writers were among the first expected to adapt, experiment, and rebuild established workflows. This article looks at where AI adds real value to technical writing, and where human expertise is still the deciding factor.',
     tags: ['AI', 'Automation', 'Technical Writing'],
     date: 'June 4, 2026',
     readTime: '4 min read',
@@ -33,10 +34,10 @@ const POSTS = [
   {
     slug: 'how-to-lead-tech-writers',
     href: '/articles/how-to-lead-tech-writers',
-    image: '/KBDZ/img/blog/how-to-lead-tech-writers.png',
-    title: 'Being an effective Team Lead: How to lead a team of technical writers',
+    image: '/img/blog/how-to-lead-tech-writers.png',
+    title: 'Being an Effective Team Lead: Becoming a Force Multiplier',
     excerpt:
-      'When I was promoted to the Team Lead, I faced a complicationg: how do I balance my management tasks with everyday tasks and build an effective team that deliveres up-to-date documentation. This is a story about how I became a force multiplier instead of a bottleneck.',
+      'When I was promoted to Team Lead, I faced the question every first-time manager faces: how do you balance management with your own workload and still build a team that ships accurate documentation on time? This is the story of how I became a force multiplier instead of a bottleneck.',
     tags: ['Leadership', 'Knowledge Management'],
     date: 'June 3, 2026',
     readTime: '3 min read',
@@ -59,7 +60,7 @@ function PostCard({ post }: { post: typeof POSTS[0] }) {
       {/* IMG IN THE CARD*/}  
       {post.image && (
         <Link to={post.href}>
-          <img src={post.image} alt={post.title} className={styles.cardImage} />
+          <img src={useBaseUrl(post.image)} alt="" className={styles.cardImage} />
         </Link>
       )}
         <div className={styles.cardTags}>

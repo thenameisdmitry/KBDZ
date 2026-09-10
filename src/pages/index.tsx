@@ -9,7 +9,7 @@ import styles from './index.module.css';
 const navCards = [
   {
     label: 'Documentation Portfolio',
-    description: 'Knowledge Base articles, end-user guides, release notes samples for the enterprise fintech product.',
+    description: 'Knowledge base articles, end-user guides, and release notes from an enterprise fintech platform.',
     href: '/docs/portfolio/portfolio-overview',
     icon: <img src={require('/static/img/homepage/home-1-icon.png').default} alt="" width="45" height="45" />,
   },
@@ -21,13 +21,13 @@ const navCards = [
   },
   {
     label: 'Blog',
-    description: 'Personally written articles on my thoughts about technical writing practice, documentation tooling, and AI-assisted workflows.',
+    description: 'Articles on technical writing practice, documentation tooling, and AI-assisted workflows.',
     href: '/blog',
     icon: <img src={require('/static/img/homepage/home-3-icon.png').default} alt="" width="45" height="45" />,
   },
   {
     label: 'My Expertise',
-    description: 'Skills, tools, domain knowledge, work experience, and the methodologies behind my documentation practice.',
+    description: 'Skills, tools, domain knowledge, and the methods behind my documentation practice.',
     href: '/expertise',
     icon: <img src={require('/static/img/homepage/home-4-icon.png').default} alt="" width="45" height="45" />,
   },
@@ -53,6 +53,9 @@ function AnimatedTagline() {
   const [visible, setVisible] = React.useState(true);
 
   useEffect(() => {
+    // Readers who ask for reduced motion get the first tag, held still.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+
     const interval = setInterval(() => {
       setVisible(false);
       setTimeout(() => {
@@ -94,6 +97,9 @@ function NetworkCanvas() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // The animation is decorative: skip it entirely for reduced-motion readers.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
 
     const PARTICLE_COUNT = 60;
     const CONNECTION_DISTANCE = 200;
@@ -181,9 +187,25 @@ function NetworkCanvas() {
     });
     resizeObserver.observe(canvas);
 
+    // The banner scrolls away quickly. Pausing the loop once it leaves the
+    // viewport keeps a background tab from burning a core on invisible pixels.
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!animRef.current) draw();
+        } else {
+          cancelAnimationFrame(animRef.current);
+          animRef.current = 0;
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
+
     return () => {
       cancelAnimationFrame(animRef.current);
       resizeObserver.disconnect();
+      visibilityObserver.disconnect();
     };
   }, []);
 
@@ -238,38 +260,31 @@ export default function Home(): JSX.Element {
 
                 <b>Senior Technical Writer</b> and <b>Product Documentation Lead</b> with 10 years of
                 experience in fintech, asset management, and B2B SaaS.
-                I specialize in transforming complex enterprise systems into clear, user-focused
-                documentation. My expertise covers the full documentation lifecycle, from knowledge
-                architecture and content strategy to the delivery of scalable documentation
-                ecosystems.
+                I turn complex enterprise systems into clear, user-focused documentation, and I own
+                the full lifecycle: information architecture, content strategy, and delivery at the
+                scale the product needs.
               </p>
               <p className={styles.aboutText}>
-                My focus is <b>building knowledge products from the ground up</b>, including public
-                documentation portals, internal knowledge bases, API specifications, developer
-                documentation, release notes, and training materials.
+                My focus is <b>building knowledge products from the ground up</b>: public
+                documentation portals, internal knowledge bases, API references, developer guides,
+                release notes, and training materials.
               </p>
               <p className={styles.aboutText}>
-                Beyond technical writing, I lead technical writers' teams, establish standards and
-                workflows, and take ownership of documentation quality and delivery. I collaborate
-                closely with development, product, support, and QA teams to align documentation
-                with business goals, product roadmaps, and customer needs.
+                Beyond writing, I lead technical writing teams, set the standards and workflows
+                they run on, and own documentation quality and delivery. I work closely with
+                engineering, product, support, and QA to keep documentation aligned with the
+                roadmap and with what customers actually need.
                 My approach combines <b>docs-as-code practices, AI-assisted workflows, automation,
-                and product management experience</b> to improve documentation quality, efficiency,
-                and long-term maintainability.
+                and product management experience</b> to raise quality and keep documentation
+                maintainable as the product grows.
               </p>
             </div>
 
             <div className={styles.aboutBlock}>
               <span className={styles.sectionLabel}>Connect with me</span>
               <h2 className={styles.aboutHeading}>Contacts & Links</h2>
-              <ul className={styles.contactList}>
-
-                <img
-                  src={require('/static/img/Ava.png').default}
-                  alt="Dmitrii Zhukov"
-                  className={styles.avatar}
-                />
-
+              <div className={styles.contactRow}>
+                <ul className={styles.contactList}>
                   <li>
                     <a href="https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                   </li>
@@ -286,9 +301,19 @@ export default function Home(): JSX.Element {
                     Telegram: <a href="https://t.me/moneywrapping" target="_blank" rel="noopener noreferrer">@moneywrapping</a>
                   </li>
                   <li>
-                    Residence: <a href="https://www.google.com/maps/place/Block+64,+%D0%91%D0%B5%D0%BB%D0%B3%D1%80%D0%B0%D0%B4/@44.8084621,20.3887459,15.52z/data=!4m15!1m8!3m7!1s0x475a6f75c3e024c5:0xe6866a73d4bdda43!2z0J3QvtCy0Lgt0JHQtdC-0LPRgNCw0LQsINCR0LXQu9Cz0YDQsNC0!3b1!8m2!3d44.8160756!4d20.3948181!16zL20vMDN4ajNo!3m5!1s0x475a6f776a5d17e5:0x4aac3f6e12ca3135!8m2!3d44.808996!4d20.3917616!16s%2Fg%2F1tglg2ys?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Serbia, Belgrade</a>
+                    Based in: Belgrade, Serbia (CET)
+                  </li>
+                  <li>
+                    Available: remote, hybrid, or on-site. Open to relocation.
                   </li>
                 </ul>
+
+                <img
+                  src={require('/static/img/Ava.png').default}
+                  alt="Dmitrii Zhukov"
+                  className={styles.avatar}
+                />
+              </div>
             </div>
 
           </section>

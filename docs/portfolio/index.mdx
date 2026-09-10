@@ -3,67 +3,69 @@ id: guides
 title: Guides
 ---
 
-# Knowledge Base Guides
-This section showcases a selection of documentation created for the Hazeltree platform 
-as part of a Senior Technical Writer role. The samples are drawn from multiple product 
-modules and demonstrate a range of documentation types developed to support enterprise 
-users and implementation teams.
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Included are knowledge base guides, product overviews, getting-started articles, and 
-step-by-step implementation instructions. Together, they illustrate different 
-approaches to presenting complex functionality.
+# Knowledge Base Guides
+This section presents documentation I wrote for the Hazeltree platform as a Senior 
+Technical Writer. The samples come from several product modules and cover the range of 
+documentation types that enterprise users and implementation teams rely on: knowledge 
+base guides, product overviews, getting-started articles, and step-by-step 
+implementation instructions.
+
+Each one takes a different approach to the same underlying problem — presenting complex 
+functionality so that a reader can act on it.
 
 :::note Confidentiality Notice
 
-Due to Hazeltree's strict confidentiality requirements, the samples included in this 
-portfolio contain limited business and product context.
+Hazeltree's confidentiality requirements limit how much business and product context 
+these samples can carry.
 
 Company-specific information and sensitive implementation details have been removed, blurred, 
-anonymized, or generalized. Still the examples preserve the original documentation 
-structure, writing style, and technical depth while respecting confidentiality 
-obligations.
+anonymized, or generalized. The samples still preserve the original structure, writing style, 
+and technical depth.
 :::
 
 <div className="guideCards">
 
-  <a className="guideCard" href="/KBDZ/docs/portfolio/Case-1-Algo-Recon">
-    <img className="guideIcon" src="/KBDZ/img/icons/case-1-icon.png" alt="Case 1" />
+  <Link className="guideCard" to="/docs/portfolio/Case-1-Algo-Recon">
+    <img className="guideIcon" src={useBaseUrl("/img/icons/case-1-icon.png")} alt="" />
     <div className="guideText">
       <h2>Case 1</h2>
       <p>Algorithmic Reconciliation</p>
     </div>
-  </a>
+  </Link>
 
-  <a className="guideCard" href="/KBDZ/docs/portfolio/Case-2-Approver-App">
-    <img className="guideIcon" src="/KBDZ/img/icons/case-2-icon.png" alt="Case 1" />
+  <Link className="guideCard" to="/docs/portfolio/Case-2-Approver-App">
+    <img className="guideIcon" src={useBaseUrl("/img/icons/case-2-icon.png")} alt="" />
     <div className="guideText">
       <h2>Case 2</h2>
       <p>Approver Mobile Application</p>
     </div>
-  </a>
+  </Link>
 
-  <a className="guideCard" href="/KBDZ/docs/portfolio/Case-3-GL-Manager">
-    <img className="guideIcon" src="/KBDZ/img/icons/case-3-icon.png" alt="Case 1" />
+  <Link className="guideCard" to="/docs/portfolio/Case-3-GL-Manager">
+    <img className="guideIcon" src={useBaseUrl("/img/icons/case-3-icon.png")} alt="" />
     <div className="guideText">
       <h2>Case 3</h2>
       <p>General Ledger Manager</p>
     </div>
-  </a>
+  </Link>
 
-  <a className="guideCard" href="/KBDZ/docs/portfolio/Case-4-Optimizer">
-    <img className="guideIcon" src="/KBDZ/img/icons/case-4-icon.png" alt="Case 1" />
+  <Link className="guideCard" to="/docs/portfolio/Case-4-Optimizer">
+    <img className="guideIcon" src={useBaseUrl("/img/icons/case-4-icon.png")} alt="" />
     <div className="guideText">
       <h2>Case 4</h2>
       <p>Optimizer</p>
     </div>
-  </a>
+  </Link>
 
-    <a className="guideCard" href="/KBDZ/docs/portfolio/Case-5-Transaction-Matching">
-    <img className="guideIcon" src="/KBDZ/img/icons/case-5-icon.png" alt="Case 1" />
+    <Link className="guideCard" to="/docs/portfolio/Case-5-Transaction-Matching">
+    <img className="guideIcon" src={useBaseUrl("/img/icons/case-5-icon.png")} alt="" />
     <div className="guideText">
       <h2>Case 5</h2>
       <p>Transaction Matching Guide</p>
     </div>
-  </a>
+  </Link>
 
 </div>

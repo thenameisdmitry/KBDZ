@@ -1,0 +1,69 @@
+---
+title: "Data Hub: Interactive Pipeline Simulator"
+description: "An interactive artifact demonstrating how I document a modern data platform: per-node documentation, schema contracts, and metric governance for a Snowflake + dbt + Airflow + Metabase pipeline."
+sidebar_label: "Pipeline Simulator"
+---
+
+import Link from '@docusaurus/Link';
+
+# Data Hub: Interactive Pipeline Simulator
+
+Unlike the case studies in this portfolio, which describe real (anonymized) work, this
+artifact is an original demonstration built from scratch. **DZ Data Hub** is a fictional
+data platform — Snowflake as the warehouse, dbt for transformations, Airflow for
+orchestration, Metabase for consumption — and the simulator shows how I would document
+such a system so that every layer of it can be trusted, maintained, and explained.
+
+<div style={{margin: '2.5rem 0'}}>
+  <Link className="simulator-cta" to="/pipeline-simulator">Open the simulator →</Link>
+</div>
+
+## What the simulator shows
+
+The simulator traces five billing events through a complete pipeline: a raw landing
+table, a dbt staging model, a conformed dimension, a fact table, and finally a governed
+business metric (Trial-to-Paid Conversion Rate). Press **Run** to watch one execution
+unfold stage by stage, or click any node in the DAG to read its documentation.
+
+The sample data is deliberately imperfect. The raw layer contains a duplicate event, an
+inconsistently cased event type, and an internal test account — the three most common
+data-quality problems in event pipelines. The documentation explains where each problem
+is handled, why it is handled *there* and nowhere else, and what contract each layer
+guarantees to the next.
+
+## The documentation model
+
+Every node carries three layers of documentation, each written for a different reader:
+
+1. **Overview** — for consumers. Purpose, ownership, grain, schedule, and freshness
+   guarantees in plain language, including explicit "do not query this table for
+   reporting" guidance where it matters.
+2. **Schema** — the contract. Column-level descriptions that state not just what a
+   field is, but what can be assumed about it (uniqueness, casing, timezone) and what
+   cannot.
+3. **Code** — for maintainers. The commented source itself, where comments capture
+   design intent rather than restating the syntax: why deduplication lives in staging
+   and not in ingestion, why the fact table denormalizes account attributes, why a
+   downstream filter would *hide* a regression instead of preventing one.
+
+The premise: documentation that lives in one narrative document goes stale, while
+documentation attached to the thing it describes — the model, the column, the DAG —
+stays honest. The simulator makes that structure tangible.
+
+## Metric governance
+
+The final node treats a business metric as a documented, versioned object rather than
+a dashboard tile. Its page carries a canonical definition, split business/technical
+ownership, explicit caveats (the 30-day conversion window makes the latest month
+incomplete; account attributes reflect current state under SCD1), and a change log
+recording that the window was unified across dashboards in v1.2. Every convention shown
+in the metric — the `acc_9xx` test-account range, the naming, the window — is consistent
+with the upstream nodes, because that consistency is the whole point.
+
+## How it is built
+
+The simulator is a single self-contained React component: an SVG DAG with an animated
+execution run, a tabbed documentation panel, a stage-by-stage data preview, and a small
+hand-rolled syntax highlighter — no charting or diagram libraries. It respects
+`prefers-reduced-motion` and runs entirely in the browser. The IDE-style dark theme is
+intentional: the artifact is meant to read as a working tool, not a slide.

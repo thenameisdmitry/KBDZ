@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
     'portfolio/releasenotes',
     'portfolio/code-samples',
     'portfolio/How-I-Work',
+    'portfolio/dz-pipeline-simulator',
   ],
 
 };

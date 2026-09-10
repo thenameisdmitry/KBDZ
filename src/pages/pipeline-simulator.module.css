@@ -1,0 +1,69 @@
+/* Page shell for /pipeline-simulator.
+   Everything here stays in the site's palette (black / #838383 / #999999);
+   the Darcula theme lives strictly inside the frame. */
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.intro {
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.leadSecondary {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #838383;
+  margin-bottom: 0;
+}
+
+/* ---------- Embedded-tool frame ---------- */
+
+.frame {
+  border: 1px solid rgba(153, 153, 153, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.frameBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.25);
+}
+
+.frameLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #999999;
+}
+
+.frameMeta {
+  font-size: 0.75rem;
+  color: #838383;
+}
+
+/* The simulator needs horizontal room (min ~800px of content).
+   On narrow screens let the frame scroll instead of crushing the DAG. */
+@media (max-width: 860px) {
+  .frame {
+    overflow-x: auto;
+  }
+}

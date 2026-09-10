@@ -1,11 +1,14 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import ApiLayout from '@site/src/components/ApiDocs/ApiLayout';
 import EndpointSection from '@site/src/components/ApiDocs/EndpointSection';
 import CodeTabs from '@site/src/components/ApiDocs/CodeTabs';
 import ParamTable from '@site/src/components/ApiDocs/ParamTable';
+import FieldTable from '@site/src/components/ApiDocs/FieldTable';
 import ResponseBlock from '@site/src/components/ApiDocs/ResponseBlock';
 import styles from '@site/src/components/ApiDocs/ApiLayout.module.css';
+import { PROSE, INLINE_CODE } from '@site/src/components/ApiDocs/textStyles';
 
 // ─── Shared sample data ───────────────────────────────────────────────────────
 const AGREEMENT = {
@@ -42,7 +45,32 @@ const AGREEMENT_LIST = {
   offset: 0,
 };
 
-// ─── cURL / Python snippets ───────────────────────────────────────────────────
+const AGREEMENT_TYPES = 'credit';
+const AGREEMENT_STATUSES = 'pending, active, terminated';
+
+const AGREEMENT_FIELDS = [
+  { name: 'id', type: 'string', description: 'Unique Credit Agreement identifier. Opaque, do not parse it.' },
+  { name: 'account_id', type: 'string', description: 'Account this Agreement is scoped to. Fixed at creation.' },
+  { name: 'type', type: 'string', description: `Agreement type. One of: ${AGREEMENT_TYPES}. Fixed at creation.` },
+  { name: 'name', type: 'string', description: 'Descriptive name shown in the UI and on statements.' },
+  { name: 'principal_amount', type: 'number', description: 'Facility principal in the major unit of currency.' },
+  { name: 'currency', type: 'string', description: 'ISO 4217 code. Fixed at creation.' },
+  { name: 'interest_rate', type: 'number', description: 'Annual interest rate as a percentage, for example 4.25.' },
+  { name: 'start_date', type: 'string', description: 'ISO 8601 date on which the facility becomes available.' },
+  { name: 'maturity_date', type: 'string', description: 'ISO 8601 date on which the facility matures. Always later than start_date.' },
+  { name: 'status', type: 'string', description: `One of: ${AGREEMENT_STATUSES}.` },
+  { name: 'created_at', type: 'string', description: 'RFC 3339 timestamp in UTC.' },
+  { name: 'updated_at', type: 'string', description: 'RFC 3339 timestamp in UTC of the last change.' },
+];
+
+const LIST_FIELDS = [
+  { name: 'data', type: 'array', description: 'The page of Credit Agreement objects. Empty when nothing matches, never null.' },
+  { name: 'total', type: 'integer', description: 'Total Agreements matching the filter, across all pages.' },
+  { name: 'limit', type: 'integer', description: 'The limit applied to this response, after clamping to 100.' },
+  { name: 'offset', type: 'integer', description: 'The offset applied to this response.' },
+];
+
+// ─── cURL / Python / JavaScript snippets ─────────────────────────────────────
 const LIST_CURL = `curl -X GET "https://api.dzenterprise.io/v1/agreements?limit=20&offset=0&status=active" \\
   -H "Authorization: Bearer {access_token}" \\
   -H "Content-Type: application/json"`;
@@ -74,6 +102,7 @@ print(response.json())`;
 const CREATE_CURL = `curl -X POST "https://api.dzenterprise.io/v1/agreements" \\
   -H "Authorization: Bearer {access_token}" \\
   -H "Content-Type: application/json" \\
+  -H "Idempotency-Key: 3e9a71b2-84cd-4f06-a1b7-92c5d0e3f847" \\
   -d '{
     "account_id": "acc_007",
     "type": "credit",
@@ -85,13 +114,15 @@ const CREATE_CURL = `curl -X POST "https://api.dzenterprise.io/v1/agreements" \\
     "maturity_date": "2031-01-15"
   }'`;
 
-const CREATE_PYTHON = `import requests
+const CREATE_PYTHON = `import uuid
+import requests
 
 BASE_URL = "https://api.dzenterprise.io/v1"
 
 headers = {
     "Authorization": "Bearer {access_token}",
     "Content-Type": "application/json",
+    "Idempotency-Key": str(uuid.uuid4()),
 }
 
 payload = {
@@ -143,6 +174,73 @@ headers = {"Authorization": "Bearer {access_token}"}
 response = requests.delete(f"{BASE_URL}/agreements/{AGREEMENT_ID}", headers=headers)
 print(response.status_code)  # 204`;
 
+const LIST_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+
+const query = new URLSearchParams({ limit: 20, offset: 0, status: 'active' });
+
+const response = await fetch(\`\${BASE_URL}/agreements?\${query}\`, {
+  headers: { Authorization: \`Bearer \${accessToken}\` },
+});
+
+const { data } = await response.json();
+console.log(data);`;
+
+const GET_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+const agreementId = 'agr_BNP_001';
+
+const response = await fetch(\`\${BASE_URL}/agreements/\${agreementId}\`, {
+  headers: { Authorization: \`Bearer \${accessToken}\` },
+});
+
+console.log(await response.json());`;
+
+const CREATE_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+
+const response = await fetch(\`\${BASE_URL}/agreements\`, {
+  method: 'POST',
+  headers: {
+    Authorization: \`Bearer \${accessToken}\`,
+    'Content-Type': 'application/json',
+    'Idempotency-Key': crypto.randomUUID(),
+  },
+  body: JSON.stringify({
+    account_id: 'acc_007',
+    type: 'credit',
+    name: 'Credit Agreement — BHMS / BNP Paribas',
+    principal_amount: 50000000.0,
+    currency: 'GBP',
+    interest_rate: 4.25,
+    start_date: '2026-01-15',
+    maturity_date: '2031-01-15',
+  }),
+});
+
+console.log(await response.json());`;
+
+const UPDATE_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+const agreementId = 'agr_BNP_001';
+
+const response = await fetch(\`\${BASE_URL}/agreements/\${agreementId}\`, {
+  method: 'PATCH',
+  headers: {
+    Authorization: \`Bearer \${accessToken}\`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ interest_rate: 4.5, status: 'active' }),
+});
+
+console.log(await response.json());`;
+
+const DELETE_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+const agreementId = 'agr_BNP_001';
+
+const response = await fetch(\`\${BASE_URL}/agreements/\${agreementId}\`, {
+  method: 'DELETE',
+  headers: { Authorization: \`Bearer \${accessToken}\` },
+});
+
+console.log(response.status); // 204`;
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function AgreementsPage() {
   return (
@@ -158,7 +256,7 @@ export default function AgreementsPage() {
             your organisation and a counterparty.
           </p>
           <p className={styles.pageSubtitle} style={{ marginBottom: '10px' }}>
-            Credit Agreements are scoped to an <a href="/KBDZ/api/accounts" style={{ color: '#838383', textDecoration: 'none' }}>Account</a> and
+            Credit Agreements are scoped to an <Link to="/api/accounts" style={{ color: '#a78bfa' }}>Account</Link> and
             are independent of Portfolios. A single Account may have multiple Credit Agreements
             with different counterparties, currencies, and maturity profiles.
           </p>
@@ -182,11 +280,12 @@ export default function AgreementsPage() {
               { name: 'limit',      type: 'integer', required: false, description: 'Number of results to return. Default: 20, max: 100.' },
               { name: 'offset',     type: 'integer', required: false, description: 'Number of results to skip. Use for pagination. Default: 0.' },
               { name: 'account_id', type: 'string',  required: false, description: 'Filter agreements by the associated account ID.' },
-              { name: 'status',     type: 'string',  required: false, description: 'Filter by status. One of: active, expired, terminated, pending.' },
-              { name: 'type',       type: 'string',  required: false, description: 'Filter by agreement type. One of: credit, collateral, master.' },
+              { name: 'status',     type: 'string',  required: false, description: `Filter by status. One of: ${AGREEMENT_STATUSES}.` },
+              { name: 'type',       type: 'string',  required: false, description: `Filter by agreement type. Currently only: ${AGREEMENT_TYPES}.` },
             ]}
           />
-          <CodeTabs curl={LIST_CURL} python={LIST_PYTHON} />
+          <CodeTabs curl={LIST_CURL} python={LIST_PYTHON} javascript={LIST_JS} />
+          <FieldTable caption="Response fields" fields={LIST_FIELDS} />
           <ResponseBlock status={200} json={AGREEMENT_LIST} />
         </EndpointSection>
 
@@ -204,7 +303,8 @@ export default function AgreementsPage() {
               { name: 'id', type: 'string', required: true, description: 'The unique agreement ID (e.g. agr_BNP_001).' },
             ]}
           />
-          <CodeTabs curl={GET_CURL} python={GET_PYTHON} />
+          <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
+          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={200} json={AGREEMENT} />
         </EndpointSection>
 
@@ -220,7 +320,7 @@ export default function AgreementsPage() {
             caption="Request body"
             params={[
               { name: 'account_id',       type: 'string',  required: true,  description: 'ID of the Account this agreement is linked to.' },
-              { name: 'type',             type: 'string',  required: true,  description: 'Agreement type. One of: credit, collateral, master.' },
+              { name: 'type',             type: 'string',  required: true,  description: `Agreement type. One of: ${AGREEMENT_TYPES}. Cannot be changed later.` },
               { name: 'name',             type: 'string',  required: true,  description: 'Descriptive name identifying the agreement and counterparty.' },
               { name: 'principal_amount', type: 'number',  required: true,  description: 'Total principal amount of the credit facility.' },
               { name: 'currency',         type: 'string',  required: true,  description: 'ISO 4217 currency code (e.g. GBP, USD, EUR).' },
@@ -229,7 +329,8 @@ export default function AgreementsPage() {
               { name: 'maturity_date',    type: 'string',  required: true,  description: 'Agreement maturity date. Format: YYYY-MM-DD.' },
             ]}
           />
-          <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} />
+          <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
+          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={201} json={AGREEMENT} />
         </EndpointSection>
 
@@ -254,10 +355,16 @@ export default function AgreementsPage() {
               { name: 'principal_amount', type: 'number', required: false, description: 'Updated principal amount.' },
               { name: 'interest_rate',    type: 'number', required: false, description: 'Updated annual interest rate.' },
               { name: 'maturity_date',    type: 'string', required: false, description: 'Updated maturity date. Format: YYYY-MM-DD.' },
-              { name: 'status',           type: 'string', required: false, description: 'Updated status. One of: active, expired, terminated, pending.' },
+              { name: 'status',           type: 'string', required: false, description: `Updated status. One of: ${AGREEMENT_STATUSES}.` },
             ]}
           />
-          <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} />
+          <p style={{ ...PROSE, fontSize: '14px' }}>
+            <code style={INLINE_CODE}>account_id</code>, <code style={INLINE_CODE}>currency</code>,
+            and <code style={INLINE_CODE}>type</code> are fixed at creation. Sending any of them
+            returns <code style={INLINE_CODE}>422 validation_failed</code>.
+          </p>
+          <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
+          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={200} json={{ ...AGREEMENT, interest_rate: 4.50, updated_at: '2026-04-01T09:00:00Z' }} />
         </EndpointSection>
 
@@ -267,7 +374,7 @@ export default function AgreementsPage() {
           method="DELETE"
           path="/agreements/{id}"
           title="Remove credit agreement"
-          description="Permanently deletes a Credit Agreement. Only agreements with status pending or terminated can be deleted."
+          description="Permanently deletes a Credit Agreement. Only agreements with pending or terminated status can be deleted."
         >
           <ParamTable
             caption="Path parameters"
@@ -275,7 +382,7 @@ export default function AgreementsPage() {
               { name: 'id', type: 'string', required: true, description: 'The unique agreement ID to delete.' },
             ]}
           />
-          <CodeTabs curl={DELETE_CURL} python={DELETE_PYTHON} />
+          <CodeTabs curl={DELETE_CURL} python={DELETE_PYTHON} javascript={DELETE_JS} />
           <ResponseBlock status={204} json={null} />
         </EndpointSection>
 

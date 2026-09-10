@@ -1,9 +1,11 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import ApiLayout from '@site/src/components/ApiDocs/ApiLayout';
 import CodeTabs from '@site/src/components/ApiDocs/CodeTabs';
 import ResponseBlock from '@site/src/components/ApiDocs/ResponseBlock';
 import styles from '@site/src/components/ApiDocs/ApiLayout.module.css';
+import { H2, H3, PROSE, INLINE_CODE } from '@site/src/components/ApiDocs/textStyles';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const ENV_ROWS = [
@@ -58,6 +60,32 @@ headers = {
 response = requests.get(f"{BASE_URL}/accounts", headers=headers)
 print(response.json())`;
 
+const TOKEN_JS = `const response = await fetch('https://auth.dzenterprise.io/oauth/token', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: 'YOUR_CLIENT_ID',
+    client_secret: 'YOUR_CLIENT_SECRET',
+    scope: 'api:read api:write',
+  }),
+});
+
+const { access_token: accessToken } = await response.json();
+console.log(accessToken);`;
+
+const REQUEST_JS = `const BASE_URL = 'https://api.dzenterprise.io/v1';
+
+const response = await fetch(\`\${BASE_URL}/accounts\`, {
+  headers: {
+    Authorization: \`Bearer \${accessToken}\`,
+    'Content-Type': 'application/json',
+    'X-Request-ID': 'req_abc123',
+  },
+});
+
+console.log(await response.json());`;
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function AuthenticationPage() {
   return (
@@ -71,10 +99,9 @@ export default function AuthenticationPage() {
           <div className={styles.pageHeaderMeta}>Getting Started</div>
           <h1 className={styles.pageTitle}>Base URL & Authentication</h1>
           <p className={styles.pageSubtitle}>
-            The API uses OAuth 2.0 Client Credentials flow. All requests must be
-            authenticated with a short-lived Bearer token obtained from the auth server.
-            When the Bearer token expires (after 3600 seconds), your application must request a 
-            new one using the same client credentials.
+            The API uses the OAuth 2.0 client credentials flow. Every request must carry a short-lived
+            Bearer token issued by the auth server. Tokens expire after 3600 seconds; when one expires,
+            request a new token with the same client credentials.
           </p>
         
           <div className={styles.pageAccent} />
@@ -84,8 +111,8 @@ export default function AuthenticationPage() {
         {/* ── Base URLs ── */}
         <h2 style={H2}>Base URLs</h2>
         <p style={PROSE}>
-          Use the Production URL for live integrations and the UAT URL for development
-          and testing. Both environments share the same API surface and authentication flow.
+          Use the production URL for live integrations and the UAT URL for development and testing.
+          Both environments expose the same API surface and use the same authentication flow.
         </p>
 
 {/* Environment table */ }
@@ -178,12 +205,12 @@ export default function AuthenticationPage() {
 </div>
 
         {/* ── OAuth 2.0 flow ── */}
-        <h2 style={H2}>Authentication — OAuth 2.0</h2>
+        <h2 style={H2}>Authentication with OAuth 2.0</h2>
         <p style={PROSE}>
-          The API uses the <strong>Client Credentials</strong> grant type. Your application
-          authenticates directly using its <code style={INLINE_CODE}>client_id</code> and{' '}
-          <code style={INLINE_CODE}>client_secret</code>, without a user context. Tokens expire
-          after <strong>3600 seconds</strong> (1 hour) and should be cached and refreshed proactively.
+          The API uses the <strong>client credentials</strong> grant type: your application authenticates
+          with its own <code style={INLINE_CODE}>client_id</code> and{' '}
+          <code style={INLINE_CODE}>client_secret</code>, with no user context. Tokens expire after
+          <strong> 3600 seconds</strong> (1 hour). Cache the token and refresh it before it expires.
         </p>
 
         {/* Flow diagram (ASCII-style) */}
@@ -214,16 +241,16 @@ export default function AuthenticationPage() {
         </div>
 
         <h3 style={H3}>Step 1 — Obtain a token</h3>
-        <CodeTabs curl={TOKEN_CURL} python={TOKEN_PYTHON} label="POST /oauth/token" />
+        <CodeTabs curl={TOKEN_CURL} python={TOKEN_PYTHON} javascript={TOKEN_JS} label="POST /oauth/token" />
         <ResponseBlock status={200} json={TOKEN_RESPONSE} label="200 OK" />
 
         <h3 style={H3}>Step 2 — Authenticate requests</h3>
         <p style={PROSE}>
-          Pass the token in the <code style={INLINE_CODE}>Authorization</code> header on every
-          request. The <code style={INLINE_CODE}>X-Request-ID</code> header is optional but
-          recommended: it ties logs together for debugging.
+          Pass the token in the <code style={INLINE_CODE}>Authorization</code> header on every request.
+          The <code style={INLINE_CODE}>X-Request-ID</code> header is optional but recommended: it
+          correlates your logs with ours when you need to debug a call.
         </p>
-        <CodeTabs curl={REQUEST_CURL} python={REQUEST_PYTHON} label="Authenticated request" />
+        <CodeTabs curl={REQUEST_CURL} python={REQUEST_PYTHON} javascript={REQUEST_JS} label="Authenticated request" />
 
         {/* ── Required headers ── */}
 <h2 style={H2}>Required headers</h2>
@@ -255,9 +282,9 @@ export default function AuthenticationPage() {
     </thead>
     <tbody>
       {[
-        { header: 'Authorization', value: 'Bearer {access_token}', notes: 'Required on all endpoints' },
+        { header: 'Authorization', value: 'Bearer {access_token}', notes: 'Required on every endpoint' },
         { header: 'Content-Type', value: 'application/json', notes: 'Required for POST / PATCH' },
-        { header: 'X-Request-ID', value: 'Unique string', notes: 'Optional — aids debugging' },
+        { header: 'X-Request-ID', value: 'Unique string', notes: 'Optional. Correlates logs for debugging' },
       ].map((row, i) => (
         <tr key={i} style={{
           borderBottom: i < 2 ? '1px solid #2a2a2a' : 'none',
@@ -300,44 +327,24 @@ export default function AuthenticationPage() {
 </div>
         {/* ── Error responses ── */}
         <h2 style={H2}>Authentication errors</h2>
-        <ResponseBlock status={401} json={{ error: 'unauthorized', message: 'Bearer token is missing or has expired.', request_id: 'req_abc123' }} label="401 Unauthorized" />
+        <p style={PROSE}>
+          A missing, malformed, or expired token returns{' '}
+          <code style={INLINE_CODE}>401 unauthorized</code>. A valid token without the required
+          scope returns <code style={INLINE_CODE}>403 insufficient_scope</code>. Both follow the
+          shared error envelope described in{' '}
+          <Link to="/api/errors" style={{ color: '#a78bfa' }}>Errors</Link>.
+        </p>
+        <ResponseBlock
+          status={401}
+          json={{
+            error: 'unauthorized',
+            message: 'Bearer token is missing or has expired.',
+            status: 401,
+            request_id: 'req_abc123',
+          }}
+          label="401 Unauthorized"
+        />
       </ApiLayout>
     </Layout>
   );
 }
-
-// ─── Shared sub-styles ────────────────────────────────────────────────────────
-const H2 = {
-  fontSize: '22px',
-  fontWeight: 900,
-  color: '#f0f0f0',
-  margin: '40px 0 12px',
-  fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
-  letterSpacing: '-0.01em',
-};
-
-const H3 = {
-  fontSize: '15px',
-  fontWeight: 600,
-  color: '#f0f0f0',
-  margin: '28px 0 4px',
-  fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
-};
-
-const PROSE = {
-  fontSize: '15px',
-  color: '#f0f0f0',
-  lineHeight: 1.68,
-  margin: '0 0 20px',
-  maxWidth: '900px',
-  fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
-};
-
-const INLINE_CODE = {
-  fontFamily: "'JetBrains Mono', monospace",
-  fontSize: '12.5px',
-  background: '#f1f5f9',
-  padding: '1px 6px',
-  borderRadius: '3px',
-  color: '#2a0f1dff',
-};

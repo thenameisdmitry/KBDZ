@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from '@docusaurus/router';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './ApiLayout.module.css';
 
 // ─── Nav structure ────────────────────────────────────────────────────────────
+// Paths are site-root relative and get the site baseUrl applied at render time,
+// so moving the site to another domain or sub-path needs no edits here.
 const NAV = [
+  { id: 'label-start', label: 'Getting Started', type: 'label' },
   { id: 'intro', label: 'Introduction', href: '/api', type: 'page' },
-  { id: 'auth', label: 'Base URL & Authentication', href: '/KBDZ/api/authentication', type: 'page' },
+  { id: 'auth', label: 'Base URL & Authentication', href: '/api/authentication', type: 'page' },
+  { id: 'conventions', label: 'Conventions', href: '/api/conventions', type: 'page' },
+  { id: 'errors', label: 'Errors', href: '/api/errors', type: 'page' },
 
   { id: 'label-refdata', label: 'Reference Data', type: 'label' },
 
   {
-    id: 'accounts', label: 'Accounts', href: '/KBDZ/api/accounts', type: 'section',
+    id: 'accounts', label: 'Accounts', href: '/api/accounts', type: 'section',
     children: [
       { id: 'list-accounts',   method: 'GET',    label: 'List accounts',      anchor: '#list-accounts' },
       { id: 'get-account',     method: 'GET',    label: 'Get account by ID',  anchor: '#get-account' },
@@ -21,7 +27,7 @@ const NAV = [
     ],
   },
   {
-    id: 'portfolios', label: 'Portfolios', href: '/KBDZ/api/portfolios', type: 'section',
+    id: 'portfolios', label: 'Portfolios', href: '/api/portfolios', type: 'section',
     children: [
       { id: 'list-portfolios',   method: 'GET',    label: 'List portfolios',      anchor: '#list-portfolios' },
       { id: 'get-portfolio',     method: 'GET',    label: 'Get portfolio by ID',  anchor: '#get-portfolio' },
@@ -31,10 +37,21 @@ const NAV = [
     ],
   },
 
+  {
+    id: 'custodians', label: 'Custodians', href: '/api/custodians', type: 'section',
+    children: [
+      { id: 'list-custodians',   method: 'GET',    label: 'List custodians',      anchor: '#list-custodians' },
+      { id: 'get-custodian',     method: 'GET',    label: 'Get custodian by ID',  anchor: '#get-custodian' },
+      { id: 'create-custodian',  method: 'POST',   label: 'Create custodian',     anchor: '#create-custodian' },
+      { id: 'update-custodian',  method: 'PATCH',  label: 'Update custodian',     anchor: '#update-custodian' },
+      { id: 'remove-custodian',  method: 'DELETE', label: 'Remove custodian',     anchor: '#remove-custodian' },
+    ],
+  },
+
   { id: 'label-finoperation', label: 'Financial Operations', type: 'label' },
 
   {
-    id: 'transactions', label: 'Transactions', href: '/KBDZ/api/transactions', type: 'section',
+    id: 'transactions', label: 'Transactions', href: '/api/transactions', type: 'section',
     children: [
       { id: 'list-transactions',   method: 'GET',    label: 'List transactions',      anchor: '#list-transactions' },
       { id: 'get-transaction',     method: 'GET',    label: 'Get transaction by ID',  anchor: '#get-transaction' },
@@ -44,10 +61,21 @@ const NAV = [
     ],
   },
 
-  { id: 'label-legal', label: 'Legal & Compliance', type: 'label' },
- 
   {
-    id: 'agreements', label: 'Credit Agreements', href: '/KBDZ/api/agreements', type: 'section',
+    id: 'payments', label: 'Payments', href: '/api/payments', type: 'section',
+    children: [
+      { id: 'list-payments',   method: 'GET',    label: 'List payments',      anchor: '#list-payments' },
+      { id: 'get-payment',     method: 'GET',    label: 'Get payment by ID',  anchor: '#get-payment' },
+      { id: 'create-payment',  method: 'POST',   label: 'Create payment',     anchor: '#create-payment' },
+      { id: 'update-payment',  method: 'PATCH',  label: 'Update payment',     anchor: '#update-payment' },
+      { id: 'remove-payment',  method: 'DELETE', label: 'Remove payment',     anchor: '#remove-payment' },
+    ],
+  },
+
+  { id: 'label-legal', label: 'Legal & Compliance', type: 'label' },
+
+  {
+    id: 'agreements', label: 'Credit Agreements', href: '/api/agreements', type: 'section',
     children: [
       { id: 'list-agreements',   method: 'GET',    label: 'List credit agreements',      anchor: '#list-agreements' },
       { id: 'get-agreement',     method: 'GET',    label: 'Get credit agreement by ID',  anchor: '#get-agreement' },
@@ -57,6 +85,9 @@ const NAV = [
     ],
   },
 
+  { id: 'label-spec', label: 'Specification', type: 'label' },
+
+  { id: 'spec', label: 'OpenAPI Specification', href: '/api/specification', type: 'page' },
 ];
 
 const METHOD_MINI = {
@@ -88,14 +119,24 @@ function MethodPill({ method }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function ApiLayout({ children }) {
   const location = useLocation();
+  const baseUrl = useBaseUrl('/');
   const [activeHash, setActiveHash] = useState('');
+  const [navOpen, setNavOpen] = useState(false);
 
-  // Sync hash on navigation
+  // Resolve a site-root path against the site baseUrl, without a double prefix.
+  const withBase = (href) => `${baseUrl.replace(/\/$/, '')}${href}`;
+
+  // Sync hash on navigation.
   useEffect(() => {
     setActiveHash(location.hash || '');
   }, [location.hash, location.pathname]);
 
-  // Scroll-spy: update active hash as user scrolls
+  // Close the mobile nav whenever the route changes.
+  useEffect(() => {
+    setNavOpen(false);
+  }, [location.pathname]);
+
+  // Scroll-spy: update the active hash as the reader scrolls.
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]');
     if (!sections.length) return;
@@ -115,16 +156,22 @@ export default function ApiLayout({ children }) {
     return () => observer.disconnect();
   }, [location.pathname]);
 
-  const isPageActive = (href) =>
-    location.pathname === href || location.pathname === href + '/';
+  const isPageActive = (href) => {
+    const resolved = withBase(href);
+    return location.pathname === resolved || location.pathname === `${resolved}/`;
+  };
 
   const isSectionExpanded = (item) =>
     item.type === 'section' && isPageActive(item.href);
 
+  const activeItem = NAV.find(
+    (item) => item.href && isPageActive(item.href)
+  );
+
   return (
     <div className={styles.container}>
       {/* ── Sidebar ── */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${navOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.sidebarLogo}>
             <div className={styles.sidebarDot}>
@@ -134,21 +181,27 @@ export default function ApiLayout({ children }) {
           </div>
           <span className={styles.sidebarVersion}>v1.0.0</span>
         </div>
-        
+
+        {/* Mobile-only toggle. Hidden on desktop, where the nav is always open. */}
+        <button
+          type="button"
+          className={styles.navToggle}
+          onClick={() => setNavOpen((open) => !open)}
+          aria-expanded={navOpen}
+        >
+          <span>{activeItem ? activeItem.label : 'Browse the API'}</span>
+          <span className={`${styles.navToggleChevron} ${navOpen ? styles.navToggleChevronOpen : ''}`}>▾</span>
+        </button>
+
         <nav className={styles.nav}>
-          <div className={styles.navGroupLabel}>Getting Started</div>
-       
-
           {NAV.map((item) => {
-
-              if (item.type === 'label') 
-                {
+            if (item.type === 'label') {
               return (
-                <div key={item.id} className={styles.navGroupLabel} style={{ marginTop: '16px' }}>
-                {item.label}
+                <div key={item.id} className={styles.navGroupLabel}>
+                  {item.label}
                 </div>
-                    );
-             }  
+              );
+            }
 
             if (item.type === 'page') {
               const active = isPageActive(item.href);
@@ -164,13 +217,12 @@ export default function ApiLayout({ children }) {
             }
 
             const expanded = isSectionExpanded(item);
-            const active = expanded;
 
             return (
               <div key={item.id} className={styles.navSection}>
                 <Link
                   to={item.href}
-                  className={`${styles.navSectionHeader} ${active ? styles.navSectionHeaderActive : ''}`}
+                  className={`${styles.navSectionHeader} ${expanded ? styles.navSectionHeaderActive : ''}`}
                 >
                   {item.label}
                   <span className={`${styles.navChevron} ${expanded ? styles.navChevronOpen : ''}`}>▶</span>
@@ -183,7 +235,7 @@ export default function ApiLayout({ children }) {
                       return (
                         <a
                           key={child.id}
-                          href={`${item.href}${child.anchor}`}
+                          href={`${withBase(item.href)}${child.anchor}`}
                           className={`${styles.navChild} ${childActive ? styles.navChildActive : ''}`}
                         >
                           <MethodPill method={child.method} />

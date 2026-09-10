@@ -6,7 +6,13 @@ const STATUS_STYLES = {
   204: { bg: '#f3f4f6', color: '#374151', label: '204 No Content' },
   400: { bg: '#fee2e2', color: '#991b1b', label: '400 Bad Request' },
   401: { bg: '#fff7ed', color: '#9a3412', label: '401 Unauthorized' },
+  403: { bg: '#fff7ed', color: '#9a3412', label: '403 Forbidden' },
   404: { bg: '#fef3c7', color: '#92400e', label: '404 Not Found' },
+  409: { bg: '#fef3c7', color: '#92400e', label: '409 Conflict' },
+  422: { bg: '#fee2e2', color: '#991b1b', label: '422 Unprocessable Entity' },
+  429: { bg: '#fee2e2', color: '#991b1b', label: '429 Too Many Requests' },
+  500: { bg: '#fee2e2', color: '#991b1b', label: '500 Internal Server Error' },
+  503: { bg: '#fee2e2', color: '#991b1b', label: '503 Service Unavailable' },
 };
 
 /**
@@ -30,7 +36,6 @@ export default function ResponseBlock({ status = 200, json, label }) {
           padding: '8px 16px',
           background: '#131829',
           borderRadius: '7px 7px 0 0',
-          borderBottom: '0px solid #1e2a4a',
           border: '1px solid #838383',
           borderBottom: json ? 'none' : '1px solid #838383',
         }}

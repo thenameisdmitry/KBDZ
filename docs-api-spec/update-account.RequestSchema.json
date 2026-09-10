@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","minProperties":1,"properties":{"name":{"type":"string","example":"Primary Custodian Account"},"status":{"type":"string","enum":["active","suspended","closed"],"example":"active","title":"AccountStatus"}},"title":"AccountUpdate"}}}}}

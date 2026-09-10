@@ -1,0 +1,1 @@
+{"parameters":[{"name":"id","in":"path","required":true,"description":"Unique Transaction identifier.","schema":{"type":"string"},"example":"TN_WIRE_10062026_78"}]}

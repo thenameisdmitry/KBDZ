@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","minProperties":1,"properties":{"name":{"type":"string"},"strategy":{"type":"string"},"status":{"type":"string","enum":["active","paused","closed"],"example":"active","title":"PortfolioStatus"}},"title":"PortfolioUpdate"}}}}}

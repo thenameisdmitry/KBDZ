@@ -1,0 +1,1 @@
+{"parameters":[{"name":"Idempotency-Key","in":"header","required":false,"description":"Unique key for this logical operation, typically a UUID. Generate it once and\nreuse it on retries: the first request is processed and any later request with\nthe same key returns the original response. Keys are retained for 24 hours.\n","schema":{"type":"string","format":"uuid"}}]}

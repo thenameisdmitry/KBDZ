@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","minProperties":1,"properties":{"status":{"type":"string","enum":["pending","processing","completed","failed","cancelled"],"example":"completed","title":"TransactionStatus"},"reference":{"type":"string"},"notes":{"type":"string","nullable":true}},"title":"TransactionUpdate"}}}}}

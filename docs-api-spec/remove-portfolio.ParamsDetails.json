@@ -1,0 +1,1 @@
+{"parameters":[{"name":"portfolio_id","in":"path","required":true,"description":"Unique Portfolio identifier, for example `prt_BNPParibas_001`.","schema":{"type":"string"},"example":"prt_BNPParibas_001"}]}

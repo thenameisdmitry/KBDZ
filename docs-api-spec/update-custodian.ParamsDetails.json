@@ -1,0 +1,1 @@
+{"parameters":[{"name":"id","in":"path","required":true,"description":"Unique Custodian identifier, for example `cus_BNP_001`.","schema":{"type":"string"},"example":"cus_BNP_001"}]}

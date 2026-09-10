@@ -1,0 +1,1 @@
+{"parameters":[{"name":"id","in":"path","required":true,"description":"Unique Account identifier, for example `acc_007`.","schema":{"type":"string"},"example":"acc_007"}]}

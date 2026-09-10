@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Dmitrii Zhukov',
-  tagline: 'Technical Writing | Product Documentation | Knowledge Management | Team Leadership | Fintech B2B SaaS | AI Workflow Optimization',
+  tagline: 'Senior Technical Writer and Product Documentation Lead. I build documentation systems for fintech and B2B SaaS products: knowledge bases, API references, and the workflows that keep them accurate.',
   favicon: 'img/Label.png',
 
   // Set the production url of your site here
@@ -22,7 +22,14 @@ const config: Config = {
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenAnchors: 'throw',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -67,6 +74,58 @@ const config: Config = {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  plugins: [
+    // Docs instance that hosts the reference generated from the OpenAPI spec.
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'apiSpec',
+        path: 'docs-api-spec',
+        routeBasePath: 'api/specification',
+        sidebarPath: './sidebarsApiSpec.ts',
+        docItemComponent: '@theme/ApiItem',
+      },
+    ],
+    // Generator: reads static/openapi/dz-api.yaml, writes MDX into docs-api-spec.
+    // Regenerate with: npm run gen-api
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: 'openapi',
+        docsPluginId: 'apiSpec',
+        config: {
+          dz: {
+            specPath: 'static/openapi/dz-api.yaml',
+            outputDir: 'docs-api-spec',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+              categoryLinkSource: 'tag',
+            },
+          },
+        },
+      },
+    ],
+  ],
+
+  themes: [
+    'docusaurus-theme-openapi-docs',
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        indexBlog: true,
+        indexDocs: true,
+        indexPages: true,
+        docsRouteBasePath: ['/docs', '/api/specification'],
+        blogRouteBasePath: '/articles',
+        highlightSearchTermsOnTargetPage: true,
+        searchResultLimits: 8,
+        searchBarShortcut: true,
+        searchBarShortcutHint: false,
+      },
     ],
   ],
 
@@ -120,11 +179,15 @@ navbar: {
       label: 'DZ GitHub',
       position: 'right',
     },
+    {
+      type: 'search',
+      position: 'right',
+    },
   ],
 },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Dmitrii Zhukov. Powered with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dmitrii Zhukov. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

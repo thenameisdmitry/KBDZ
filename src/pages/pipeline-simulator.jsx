@@ -25,8 +25,8 @@ export default function PipelineSimulatorPage() {
         <header className={styles.intro}>
           <h1 className={styles.pageTitle}>Pipeline Simulator</h1>
           <p className={styles.lead}>
-            An interactive companion to <strong>DZ Data Hub</strong> — a fictional
-            but internally consistent data platform. Press <em>Run</em> to watch five
+            An interactive companion to <strong>DZ Data Hub</strong>: a fictional
+            data platform. Press <em>Run</em> to watch five
             billing events travel from the raw landing table to a governed business
             metric, or click any node to read its documentation: a consumer-facing
             overview, a schema contract, and the commented source itself.
@@ -44,7 +44,7 @@ export default function PipelineSimulatorPage() {
           <div className={styles.frameBar}>
             <span className={styles.frameLabel}>Interactive artifact</span>
             <span className={styles.frameMeta}>
-              Snowflake · dbt · Airflow · Metabase — runs entirely in your browser
+              Snowflake · dbt · Airflow · Metabase · Simulator runs entirely in your browser
             </span>
           </div>
           <PipelineSimulator />

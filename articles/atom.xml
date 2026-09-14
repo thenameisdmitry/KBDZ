@@ -16,7 +16,7 @@
         <content type="html"><![CDATA[<p>Browse GitHub long enough and you notice something: almost every repository has a README, yet comprehensive guides are rare.</p>
 <p>The reason is simple. The primary goal of documentation is to educate people about a product: what it does, why it exists, how to use it efficiently, how to avoid mistakes, and how to get the most value from it. Creating good documentation requires time, effort, discipline, and a genuine desire to help others succeed with your product. Those who neglect documentation usually have other priorities, and educating users is not one of them.</p>
 <p>In the enterprise world, however, documentation is not optional. Whether we're talking about Fintech platforms, treasury systems, SaaS products, or enterprise software in general, documentation is one of the foundations upon which customer success is built.</p>
-<p>Consider a simple analogy. When you buy a sophisticated piece of equipment — a coffee machine, a boiler, some new home electronics — you usually open the manual first, for two obvious reasons. You don't want to break something expensive by trial and error, and you want to start using it properly as fast as possible.</p>
+<p>Consider a simple analogy. When you buy a sophisticated piece of equipment, such as a coffee machine, a boiler, or new home electronics, you usually open the manual first. There are two obvious reasons. You don't want to break something expensive by trial and error, and you want to start using it properly as fast as possible.</p>
 <p>Customers of a fintech product want exactly the same two things. They do not want to lose money, and they want to get more value out of what they bought. Good documentation serves both.</p>
 <p>Customers can judge the maturity of a product from the quality of its documentation alone. The line between good and bad documentation is obvious to any reader, and remarkably hard to cross. In my experience, great documentation rests on three pillars: <em>integrity, actionability, and beauty</em>.</p>
 <p><img decoding="async" loading="lazy" alt="three-pillars1" src="https://thenameisdmitry.github.io/KBDZ/assets/images/three-pillars-1-5950f9c3cf387e91521e8829a3f2b285.png" width="1774" height="887" class="img_ev3q"></p>
@@ -24,7 +24,7 @@
 <p>This one almost goes without saying.</p>
 <p>If your documentation states something incorrect, omits a critical detail, or misleads the reader, your credibility is gone.</p>
 <p>Integrity does not happen by accident. It takes continuous research, attention to detail, close work with subject-matter experts, a seat in testing, thorough reviews, and the ability to fix an issue before it reaches a customer. Integrity is what an efficient workflow produces.</p>
-<p>Clients rarely notice accurate documentation; they simply expect it. Inaccurate documentation they notice instantly — and then they start thinking about adding an “ex-” to the word “client”. Trust is far harder to win back than to keep.</p>
+<p>Clients rarely notice accurate documentation; they simply expect it. Inaccurate documentation they notice instantly. That is when they start thinking about adding an “ex-” to the word “client”. Trust is far harder to win back than to keep.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-actionability">✅ Actionability<a href="https://thenameisdmitry.github.io/KBDZ/articles/three-pillars-of-doc#-actionability" class="hash-link" aria-label="Direct link to ✅ Actionability" title="Direct link to ✅ Actionability" translate="no">​</a></h3>
 <p>Technical documentation is not a novel.</p>
 <p>Nobody opens a knowledge base for entertainment. People arrive with a problem and expect to leave with a solution. The best documentation respects the reader's time: focused, practical, built to get someone to a specific goal with minimal effort. No one wants to wade through a dozen paragraphs of background to reach the one step they actually needed.</p>
@@ -40,7 +40,7 @@
 <p>One last analogy.</p>
 <p>Imagine sitting through a product presentation for a solution you are considering buying.</p>
 <p>The lights dim. The screen comes alive. The presenter walks on stage.</p>
-<p>They greet the room, and get straight to the point. They show the features that matter, walk through practical use cases, answer every question, and never waste a minute of your time. The talk is clear, engaging, and effortless to follow — and everything around it, from the slides to the pacing to the room itself, is considered.</p>
+<p>They greet the room and get straight to the point. They show the features that matter, walk through practical use cases, answer every question, and never waste a minute of your time. The talk is clear, engaging, and effortless to follow. Everything around it, from the slides to the pacing to the room itself, is carefully considered.</p>
 <p>By the end you want the product, and you trust the people behind it.</p>
 <p>Exceptional documentation creates the same effect.</p>
 <p>It becomes the place customers go first, because experience has taught them that the answer is there and it is right. When documentation reaches that level, your support team runs into the most pleasant problem there is:</p>

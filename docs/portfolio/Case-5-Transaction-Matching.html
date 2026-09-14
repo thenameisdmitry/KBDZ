@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.10.1">
 <title data-rh="true">Case 5: Transaction Matching Guide | Dmitrii Zhukov</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" property="og:url" content="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Case 5: Transaction Matching Guide | Dmitrii Zhukov"><meta data-rh="true" name="description" content="&lt;div style={{"><meta data-rh="true" property="og:description" content="&lt;div style={{"><link data-rh="true" rel="icon" href="/KBDZ/img/Label.png"><link data-rh="true" rel="canonical" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching" hreflang="en"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Guides","item":"https://thenameisdmitry.github.io/KBDZ/docs/portfolio/"},{"@type":"ListItem","position":2,"name":"Case 5: Transaction Matching Guide","item":"https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching"}]}</script><link rel="alternate" type="application/rss+xml" href="/KBDZ/articles/rss.xml" title="Dmitrii Zhukov RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/KBDZ/articles/atom.xml" title="Dmitrii Zhukov Atom Feed"><link rel="stylesheet" href="/KBDZ/assets/css/styles.da737292.css">
-<script src="/KBDZ/assets/js/runtime~main.986c207a.js" defer="defer"></script>
+<script src="/KBDZ/assets/js/runtime~main.ee51b217.js" defer="defer"></script>
 <script src="/KBDZ/assets/js/main.358aa557.js" defer="defer"></script>
 </head>
 <body>
@@ -19,7 +19,7 @@
 matches Transaction records between the House side (Company) and the Counterparty side
 (Broker, Bank, or Accounting system). The Algorithmic Transaction Matching process runs on
 Hazeltree&#x27;s in-house engine, built on Fuzzy logic at its core.</p>
-<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>ALGORITHMIC TRANSACTION MATCHING PROCESS</div><div class="admonitionContent_BuS1"><p>Comparing Transactions from two sources — House and Counterparty — with Fuzzy logic gives customers
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>ALGORITHMIC TRANSACTION MATCHING PROCESS</div><div class="admonitionContent_BuS1"><p>Comparing House and Counterparty Transactions with Fuzzy logic gives customers
 control over the integrity of real asset movements. Financial operations wired through multiple
 institutions vary too widely for exact matching, which is why the Fuzzy logic engine exists.</p><p>Consider a set of international Transactions. The assets pass through intermediary banks before
 they reach the receiving Account, and the client needs to know which Transactions have settled and
@@ -44,7 +44,7 @@ accuracy and integrity. It is a multi-step procedure, shown in the diagram below
 <li class=""><strong>Input</strong>: the Fuzzy algorithm starts with the full set of Transactions that participate
 in the algorithmic matching process. This set is assembled on the Transaction Matching
 screen when the user starts Algorithmic Matching.</li>
-<li class=""><strong>Fuzzy Transaction Matching</strong>: the process runs in two parallel modes — 1:1 Matching
+<li class=""><strong>Fuzzy Transaction Matching</strong>: the process runs in two parallel modes, 1:1 Matching
 and M<!-- -->:N<!-- --> Matching.</li>
 <li class=""><strong>1:1 relations</strong>: relations are established between a single right-side Transaction
 (Broker) and a single left-side Transaction (House). This mode is called One-To-One and is
@@ -68,15 +68,15 @@ their calculated Confidence Levels.</li>
 <p>Because Transaction records are held differently across accounting institutions, the
 Transaction Matching process runs in three modes:</p>
 <ul>
-<li class=""><strong>One-To-One</strong> — one Transaction to one Transaction.</li>
+<li class=""><strong>One-To-One</strong>: one Transaction to one Transaction.</li>
 <li class=""><strong>M<!-- -->:N<!-- --> Matching</strong>, with three variations:<!-- -->
 <ul>
-<li class=""><strong>One-To-Many</strong> — one Transaction to many Transactions.</li>
-<li class=""><strong>Many-To-One</strong> — many Transactions to one Transaction.</li>
-<li class=""><strong>Many-To-Many</strong> — many Transactions to many Transactions.</li>
+<li class=""><strong>One-To-Many</strong>: one Transaction to many Transactions.</li>
+<li class=""><strong>Many-To-One</strong>: many Transactions to one Transaction.</li>
+<li class=""><strong>Many-To-Many</strong>: many Transactions to many Transactions.</li>
 </ul>
 </li>
-<li class=""><strong>Cross Grouping through 1:1 Matching</strong> — Many-To-Many groups linked through a
+<li class=""><strong>Cross Grouping through 1:1 Matching</strong>: Many-To-Many groups linked through a
 One-To-One match and an established cross-group connection.</li>
 </ul>
 <p>These different approaches exist because the number of Transaction records can differ
@@ -323,7 +323,7 @@ selected on the grid. It combines the Transactions into a single group.</p>
 <p>When clicked, it opens the Transaction Group Editor in a pop-up window that shows the
 selected Transactions from the House side and the Counterparty side. Here you can add a
 Status, Tags, Business Status, and Description to the group.</p>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Transaction Group Editor is also used to edit Transaction Groups — for example, to
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>INFORMATION</div><div class="admonitionContent_BuS1"><p>The Transaction Group Editor is also used to edit Transaction Groups, for example, to
 exclude incorrectly added Transactions. The editor is described below:</p></div></div>
 <p><img decoding="async" loading="lazy" alt="transaction-matching-image-016" src="/KBDZ/assets/images/image016-53780c9af5d46a9d84be4290fb00e272.png" width="765" height="635" class="img_ev3q"></p>
 <ol>

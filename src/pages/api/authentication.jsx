@@ -240,11 +240,11 @@ export default function AuthenticationPage() {
           <span style={{ color: '#f59e0b' }}>api.dzenterprise.io</span>
         </div>
 
-        <h3 style={H3}>Step 1 — Obtain a token</h3>
+        <h3 style={H3}>Step 1: Obtain a token</h3>
         <CodeTabs curl={TOKEN_CURL} python={TOKEN_PYTHON} javascript={TOKEN_JS} label="POST /oauth/token" />
         <ResponseBlock status={200} json={TOKEN_RESPONSE} label="200 OK" />
 
-        <h3 style={H3}>Step 2 — Authenticate requests</h3>
+        <h3 style={H3}>Step 2: Authenticate requests</h3>
         <p style={PROSE}>
           Pass the token in the <code style={INLINE_CODE}>Authorization</code> header on every request.
           The <code style={INLINE_CODE}>X-Request-ID</code> header is optional but recommended: it

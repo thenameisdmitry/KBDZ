@@ -8,9 +8,10 @@ import Link from '@docusaurus/Link';
 
 # Data Hub: Interactive Pipeline Simulator
 
-**DZ Data Hub** is a fictional
-data platform: Snowflake as the warehouse, dbt for transformations, Airflow for
-orchestration, Metabase for consumption. This page demonstrates my ability as Technical Writer to construct mock-ups and real workflow presentation, where every layer is explained in details. 
+**DZ Data Hub** is a fictional data platform: Snowflake as the warehouse, dbt for
+transformations, Airflow for orchestration, and Metabase for consumption. This page
+demonstrates my ability as a technical writer to build mock-ups and realistic workflow
+presentations, with every layer explained in detail.
 
 <div style={{margin: '2.5rem 0'}}>
   <Link className="simulator-cta" to="/pipeline-simulator">Open the simulator →</Link>
@@ -20,8 +21,8 @@ orchestration, Metabase for consumption. This page demonstrates my ability as Te
 
 The simulator traces five billing events through one pipeline: a raw landing
 table, a dbt staging model, a conformed dimension, a fact table, and finally a governed
-business metric (Trial-to-Paid Conversion Rate). Press **Run** to watch one execution running step-by-step.
-Or click any node in the DAG to read its documentation.
+business metric (Trial-to-Paid Conversion Rate). Press **Run** to watch one execution unfold
+step by step, or click any node in the DAG to read its documentation.
 
 :::note NOTE
 The sample data is deliberately imperfect. The raw layer contains a duplicate event, an
@@ -35,10 +36,9 @@ guarantees to the next.
 
 Every node carries three layers of documentation, each written for a different reader:
 
-1. **Overview**: purpose, ownership, grain, schedule, and freshness guarantees in plain language
-2. **Schema**: the contract. Column-level descriptions that state what can be assumed about it (uniqueness, casing, timezone) and what cannot.
-3. **Code**: the commented source itself. Comments capture
-   design intent.
+1. **Overview**: purpose, ownership, grain, schedule, and freshness guarantees in plain language.
+2. **Schema**: the contract. Column-level descriptions that state what can be assumed about each field (uniqueness, casing, time zone) and what cannot.
+3. **Code**: the commented source itself. Comments capture design intent.
 
 The premise: documentation that lives in one narrative document goes stale, while
 documentation attached to the thing it describes is updated along with the development cycle. The simulator makes that structure tangible.

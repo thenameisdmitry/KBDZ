@@ -66,13 +66,13 @@ const NODES = {
     layer: "Ingestion · Airflow",
     x: 30, y: 96, w: 190,
     rows: RAW_ROWS,
-    rowNote: "5 raw events — note the duplicate, the lowercase type, and the internal test account.",
+    rowNote: "5 raw events. Note the duplicate, the lowercase type, and the internal test account.",
     overview: [
-      ["Purpose", "Landing table for license lifecycle events streamed from the DZ billing system. Loaded as-is: no cleaning, no dedup — raw layer is an audit trail, not a consumption surface."],
+      ["Purpose", "Landing table for license lifecycle events streamed from the DZ billing system. Loaded as-is, with no cleaning or dedup: the raw layer is an audit trail, not a consumption surface."],
       ["Owner", "Data Platform team (@data-platform)"],
       ["Schedule", "Airflow DAG ingest_billing_events, hourly at :05. SLA: data available within 90 min of event time."],
       ["Freshness", "Monitored by an Airflow sensor; alerts to #data-alerts if the source API lags > 2h."],
-      ["Downstream", "stg_license_events (dbt). Do not query this table for reporting — see the staging model instead."],
+      ["Downstream", "stg_license_events (dbt). Do not query this table for reporting; use the staging model instead."],
     ],
     schema: [
       ["event_id", "varchar", "Event identifier from billing. Not guaranteed unique at this layer (at-least-once delivery)."],
@@ -196,7 +196,7 @@ where rn = 1
     rows: DIM_ROWS,
     rowNote: "Account attributes joined into the fact table: plan and region enable metric slicing.",
     overview: [
-      ["Purpose", "Current-state account dimension: plan, region, lifecycle flags. Conformed dimension — every fact table joins to it the same way."],
+      ["Purpose", "Current-state account dimension: plan, region, lifecycle flags. Conformed dimension: every fact table joins to it the same way."],
       ["Owner", "Analytics Engineering (@analytics-eng)"],
       ["Grain", "One row per account_id (SCD type 1: attributes reflect current state)."],
       ["Source", "CRM export + billing plan table, merged nightly."],
@@ -236,7 +236,7 @@ left join {{ ref('stg_billing_plans') }} p
     layer: "Fact · dbt",
     x: 575, y: 166, w: 195,
     rows: FCT_ROWS,
-    rowNote: "Events enriched with account attributes — ready for metric aggregation.",
+    rowNote: "Events enriched with account attributes, ready for metric aggregation.",
     overview: [
       ["Purpose", "Analytics-ready fact table of license lifecycle events, enriched with account attributes. The documented source for all licensing metrics."],
       ["Owner", "Analytics Engineering (@analytics-eng); metric definitions co-owned with RevOps."],
@@ -287,7 +287,7 @@ left join {{ ref('dim_accounts') }} a
     overview: [
       ["Definition", "Share of accounts that started a trial in a month and converted to a paid plan within 30 days of trial start."],
       ["Owner", "RevOps (business), Analytics Engineering (technical)."],
-      ["Source", "fct_license_events — the only sanctioned source. Ad-hoc recalculations from raw are a known anti-pattern."],
+      ["Source", "fct_license_events is the only sanctioned source. Ad-hoc recalculations from raw are a known anti-pattern."],
       ["Caveats", "30-day conversion window means the latest month is incomplete until day 30. Plan/region reflect current account state (SCD1)."],
       ["Change log", "v1.2 (2026-05): window unified to 30 days across all dashboards; previously 14 days in the sales view."],
     ],
@@ -506,7 +506,7 @@ export default function PipelineSimulator() {
           <div className={styles.kicker} style={{ color: T.dim }}>
             DZ Data Hub · interactive companion
           </div>
-          <h2 className={styles.title}>License events pipeline — from billing API to metric</h2>
+          <h2 className={styles.title}>License events pipeline: from billing API to metric</h2>
         </div>
         <div className={styles.controls}>
           {btn(running ? "Running…" : stage >= 5 ? "▶ Run again" : "▶ Run", run, { primary: true, disabled: running })}
@@ -528,7 +528,7 @@ export default function PipelineSimulator() {
         {stage >= 0 && stage < 5 && STAGE_CAPTION[stage]}
         {stage >= 5 && (
           <span style={{ color: T.ok }}>
-            ✓ Pipeline complete — Trial-to-Paid Conversion Rate for 2026-06: <b>50.0%</b> (2 trials, 1 conversion). Click nodes to explore how the number was built.
+            ✓ Pipeline complete. Trial-to-Paid Conversion Rate for 2026-06: <b>50.0%</b> (2 trials, 1 conversion). Click nodes to explore how the number was built.
           </span>
         )}
       </div>
@@ -581,7 +581,7 @@ export default function PipelineSimulator() {
               <rect x="110" y="366" width="10" height="10" rx="2" fill="none" stroke={T.ok} strokeWidth="1.5" />
               <text x="126" y="375">completed</text>
               <rect x="210" y="366" width="10" height="10" rx="2" fill="none" stroke={T.accent} strokeWidth="1.5" />
-              <text x="226" y="375">selected — docs on the right</text>
+              <text x="226" y="375">selected: docs on the right</text>
             </g>
           </svg>
 
@@ -692,7 +692,7 @@ export default function PipelineSimulator() {
           <p className={styles.footNote} style={{ color: T.faint }}>
             Every node carries three layers of documentation: an overview written for consumers,
             a schema contract, and the commented source itself. The simulation shows the same
-            five events flowing through the system — including the duplicate, the inconsistent
+            five events flowing through the system, including the duplicate, the inconsistent
             casing, and the test account that the pipeline is designed to handle.
           </p>
         </div>

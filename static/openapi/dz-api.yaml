@@ -1431,7 +1431,7 @@ components:
           description: Account this Agreement is scoped to. Fixed at creation.
           example: acc_007
         type: { $ref: '#/components/schemas/AgreementType' }
-        name: { type: string, example: 'Credit Agreement — BHMS / BNP Paribas' }
+        name: { type: string, example: 'BHMS / BNP Paribas Credit Agreement' }
         principal_amount:
           type: number
           format: double
@@ -1459,7 +1459,7 @@ components:
       properties:
         account_id: { type: string, example: acc_007 }
         type: { $ref: '#/components/schemas/AgreementType' }
-        name: { type: string, example: 'Credit Agreement — BHMS / BNP Paribas' }
+        name: { type: string, example: 'BHMS / BNP Paribas Credit Agreement' }
         principal_amount: { type: number, format: double, example: 50000000.00 }
         currency: { type: string, example: GBP }
         interest_rate: { type: number, format: double, example: 4.25 }

@@ -283,7 +283,7 @@ export default function AccountsPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Account object" fields={ACCOUNT_FIELDS} />
+          <FieldTable caption="Response fields: Account object" fields={ACCOUNT_FIELDS} />
           <ResponseBlock status={200} json={ACCOUNT} />
         </EndpointSection>
 
@@ -309,7 +309,7 @@ export default function AccountsPage() {
             timeout returns the original Account instead of creating a second one.
           </p>
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Account object" fields={ACCOUNT_FIELDS} />
+          <FieldTable caption="Response fields: Account object" fields={ACCOUNT_FIELDS} />
           <ResponseBlock status={201} json={ACCOUNT} />
         </EndpointSection>
 
@@ -340,7 +340,7 @@ export default function AccountsPage() {
             <code style={INLINE_CODE}>422 validation_failed</code>.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Account object" fields={ACCOUNT_FIELDS} />
+          <FieldTable caption="Response fields: Account object" fields={ACCOUNT_FIELDS} />
           <ResponseBlock
             status={200}
             json={{ ...ACCOUNT, name: 'Primary Custodian Account', updated_at: '2026-04-01T09:00:00Z' }}

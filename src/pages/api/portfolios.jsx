@@ -313,8 +313,8 @@ export default function PortfoliosPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Portfolio object" fields={PORTFOLIO_FIELDS} />
-          <FieldTable caption="Response fields — accounts[] allocation object" fields={ALLOCATION_FIELDS} />
+          <FieldTable caption="Response fields: Portfolio object" fields={PORTFOLIO_FIELDS} />
+          <FieldTable caption="Response fields: accounts[] allocation object" fields={ALLOCATION_FIELDS} />
           <ResponseBlock status={200} json={PORTFOLIO} />
         </EndpointSection>
 
@@ -359,7 +359,7 @@ export default function PortfoliosPage() {
           </div>
 
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Portfolio object" fields={PORTFOLIO_FIELDS} />
+          <FieldTable caption="Response fields: Portfolio object" fields={PORTFOLIO_FIELDS} />
           <ResponseBlock status={201} json={PORTFOLIO} />
         </EndpointSection>
 
@@ -390,7 +390,7 @@ export default function PortfoliosPage() {
             Portfolio, so the sum can be revalidated as a whole.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Portfolio object" fields={PORTFOLIO_FIELDS} />
+          <FieldTable caption="Response fields: Portfolio object" fields={PORTFOLIO_FIELDS} />
           <ResponseBlock
             status={200}
             json={{

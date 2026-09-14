@@ -332,7 +332,7 @@ export default function TransactionsPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Transaction object" fields={TRANSACTION_FIELDS} />
+          <FieldTable caption="Response fields: Transaction object" fields={TRANSACTION_FIELDS} />
           <ResponseBlock status={200} json={TRANSACTION} />
         </EndpointSection>
 
@@ -374,7 +374,7 @@ export default function TransactionsPage() {
             Generate one key per payment and reuse it on every attempt.
           </div>
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Transaction object" fields={TRANSACTION_FIELDS} />
+          <FieldTable caption="Response fields: Transaction object" fields={TRANSACTION_FIELDS} />
           <ResponseBlock
             status={201}
             json={{ ...TRANSACTION, status: 'pending', updated_at: '2026-03-15T09:45:00Z' }}
@@ -410,7 +410,7 @@ export default function TransactionsPage() {
             audit trail and cannot be rewritten.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Transaction object" fields={TRANSACTION_FIELDS} />
+          <FieldTable caption="Response fields: Transaction object" fields={TRANSACTION_FIELDS} />
           <ResponseBlock
             status={200}
             json={{ ...TRANSACTION, status: 'completed', updated_at: '2026-03-15T10:00:00Z' }}

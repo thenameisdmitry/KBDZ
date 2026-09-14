@@ -305,7 +305,7 @@ export default function CustodiansPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Custodian object" fields={CUSTODIAN_FIELDS} />
+          <FieldTable caption="Response fields: Custodian object" fields={CUSTODIAN_FIELDS} />
           <ResponseBlock status={200} json={CUSTODIAN} />
         </EndpointSection>
 
@@ -334,7 +334,7 @@ export default function CustodiansPage() {
             <code style={INLINE_CODE}>409 conflict</code>.
           </p>
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Custodian object" fields={CUSTODIAN_FIELDS} />
+          <FieldTable caption="Response fields: Custodian object" fields={CUSTODIAN_FIELDS} />
           <ResponseBlock status={201} json={CUSTODIAN} />
         </EndpointSection>
 
@@ -370,7 +370,7 @@ export default function CustodiansPage() {
             existing ones untouched.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Custodian object" fields={CUSTODIAN_FIELDS} />
+          <FieldTable caption="Response fields: Custodian object" fields={CUSTODIAN_FIELDS} />
           <ResponseBlock
             status={200}
             json={{

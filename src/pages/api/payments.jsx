@@ -354,7 +354,7 @@ export default function PaymentsPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Payment object" fields={PAYMENT_FIELDS} />
+          <FieldTable caption="Response fields: Payment object" fields={PAYMENT_FIELDS} />
           <ResponseBlock status={200} json={PAYMENT} />
         </EndpointSection>
 
@@ -406,7 +406,7 @@ export default function PaymentsPage() {
             <code style={INLINE_CODE}>processing</code>.
           </p>
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Payment object" fields={PAYMENT_FIELDS} />
+          <FieldTable caption="Response fields: Payment object" fields={PAYMENT_FIELDS} />
           <ResponseBlock
             status={201}
             json={{
@@ -449,7 +449,7 @@ export default function PaymentsPage() {
             <code style={INLINE_CODE}>409 conflict</code>.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Payment object" fields={PAYMENT_FIELDS} />
+          <FieldTable caption="Response fields: Payment object" fields={PAYMENT_FIELDS} />
           <ResponseBlock
             status={200}
             json={{

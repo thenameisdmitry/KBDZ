@@ -38,7 +38,7 @@ import Example from '@site/src/components/Example';
 
 <div>
   <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#999999', marginBottom: '4px' }}>Business Impact</p>
-  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Brings full transparency to ledger records within a unified system — a single point of visibility across accounting data. Allows accountants, analysts, and operations staff to immediately identify discrepancies in their own or counterparty records and react in real time.</p>
+  <p style={{ fontSize: '0.9rem', color: 'var(--ifm-font-color-base)', margin: 0, lineHeight: 1.6 }}>Brings full transparency to ledger records within a unified system and provides a single point of visibility across accounting data. Allows accountants, analysts, and operations staff to immediately identify discrepancies in their own or counterparty records and react in real time.</p>
 </div>
 
 </div>
@@ -55,7 +55,7 @@ Vouchers for clients’ accounting systems.
 :::note GENERAL LEDGER ENTRIES
 
 Accounting systems typically use double-entry bookkeeping, where each Transaction is 
-represented by two cash flow movements—a debit and a credit—that affect different 
+represented by two cash flow movements, a debit and a credit, that affect different 
 accounting categories. These categories are defined in the Chart of Accounts (CoA), 
 which may include multiple hierarchical levels. The CoA example is presented below.
 
@@ -73,7 +73,7 @@ which may include multiple hierarchical levels. The CoA example is presented bel
 Any Voucher or Transaction that represents an actual money movement can contain 
 multiple General Ledger entries required for downstream accounting systems.
 
-GL entries are produced according to GL allocation rules—system and/or custom. GL 
+GL entries are produced according to GL allocation rules: system rules, custom rules, or both. GL 
 Allocation Rules define the General Ledger entry templates applied to the target 
 Transactions.
 :::
@@ -185,7 +185,7 @@ tab’s capabilities:
 - **Generate Entries**: click to have the system automatically create all GL entries 
 according to the GL Allocation Rule that targets the voucher.
 - **Preview Output**: click to generate and download the preview output file based on 
-the GL Message Layout. The file contains all created GL entries and their parameters—a 
+the GL Message Layout. The file contains all created GL entries and their parameters: a 
 snapshot of the output that will be delivered to the accounting system.
 
 :::info INFORMATION 
@@ -220,7 +220,7 @@ The voucher contains a single transaction with a settlement date of 7/23/2023: a
 
 ![gl-manager-image-025](/img/case-3-gl-manager/image025.png)
 
-The user, Author Curry, must create the corresponding GL entries that will be posted and delivered to Aqua Trading’s in-house accounting system when the transaction is settled. They use the *Generate Entries* button to create all GL entries automatically: four entries—two for each account involved in the transfer (*Credit* and *Debit*):
+The user, Author Curry, must create the corresponding GL entries that will be posted and delivered to Aqua Trading’s in-house accounting system when the transaction is settled. They use the *Generate Entries* button to create all GL entries automatically. The button creates four entries, two for each account involved in the transfer (*Credit* and *Debit*):
 
 ![gl-manager-image-023](/img/case-3-gl-manager/image023.png)
 

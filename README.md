@@ -1,4 +1,4 @@
-# Dmitrii Zhukov — Senior Technical Writer Portfolio
+# Dmitrii Zhukov: Senior Technical Writer Portfolio
 
 A personal portfolio website built to demonstrate my skills in technical writing, API documentation, and knowledge management in a fintech B2B SaaS context.
 
@@ -99,7 +99,7 @@ Deploys to the `gh-pages` branch and publishes to GitHub Pages automatically.
 
 ## About
 
-**Dmitrii Zhukov** — Senior Technical Writer and Documentation Product Lead with 10 years of experience in fintech, asset management, and B2B SaaS.
+**Dmitrii Zhukov** is a Senior Technical Writer and Documentation Product Lead with 10 years of experience in fintech, asset management, and B2B SaaS.
 
 - LinkedIn: [linkedin.com/in/dmitrii-zhukov-71b94222b](https://www.linkedin.com/in/dmitrii-zhukov-71b94222b/)
 - GitHub: [github.com/thenameisdmitry](https://github.com/thenameisdmitry/)

@@ -15,7 +15,7 @@ const AGREEMENT = {
   id: 'agr_BNP_001',
   account_id: 'acc_007',
   type: 'credit',
-  name: 'Credit Agreement — BHMS / BNP Paribas',
+  name: 'BHMS / BNP Paribas Credit Agreement',
   principal_amount: 50000000.00,
   currency: 'GBP',
   interest_rate: 4.25,
@@ -33,7 +33,7 @@ const AGREEMENT_LIST = {
       ...AGREEMENT,
       id: 'agr_JPM_002',
       account_id: 'acc_006',
-      name: 'Credit Agreement — BHMS / JP Morgan',
+      name: 'BHMS / JP Morgan Credit Agreement',
       principal_amount: 75000000.00,
       interest_rate: 4.10,
       start_date: '2025-06-01',
@@ -106,7 +106,7 @@ const CREATE_CURL = `curl -X POST "https://api.dzenterprise.io/v1/agreements" \\
   -d '{
     "account_id": "acc_007",
     "type": "credit",
-    "name": "Credit Agreement — BHMS / BNP Paribas",
+    "name": "BHMS / BNP Paribas Credit Agreement",
     "principal_amount": 50000000.00,
     "currency": "GBP",
     "interest_rate": 4.25,
@@ -128,7 +128,7 @@ headers = {
 payload = {
     "account_id": "acc_007",
     "type": "credit",
-    "name": "Credit Agreement — BHMS / BNP Paribas",
+    "name": "BHMS / BNP Paribas Credit Agreement",
     "principal_amount": 50000000.00,
     "currency": "GBP",
     "interest_rate": 4.25,
@@ -206,7 +206,7 @@ const response = await fetch(\`\${BASE_URL}/agreements\`, {
   body: JSON.stringify({
     account_id: 'acc_007',
     type: 'credit',
-    name: 'Credit Agreement — BHMS / BNP Paribas',
+    name: 'BHMS / BNP Paribas Credit Agreement',
     principal_amount: 50000000.0,
     currency: 'GBP',
     interest_rate: 4.25,
@@ -304,7 +304,7 @@ export default function AgreementsPage() {
             ]}
           />
           <CodeTabs curl={GET_CURL} python={GET_PYTHON} javascript={GET_JS} />
-          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
+          <FieldTable caption="Response fields: Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={200} json={AGREEMENT} />
         </EndpointSection>
 
@@ -330,7 +330,7 @@ export default function AgreementsPage() {
             ]}
           />
           <CodeTabs curl={CREATE_CURL} python={CREATE_PYTHON} javascript={CREATE_JS} />
-          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
+          <FieldTable caption="Response fields: Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={201} json={AGREEMENT} />
         </EndpointSection>
 
@@ -364,7 +364,7 @@ export default function AgreementsPage() {
             returns <code style={INLINE_CODE}>422 validation_failed</code>.
           </p>
           <CodeTabs curl={UPDATE_CURL} python={UPDATE_PYTHON} javascript={UPDATE_JS} />
-          <FieldTable caption="Response fields — Credit Agreement object" fields={AGREEMENT_FIELDS} />
+          <FieldTable caption="Response fields: Credit Agreement object" fields={AGREEMENT_FIELDS} />
           <ResponseBlock status={200} json={{ ...AGREEMENT, interest_rate: 4.50, updated_at: '2026-04-01T09:00:00Z' }} />
         </EndpointSection>
 

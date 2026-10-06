@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-portfolio/emlid-test-assignment" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.1">
+<title data-rh="true">Emlid test assignment: Base and rover setup | Dmitrii Zhukov</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://thenameisdmitry.github.io/KBDZ/img/social-card.png"><meta data-rh="true" property="og:url" content="https://thenameisdmitry.github.io/KBDZ/docs/emlid-test-assignment"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Emlid test assignment: Base and rover setup | Dmitrii Zhukov"><meta data-rh="true" name="description" content="An audit of the Reach RS2/RS2+ base and rover setup guide, a rewrite of its first part, and a note on writing guides for an AI customer agent."><meta data-rh="true" property="og:description" content="An audit of the Reach RS2/RS2+ base and rover setup guide, a rewrite of its first part, and a note on writing guides for an AI customer agent."><meta data-rh="true" name="robots" content="noindex, nofollow"><link data-rh="true" rel="icon" href="/KBDZ/img/Label.png"><link data-rh="true" rel="canonical" href="https://thenameisdmitry.github.io/KBDZ/docs/emlid-test-assignment"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/emlid-test-assignment" hreflang="en"><link data-rh="true" rel="alternate" href="https://thenameisdmitry.github.io/KBDZ/docs/emlid-test-assignment" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/KBDZ/articles/rss.xml" title="Dmitrii Zhukov RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/KBDZ/articles/atom.xml" title="Dmitrii Zhukov Atom Feed"><link rel="stylesheet" href="/KBDZ/assets/css/styles.da737292.css">
+<script src="/KBDZ/assets/js/runtime~main.c73d7ed6.js" defer="defer"></script>
+<script src="/KBDZ/assets/js/main.50cf11ae.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>document.documentElement.setAttribute("data-theme","dark"),document.documentElement.setAttribute("data-theme-choice","dark"),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/KBDZ/img/Label.png"><link rel="preload" as="image" href="/KBDZ/assets/images/base-gnss-settings-3f84739726037c68766baf688d6f5062.webp"><link rel="preload" as="image" href="/KBDZ/assets/images/base-rtcm3-d33b97dbe6292fe7deae657ab9898b13.webp"><link rel="preload" as="image" href="/KBDZ/assets/images/rover-gnss-settings-de67a26a6acfd3ccdf6ff0e283035126.webp"><link rel="preload" as="image" href="/KBDZ/assets/images/rover-lora-49fc5a1373ab7afe3a2f2b1b215f5d7b.webp"><link rel="preload" as="image" href="/KBDZ/assets/images/base-averaging-0514ffe6797cfa7e2408ed919092c91c.webp"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/KBDZ/"><div class="navbar__logo"><img src="/KBDZ/img/Label.png" alt="Label" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/KBDZ/img/Label.png" alt="Label" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Home</b></a><a class="navbar__item navbar__link" href="/KBDZ/docs/portfolio/portfolio-overview">Portfolio</a><a class="navbar__item navbar__link" href="/KBDZ/api">API Documentation</a><a class="navbar__item navbar__link" href="/KBDZ/blog">My Blog</a><a class="navbar__item navbar__link" href="/KBDZ/expertise">My Expertise</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/thenameisdmitry/" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">DZ GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><svg aria-hidden="true" class="searchIcon_T3tP" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M6.02945 10.20327a4.17382 4.17382 0 1 1 4.17382-4.17382 4.15609 4.15609 0 0 1-4.17382 4.17382Zm9.69195 4.2199-4.8225-4.82338A5.88021 5.88021 0 0 0 12.058 6.02856 6.00467 6.00467 0 1 0 9.59979 10.8989l4.82338 4.82338a.89729.89729 0 0 0 1.29912 0 .89749.89749 0 0 0-.00087-1.29909Z"></path></svg><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><main class="docMainContainer_TBSr docMainContainerEnhanced_lQrH"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Emlid test assignment: Base and rover setup</h1></header>
+<p>📄 <strong><a href="/KBDZ/assets/files/Dmitrii_Zhukov_Emlid_Test_Assignment-476654c51eb2c41f7367622388dd594c.pdf" target="_blank" class="">Download the PDF version</a></strong> · Dmitrii Zhukov · October 2026</p>
+<p>This page is my solution to the Emlid test assignment. It covers the <a href="https://docs.emlid.com/reachrs2/rtk-quickstart/base-rover-setup/" target="_blank" rel="noopener noreferrer" class="">Base and rover setup</a> guide for Reach RS2/RS2+ in three parts:</p>
+<ul>
+<li class=""><a href="#task-1" class="">Task 1. Audit</a>: what works on the page, what doesn&#x27;t, and why (professional opinion).</li>
+<li class=""><a href="#task-2" class="">Task 2. Rewrite</a>: the first part of the page rewritten by me, then I put a plan for the rest.</li>
+<li class=""><a href="#task-3" class="">Task 3. Docs and AI</a>: how an AI RAG agent changes my workflow.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="task-1">Task 1. Audit<a href="#task-1" class="hash-link" aria-label="Direct link to Task 1. Audit" title="Direct link to Task 1. Audit" translate="no">​</a></h2>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>The task</div><div class="admonitionContent_BuS1"><p>Read the page as the writer who owns it. Say what works, what doesn&#x27;t, and why. Check that the guide gives the reader what they need for their task, no more and no less.</p></div></div>
+<p><strong>Reader:</strong> a first-time owner of two Reach RS2/RS2+ units, possibly new to RTK.</p>
+<p><strong>Reader&#x27;s goal:</strong> get the rover to FIX over LoRa in one trip to the field, and understand what the coordinates are worth.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-works">What works<a href="#what-works" class="hash-link" aria-label="Direct link to What works" title="Direct link to What works" translate="no">​</a></h3>
+<p>The page gets a lot right: a tight scope, a step-by-step flow that follows the real job, and all values in the text. <em>View results</em> is a fine wrap-up. The window check catches a radio problem before the field trip, which is critical.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="structure">Structure<a href="#structure" class="hash-link" aria-label="Direct link to Structure" title="Direct link to Structure" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>The two phases are invisible.</strong> The reader learns about the desk part and the field part only halfway down the page. That&#x27;s a speed bump for a new reader, hence I&#x27;d name both phases up front.</li>
+<li class=""><strong>No prerequisites.</strong> The tripod, pole, and Emlid Flow aren&#x27;t listed before the steps.</li>
+<li class=""><strong>The window check is buried in a tip.</strong> It should be the step that closes the desk part, with the antennas attached first and a clear &quot;turn off and go&quot; at the end.</li>
+<li class=""><strong>Too many callouts.</strong> About a dozen on a short page, that is too much. I would leave two that matter (frequency rules, don&#x27;t move the base) and make them a tip-sticker.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-to-cut">What to cut<a href="#what-to-cut" class="hash-link" aria-label="Direct link to What to cut" title="Direct link to What to cut" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Defaults posing as required steps.</strong> GNSS and RTCM3 settings are already right on a new unit, but the steps don&#x27;t say so. A guy with little experience does up to seven steps for nothing. I&#x27;d keep the steps, add one sentence that marks them as defaults, and collect all values in a reference table.</li>
+<li class=""><strong>Lead-ins and wrap-ups.</strong> Sections open by restating the heading and close by announcing the next one. This wording stalls the reader: a quickstart should give the answer straight away.</li>
+<li class=""><strong>Side notes in the wrong place.</strong> The sticker tip and the hotspot note belong in the steps. The RS+ note belongs in the prerequisites.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="language">Language<a href="#language" class="hash-link" aria-label="Direct link to Language" title="Direct link to Language" translate="no">​</a></h3>
+<p>The text has a slight accent: a few non-native patterns slipped through (<em>when</em> + past simple, <em>set at</em>, <em>define</em> for <em>identify</em>, missing articles, etc.). It is also quite noticeable when it comes to the UI actions (tap, press, click, etc.)</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-to-add">What to add<a href="#what-to-add" class="hash-link" aria-label="Direct link to What to add" title="Direct link to What to add" translate="no">​</a></h3>
+<p><em>Must be confirmed with the product team:</em> what Average SINGLE means for the results. Add explanation to the guide.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="proposed-outline">Proposed outline<a href="#proposed-outline" class="hash-link" aria-label="Direct link to Proposed outline" title="Direct link to Proposed outline" translate="no">​</a></h3>
+<p>The page looks patched through UI changes without a structural review, and the RS3 guide is a near-copy. Every change multiplies across five translations, the PDF card, and the RS3 page, so I&#x27;d keep the sections and change as little as possible.</p>
+<table><thead><tr><th>Current</th><th>Proposed</th></tr></thead><tbody><tr><td>Intro + <em>Overview</em></td><td>One intro: outcome and the two phases</td></tr><tr><td>–</td><td><strong>Before you start</strong> <em>(new)</em></td></tr><tr><td><em>Rename Reach devices</em></td><td>Same, shorter</td></tr><tr><td><em>Set up your base</em></td><td>Same steps and screenshots; one sentence on defaults; matching rule</td></tr><tr><td><em>Set up your rover</em></td><td>Same steps and screenshots; one sentence on defaults; values in full</td></tr><tr><td>Tip: check by the window</td><td><strong>Check the connection</strong> <em>(new step)</em></td></tr><tr><td><em>Place Reach RS2/RS2+ units</em></td><td><strong>Set up in the field</strong>, with a note on what Average SINGLE means</td></tr><tr><td><em>View results</em></td><td>Same + if there is no FIX + what&#x27;s next</td></tr><tr><td>–</td><td><strong>Reference: settings for base and rover</strong> <em>(new)</em></td></tr></tbody></table>
+<p>Order of work: defaults first, then the phases and the window check, then cuts and language.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="questions-for-a-device-check-drafted-with-claude">Questions for a device check (drafted with Claude)<a href="#questions-for-a-device-check-drafted-with-claude" class="hash-link" aria-label="Direct link to Questions for a device check (drafted with Claude)" title="Direct link to Questions for a device check (drafted with Claude)" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>1 Hz (base) and 5 Hz (rover): are both factory defaults?</strong> The RS3 guide uses 5 Hz for the base. <em>Assumed yes, marked for verification.</em></li>
+<li class=""><strong>Which LoRa settings are defaults?</strong> <em>Assumed none, so they stay as explicit steps: a redundant step is cheaper than a failed link in the field.</em></li>
+<li class=""><strong>Is it safe to transmit over LoRa without an antenna?</strong> <em>Assumed no, so the antennas go on before the check.</em></li>
+<li class=""><strong>What&#x27;s the default averaging time?</strong> <em>Assumed fine for a first setup.</em></li>
+<li class=""><strong>Do the units keep their settings after power-off?</strong> <em>Assumed yes. I found this on the Emlid community forum, but it needs confirmation.</em></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="task-2">Task 2. Rewrite<a href="#task-2" class="hash-link" aria-label="Direct link to Task 2. Rewrite" title="Direct link to Task 2. Rewrite" translate="no">​</a></h2>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>The task</div><div class="admonitionContent_BuS1"><p>Rewrite one or two sections to show what &quot;better&quot; looks like. For the parts I don&#x27;t rewrite, describe the changes and the reasons.</p></div></div>
+<p><strong>Scope.</strong> I rewrote the page from the top to the end of the desk part, plus the settings table that the base and rover sections point to. The rest of the page is described at the end. I kept the section names and their order. In <em>Set up your base</em> and <em>Set up your rover</em>, I kept the original steps and screenshots and changed only the framing and the language. Each section ends with a <em>What changed and why</em> block where you&#x27;ll find my notes.</p>
+<hr>
+<p><strong>Rewritten page: Base and rover setup</strong></p>
+<p><strong>Applies to:</strong> Reach RS2 and RS2+, set up in the Emlid Flow app.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview" translate="no">​</a></h3>
+<p>This guide shows how to do your first base-and-rover setup with two Reach RS2/RS2+ units. One unit is the <strong>base</strong>: it stays in one place on a tripod and sends correction data. The other unit is the <strong>rover</strong>: you carry it on a pole to measure points. With the corrections, the rover calculates its position with centimeter-level precision relative to the base. Emlid Flow shows this as the <strong>FIX</strong> status.</p>
+<p>The base sends corrections over the built-in LoRa radio, so you do not need internet or cellular coverage. If you have internet access, see <a href="https://docs.emlid.com/reachrs2/rtk-quickstart/rtk-over-emlid-corrections/" target="_blank" rel="noopener noreferrer" class="">How to set up RTK over Emlid Corrections</a> or <a href="https://docs.emlid.com/reachrs2/rtk-quickstart/ntrip-workflow/" target="_blank" rel="noopener noreferrer" class="">Working with NTRIP service</a>.</p>
+<p>You work in two places:</p>
+<ul>
+<li class=""><strong>At your desk:</strong> rename the units, set up the base and the rover, and check the connection.</li>
+<li class=""><strong>In the field:</strong> place the units, set the base position, and wait for FIX.</li>
+</ul>
+<p><strong>Did you set up these units before?</strong> To check or restore the settings, go straight to <a href="#reference" class="">Reference: settings for base and rover</a>.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">Merged the intro and <em>Overview</em>, which said the same thing twice.</li>
+<li class="">Added a short explanation of base, rover, corrections, and FIX for first-time users. Experienced users can skip it, and the link to the reference table takes them straight to the values.</li>
+<li class="">Added <em>Applies to</em>: the RS2 and RS3 pages are almost the same, so search readers and the AI agent need to see the product at once.</li>
+<li class="">Named the two places where the reader will be working.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="before-you-start">Before you start<a href="#before-you-start" class="hash-link" aria-label="Direct link to Before you start" title="Direct link to Before you start" translate="no">​</a></h3>
+<p>You need:</p>
+<ul>
+<li class="">Two Reach RS2/RS2+ units with charged batteries</li>
+<li class="">Two LoRa antennas</li>
+<li class="">A phone or tablet with the <em>Emlid Flow</em> app</li>
+<li class="">A tripod for the base and a survey pole for the rover</li>
+</ul>
+<p>If you have not connected to a Reach unit before, see <a href="https://docs.emlid.com/reachrs2/before-you-start/first-setup/" target="_blank" rel="noopener noreferrer" class="">First setup</a>.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>All multi-band Reach receivers work together over LoRa. If you use a single-band Reach RS+ as the rover, the system works in single-band mode, because Reach RS+ tracks only L1 signals.</p></div></div>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">New section: the original lists the tripod and pole mid-guide and never mentions Emlid Flow. The RS+ note moved here from the top, because it is a special case.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rename-reach-devices">Rename Reach devices<a href="#rename-reach-devices" class="hash-link" aria-label="Direct link to Rename Reach devices" title="Direct link to Rename Reach devices" translate="no">​</a></h3>
+<p>All new Reach RS2/RS2+ units have the same name. Give each unit its own name, so you can easily tell the base from the rover.</p>
+<ol>
+<li class="">
+<p>Connect to the unit that you want to use as the base.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>Which unit am I connected to?</div><div class="admonitionContent_BuS1"><p>When you connect, all LEDs on the unit blink at the same time. To blink them again later, tap the receiver name on the <em>Receivers</em> screen, then tap <em>Flash LEDs</em>.</p></div></div>
+</li>
+<li class="">
+<p>Go to <em>Settings</em> and tap <em>Receiver info</em>.</p>
+</li>
+<li class="">
+<p>In <em>Receiver and hotspot name</em>, enter <strong>reach-base</strong>. This name is also the name of the unit&#x27;s Wi-Fi network in hotspot mode.</p>
+</li>
+<li class="">
+<p>Tap <em>Save</em>.</p>
+</li>
+<li class="">
+<p>Put a sticker from the package on the unit, so you can see which unit is the base.</p>
+</li>
+<li class="">
+<p>Do steps 1–5 for the second unit. Use the name <strong>reach-rover</strong>.</p>
+</li>
+</ol>
+<p><strong>Result:</strong> When you connect to a unit, Emlid Flow shows its new name.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">The expandable block now asks the reader&#x27;s question. The hotspot note and the sticker tip are now steps, because they are actions.</li>
+<li class="">Added a result. All buttons use one verb: <em>tap</em>.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="set-up-your-base">Set up your base<a href="#set-up-your-base" class="hash-link" aria-label="Direct link to Set up your base" title="Direct link to Set up your base" translate="no">​</a></h3>
+<p>Steps 2–6 set values that a new unit already has. Check them and change only what is different. All values are also in <a href="#reference" class="">Reference: settings for base and rover</a>.</p>
+<ol>
+<li class="">
+<p>Connect to <strong>reach-base</strong>.</p>
+</li>
+<li class="">
+<p>Go to <em>Settings</em> and tap <em>GNSS settings</em>. Select all satellite systems.</p>
+</li>
+<li class="">
+<p>Set the GNSS update rate to <strong>1 Hz</strong> and apply the changes.</p>
+<img src="/KBDZ/assets/images/base-gnss-settings-3f84739726037c68766baf688d6f5062.webp" alt="GNSS settings on the base: all satellite systems, 1 Hz update rate" width="260">
+</li>
+<li class="">
+<p>Go back to the <em>Receivers</em> screen and tap <em>Base settings</em>. Then go to <em>RTCM3 messages</em>.</p>
+</li>
+<li class="">
+<p>Set the RTCM3 messages (the correction data that the base sends) as follows:</p>
+<ul>
+<li class=""><em>ARP station coordinates</em>: <strong>0.1 Hz</strong></li>
+<li class="">Other MSM4 messages: <strong>0.5 Hz</strong></li>
+</ul>
+<img src="/KBDZ/assets/images/base-rtcm3-d33b97dbe6292fe7deae657ab9898b13.webp" alt="RTCM3 messages on the base: ARP station coordinates at 0.1 Hz, MSM4 messages at 0.5 Hz" width="260">
+</li>
+<li class="">
+<p>Tap <em>Apply</em>.</p>
+</li>
+<li class="">
+<p>Go back to the <em>Receivers</em> screen and tap <em>Base output</em>. Select <em>LoRa</em>.</p>
+</li>
+<li class="">
+<p>Tap <em>Edit</em> in the <em>LoRa</em> cell. Select a frequency and set the output power to <strong>20 dBm</strong>.</p>
+<div class="theme-admonition theme-admonition-caution admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>caution</div><div class="admonitionContent_BuS1"><p>Select the frequency and output power that your local regulations allow. If your region has restrictions, the frequency band is limited automatically.</p></div></div>
+</li>
+<li class="">
+<p>Set the air data rate to <strong>9.11 kb/s</strong> and tap <em>Save</em>. Note the frequency: the rover must use the same frequency and air data rate.</p>
+</li>
+</ol>
+<p><strong>Result:</strong> The base is set up to send corrections over LoRa.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">Kept the original steps and screenshots: they are clear, and this is the only place where these settings are shown.</li>
+<li class="">Added one sentence before the steps: steps 2–6 are defaults on a new unit. A newcomer knows to only check them. A user who changed them knows these are the values to restore.</li>
+<li class="">Steps 4 and 7 now say which button to tap, and step 3 asks to apply the changes, as the rover section already does. <em>RTCM3 messages</em> gets a short explanation for newcomers.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="set-up-your-rover">Set up your rover<a href="#set-up-your-rover" class="hash-link" aria-label="Direct link to Set up your rover" title="Direct link to Set up your rover" translate="no">​</a></h3>
+<p>Steps 2–3 set values that a new unit already has. Check them and change only what is different. All values are also in <a href="#reference" class="">Reference: settings for base and rover</a>.</p>
+<ol>
+<li class="">
+<p>Connect to <strong>reach-rover</strong>.</p>
+</li>
+<li class="">
+<p>Go to <em>Settings</em> and tap <em>GNSS settings</em>.</p>
+</li>
+<li class="">
+<p>Select all satellite systems and set the GNSS update rate to <strong>5 Hz</strong>. Apply the changes.</p>
+<img src="/KBDZ/assets/images/rover-gnss-settings-de67a26a6acfd3ccdf6ff0e283035126.webp" alt="GNSS settings on the rover: all satellite systems, 5 Hz update rate" width="260">
+</li>
+<li class="">
+<p>Go back to the <em>Receivers</em> screen and tap <em>Correction input</em>.</p>
+</li>
+<li class="">
+<p>Select <em>LoRa</em>. Set the same frequency as on the base and the air data rate to <strong>9.11 kb/s</strong>. Tap <em>Save</em>.</p>
+<img src="/KBDZ/assets/images/rover-lora-49fc5a1373ab7afe3a2f2b1b215f5d7b.webp" alt="Correction input on the rover: LoRa with frequency and air data rate" width="260">
+</li>
+</ol>
+<p><strong>Result:</strong> The rover is set up to receive corrections from the base over LoRa.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">Same approach as the base: the original steps and screenshots + one sentence about defaults.</li>
+<li class="">Step 3 names the values instead of &quot;the same GNSS systems as for the base&quot;. The section now works on its own, for a reader who jumps here and for the AI agent.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="check-the-connection">Check the connection<a href="#check-the-connection" class="hash-link" aria-label="Direct link to Check the connection" title="Direct link to Check the connection" translate="no">​</a></h3>
+<p>Check the link at your desk, before you go to the field. It is easier to fix a problem here.</p>
+<ol>
+<li class="">Attach the LoRa antennas to both units.</li>
+<li class="">Put both units near a window, so they can see the sky. Wait a few minutes.</li>
+<li class="">In Emlid Flow, connect to <strong>reach-rover</strong> and open the <em>Status</em> screen.</li>
+<li class="">Scroll down to the <em>Corrections</em> section.</li>
+</ol>
+<p><strong>Result:</strong> The <em>Corrections</em> section shows that the rover receives corrections from the base.</p>
+<p>If the rover does not receive corrections, check that both units use the same frequency and air data rate, and that both antennas are attached.</p>
+<p>When the connection works, turn off both units and take them to the field. The units keep their settings.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">The &quot;check by the window&quot; tip is now a required step, with the antennas attached first.</li>
+<li class="">Added a result, a short fix, and a clear end to the desk part. The original asks the user to turn the units on in the field, but never to turn them off.</li>
+</ul></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reference">Reference: settings for base and rover<a href="#reference" class="hash-link" aria-label="Direct link to Reference: settings for base and rover" title="Direct link to Reference: settings for base and rover" translate="no">​</a></h3>
+<p>This setup uses the values below. On a new unit, the GNSS settings and the RTCM3 messages already have these values. Use this table to check your settings or to set them back.</p>
+<table><thead><tr><th>Setting</th><th>Where</th><th>Base</th><th>Rover</th><th>Default on a new unit</th></tr></thead><tbody><tr><td>Satellite systems</td><td><em>Settings → GNSS settings</em></td><td>All</td><td>All</td><td>Yes</td></tr><tr><td>GNSS update rate</td><td><em>Settings → GNSS settings</em></td><td>1 Hz</td><td>5 Hz</td><td>Yes</td></tr><tr><td>ARP station coordinates</td><td><em>Base settings → RTCM3 messages</em></td><td>0.1 Hz</td><td>–</td><td>Yes</td></tr><tr><td>Other MSM4 messages</td><td><em>Base settings → RTCM3 messages</em></td><td>0.5 Hz</td><td>–</td><td>Yes</td></tr><tr><td>LoRa frequency</td><td><em>Base output</em> / <em>Correction input</em> → <em>LoRa</em></td><td>Allowed in your country</td><td>Same as base</td><td>No: select it</td></tr><tr><td>LoRa output power</td><td><em>Base output → LoRa</em></td><td>20 dBm</td><td>–</td><td>To verify</td></tr><tr><td>LoRa air data rate</td><td><em>Base output</em> / <em>Correction input</em> → <em>LoRa</em></td><td>9.11 kb/s</td><td>9.11 kb/s</td><td>To verify</td></tr></tbody></table>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>Notes for the reviewer</div><div class="admonitionContent_BuS1"><p>To verify on a device: are both rates factory defaults, or does the default depend on the role? The RS3 guide uses 5 Hz for the base.</p></div></div>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>What changed and why</summary><div><div class="collapsibleContent_i85q"><ul>
+<li class="">New section for the readers&#x27; reference. These values are not documented anywhere else. The table gives them a permanent place, a stable anchor for support, and a clear source for the AI agent. The <em>Default</em> column shows what to check and what to change.</li>
+</ul></div></div></details>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-rest-of-the-page-described-not-rewritten">The rest of the page (described, not rewritten)<a href="#the-rest-of-the-page-described-not-rewritten" class="hash-link" aria-label="Direct link to The rest of the page (described, not rewritten)" title="Direct link to The rest of the page (described, not rewritten)" translate="no">​</a></h3>
+<p><strong>Place Reach RS2/RS2+ units &gt; Set up in the field.</strong> Keep the steps, but remove &quot;attach the antennas&quot; (now done at the desk). Make the &quot;open sky part&quot; the first step, not a note. Keep &quot;do not move the base while it averages&quot; as the only caution. Add two sentences on what Average SINGLE means for the results, and a recommended averaging time (both to be confirmed with the product team).</p>
+<p>The section ends with the result of the base setup. I&#x27;d keep this text and its screenshot, with a light language edit:</p>
+<blockquote>
+<p>When the base finishes averaging, the <em>Base marker</em> section shows its coordinates. The base is now set up and sends corrections to the rover.</p>
+</blockquote>
+<img src="/KBDZ/assets/images/base-averaging-0514ffe6797cfa7e2408ed919092c91c.webp" alt="Base settings screen with the averaged coordinates in the Base marker section" width="260">
+<p><strong>View results.</strong> Keep the status descriptions, because they are the strongest part of the page. Add <em>If the rover does not get FIX</em> with two or three likely causes. It is critical to add a link to the Troubleshooting section.</p>
+<p><strong>Language.</strong> Use the same rules as above: one verb per action, <em>set to</em>, articles before <em>base</em> and <em>rover</em>, and the names <em>base</em> and <em>rover</em> instead of four different names.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="task-3">Task 3. Docs and AI<a href="#task-3" class="hash-link" aria-label="Direct link to Task 3. Docs and AI" title="Direct link to Task 3. Docs and AI" translate="no">​</a></h2>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>The task</div><div class="admonitionContent_BuS1"><p>The documentation is also a source for an AI customer agent. Does this change how I would write or structure a procedural guide like this one?</p></div></div>
+<p><strong>Short answer: yes, but not much.</strong> The problem is that a RAG AI agent reads chunks of the doc, not pages. It has no navigation, no visual hierarchy, no neighboring sections. Whatever a human infers from context, the agent either loses or invents. So the job is to make the implicit explicit.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-id-write">How I&#x27;d write<a href="#how-id-write" class="hash-link" aria-label="Direct link to How I&#x27;d write" title="Direct link to How I&#x27;d write" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Self-contained sections.</strong> Avoid references like &quot;same as for the base.&quot; Each section names the device, its role, and the screen: this way, the AI will find the references itself and digest them into a proper response.</li>
+<li class=""><strong>The product in the text, not only in the URL.</strong> The RS2 and RS3 guides are near-identical but use different values. Need to put the product in headings and body text, add metadata as well.</li>
+<li class=""><strong>Facts as structured data.</strong> A settings table gives a precise answer to &quot;what should my base output?&quot; and one canonical home for default values.</li>
+<li class=""><strong>Conditions and importance in words.</strong> To the agent, a caution box is just another paragraph (as stated above). The wording must emphasize the importance of the information given in the guide.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-id-work">How I&#x27;d work<a href="#how-id-work" class="hash-link" aria-label="Direct link to How I&#x27;d work" title="Direct link to How I&#x27;d work" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>RAG testing as a docs-as-code stage.</strong> Each page gets a small set of real customer questions with expected answers. On every docs PR, CI runs them through the agent, and an LLM judge flags regressions: wrong facts or the wrong product. AI also proposes new questions from page diffs and agent logs. A writer reviews failures and owns the set.</li>
+<li class=""><strong>Agent errors as backlog.</strong> A wrong answer usually points to a gap, an ambiguity, or a conflicting duplicate, including a stale translation. Problems like these go straight to the backlog with high priority.</li>
+</ul>
+<p><strong>What I wouldn&#x27;t do</strong> is rewrite procedures for the bot: no FAQ-style pages and no keyword stuffing. That&#x27;s an old solution, which doesn&#x27;t work any longer.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#task-1" class="table-of-contents__link toc-highlight">Task 1. Audit</a><ul><li><a href="#what-works" class="table-of-contents__link toc-highlight">What works</a></li><li><a href="#structure" class="table-of-contents__link toc-highlight">Structure</a></li><li><a href="#what-to-cut" class="table-of-contents__link toc-highlight">What to cut</a></li><li><a href="#language" class="table-of-contents__link toc-highlight">Language</a></li><li><a href="#what-to-add" class="table-of-contents__link toc-highlight">What to add</a></li><li><a href="#proposed-outline" class="table-of-contents__link toc-highlight">Proposed outline</a></li><li><a href="#questions-for-a-device-check-drafted-with-claude" class="table-of-contents__link toc-highlight">Questions for a device check (drafted with Claude)</a></li></ul></li><li><a href="#task-2" class="table-of-contents__link toc-highlight">Task 2. Rewrite</a><ul><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#before-you-start" class="table-of-contents__link toc-highlight">Before you start</a></li><li><a href="#rename-reach-devices" class="table-of-contents__link toc-highlight">Rename Reach devices</a></li><li><a href="#set-up-your-base" class="table-of-contents__link toc-highlight">Set up your base</a></li><li><a href="#set-up-your-rover" class="table-of-contents__link toc-highlight">Set up your rover</a></li><li><a href="#check-the-connection" class="table-of-contents__link toc-highlight">Check the connection</a></li><li><a href="#reference" class="table-of-contents__link toc-highlight">Reference: settings for base and rover</a></li><li><a href="#the-rest-of-the-page-described-not-rewritten" class="table-of-contents__link toc-highlight">The rest of the page (described, not rewritten)</a></li></ul></li><li><a href="#task-3" class="table-of-contents__link toc-highlight">Task 3. Docs and AI</a><ul><li><a href="#how-id-write" class="table-of-contents__link toc-highlight">How I&#39;d write</a></li><li><a href="#how-id-work" class="table-of-contents__link toc-highlight">How I&#39;d work</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Dmitrii Zhukov. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

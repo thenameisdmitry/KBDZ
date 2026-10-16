@@ -1,0 +1,75 @@
+---
+id: docs-assistant
+title: "Documentation Assistant"
+sidebar_label: "Documentation Assistant"
+description: "A retrieval assistant answering real questions from the five knowledge base guides in this portfolio, with a retrieval defect it found in them."
+---
+
+import DocsAssistant from '@site/src/components/DocsAssistant';
+
+# Documentation Assistant
+
+An assistant answering from the five knowledge base guides in this portfolio, indexed
+straight from their source files. Pick a situation, or type your own question.
+
+<DocsAssistant />
+
+## What the three situations show
+
+**Incomplete data.** An analyst will not accept a match built on a field that exists on
+one side only. The guides answer with a named concept, the Recon Missing Values Strategy,
+and the rule it applies. That is the test of a glossary: a definition is only useful if it
+can be found by someone who does not know its name.
+
+**Why a probability.** Nobody signs off on an engine they cannot explain to an auditor.
+The answer comes from the guide's opening paragraph, which is where a reader looks and
+where a retriever looks too.
+
+**Device policy.** One question, one acceptable answer, quoted verbatim. The easy case is
+worth including: an assistant that cannot be trusted on the easy case is not worth having.
+
+## Example of ambiguity in the assistant, and how to fix it
+
+Set the question to **"How does Algorithmic Recon decide which Security is the correct
+match?"** and search. The top passage comes from *Case 5: Transaction Matching*, not from
+*Case 1: Algorithmic Reconciliation*, where the answer belongs.
+
+The cause is in the writing. Both guides describe a fuzzy matching engine, both have a
+section titled **"Step 2: Pair Similarity calculation"**, and neither section says which
+engine it describes. One matches Securities, the other Transactions. The reader knows from
+the page they are on. The retriever has no page.
+
+Scores: 9.62 against 9.18. A near tie decided by wording rather than relevance, and
+exactly the failure described as rule 2 in [Writing for AI Retrieval](./ai-retrieval).
+
+The durable fix is in the headings: *Pair Similarity for Securities* and *Pair Similarity
+for Transactions*, with the first sentence of each naming what is matched. I left the
+defect in place, because an honest artifact is more useful than a flattering one.
+
+## How the corpus is built
+
+A script reads the five guide sources, strips the MDX machinery, and splits what remains
+on heading boundaries:
+
+```bash
+npm run gen-rag-corpus
+# 169 passages from 5 guides
+```
+
+Two decisions in it are content decisions, not engineering ones:
+
+- **Glossary definitions survive.** The guides define terms in a custom `Term` component.
+  Stripping JSX naively would discard exactly the sentences most likely to answer a
+  question, so the script converts each to `Term: definition`.
+- **Long sections split on sentences, not character counts.** A cut mid-sentence retrieves
+  well and reads as nonsense.
+
+Generating the index from the published source is the same discipline as generating the
+[API reference from its specification](/api/specification): it cannot drift from the
+documentation, because it is derived from it.
+
+## Limits
+
+This retrieves and quotes. It does not embed, rerank or generate. Everything a production
+stack adds sits on top of retrieval and inherits its failures: if a fact is not in a
+findable passage, no model downstream recovers it.

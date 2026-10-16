@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Dmitrii Zhukov',
-  tagline: 'Senior Technical Writer and Product Documentation Lead. I build documentation systems for fintech and B2B SaaS products: knowledge bases, API references, and the workflows that keep them accurate.',
+  tagline: 'Senior Technical Writer and Product Documentation Lead. I build documentation systems for fintech and B2B SaaS products: knowledge bases, API references, and content that holds up when an AI retrieval system is the one reading it.',
   favicon: 'img/Label.png',
 
   // Set the production url of your site here

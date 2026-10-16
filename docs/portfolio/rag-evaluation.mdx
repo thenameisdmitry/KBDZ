@@ -1,0 +1,115 @@
+---
+id: rag-evaluation
+title: "RAG Evaluation in CI"
+sidebar_label: "RAG Evaluation"
+description: "Treating an AI agent's answers as a test suite: an eval set in the docs repo, an LLM judge, a CI gate on every documentation change, and failures triaged into the documentation backlog."
+---
+
+import RagEvalBench from '@site/src/components/RagEvalBench';
+
+# RAG Evaluation in CI
+
+A documentation edit that quietly removes a number does not break a build. Links resolve,
+the page renders. The only thing that breaks is the answer a customer gets three weeks
+later.
+
+So the agent's answers get treated like code: a suite that runs on every change.
+
+## The bench
+
+Switch between **main** and **PR #412**. The pull request does nothing more dramatic than
+tidy the Errors page and shorten a section.
+
+<RagEvalBench />
+
+Two facts disappear in that edit: the `Retry-After` header and the 24-hour idempotency
+window. Neither looks wrong in a diff. Both change what the agent can tell a customer.
+
+## What the eval set looks like
+
+The set lives next to the pages it covers, so a writer changing a page sees the questions
+that page is expected to answer.
+
+```yaml
+# evals/api-conventions.yml
+- id: EV-02
+  question: What should I do when I get a 429?
+  expects:
+    must_contain: ["Retry-After"]
+    must_not_contain: ["unlimited", "no limit"]
+  covers: errors.md#rate-limiting
+  source: support-ticket-48119
+
+- id: EV-04
+  question: How long is an idempotency key kept?
+  expects:
+    must_contain: ["24 hours"]
+  covers: conventions.md#idempotency
+  source: support-ticket-51204
+```
+
+Three fields do most of the work:
+
+- **`must_contain`** keeps the assertion on facts rather than phrasing. The agent may word
+  the answer however it likes, as long as the number is in it.
+- **`covers`** maps a question to the section that should answer it. When a question
+  fails, the writer knows where to look without reading the retrieval logs.
+- **`source`** records where the question came from. Questions invented by the docs team
+  drift towards what the documentation already says. Questions taken from real tickets do
+  not.
+
+## The judge
+
+A string match catches a missing number. It does not catch an answer that contains "24
+hours" and attaches it to the wrong thing. So each answer also goes to a model acting as
+judge, with the retrieved passages and a narrow rubric:
+
+1. Is the claim supported by the retrieved chunks, or invented?
+2. Does it answer the question that was asked, or a nearby one?
+3. Is it about the right product and version?
+
+A judge is not an oracle. Its verdict gates the merge; a human reviews every failure.
+
+## The gate
+
+```yaml
+# .github/workflows/docs-evals.yml
+on: pull_request
+    paths: ['docs/**', 'evals/**']
+```
+
+CI re-indexes the changed pages, runs the set, and posts the diff against `main`. A new
+failure blocks the merge. The author either restores the fact or edits the eval, and the
+second option is visible in the diff, which is the point.
+
+## Failures are a documentation backlog
+
+The most useful output is not the pass rate. It is the pattern in the failures.
+
+| What the agent does | What it usually means |
+|---|---|
+| Hedges instead of answering | The value is missing or lives only in a screenshot |
+| Answers for the wrong product | Two near-identical pages, product named only in the URL |
+| Contradicts itself across runs | The same fact is documented twice, in two states |
+| Invents a plausible number | Retrieval found nothing and the model filled the gap |
+| Cites a section that does not support it | The chunk is adjacent to the answer, not the answer |
+
+Each row is a ticket with a known cause. Over time the suite becomes the most specific
+backlog the team has: the questions customers ask that the documentation cannot answer.
+
+## What this costs
+
+Honest accounting, because this is where the idea usually dies:
+
+- **The first set** is the real work: a day or two per product area, mostly spent reading
+  support tickets rather than writing YAML.
+- **Running it** costs cents per pull request and under a minute of CI time.
+- **Maintaining it** fails if nobody owns it. The set belongs to the writers, in the same
+  repository and review process as the pages. On the platform team's side it goes stale
+  within a quarter.
+
+## Where it connects
+
+The rules this tests are in [Writing for AI Retrieval](./ai-retrieval). The mechanism it
+measures is shown in the [Documentation Assistant](./docs-assistant) and broken down in
+the [pipeline walkthrough](./retrieval-pipeline).

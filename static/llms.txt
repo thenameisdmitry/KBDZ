@@ -1,0 +1,45 @@
+# Dmitrii Zhukov, Senior Technical Writer
+
+> Senior Technical Writer and Product Documentation Lead with 10 years in fintech, asset
+> management and B2B SaaS. This site is a portfolio: product documentation samples,
+> documentation tooling, an API reference, and working artifacts about writing
+> documentation that an AI retrieval system can answer from.
+
+Base URL: https://thenameisdmitry.github.io/KBDZ/
+Contact: storiesbydz@gmail.com
+Location: Belgrade, Serbia (CET). Open to relocation, remote, hybrid or on-site.
+
+## Portfolio: product documentation
+
+- [Overview](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/portfolio-overview): what is in this portfolio and where to start.
+- [Algorithmic Reconciliation](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-1-Algo-Recon): knowledge base guide explaining a fuzzy-logic matching engine to quantitative analysts and fund accountants.
+- [Approver Mobile App](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-2-Approver-App): step-by-step setup and operation guide for a transaction approval app.
+- [General Ledger Manager](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-3-GL-Manager): getting-started guide for GL entries and allocation rules.
+- [Optimizer](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-4-Optimizer): reference and onboarding guide for a C# scripting environment.
+- [Transaction Matching](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/Case-5-Transaction-Matching): guide explaining algorithmic transaction matching across heterogeneous data sources.
+- [Release Notes](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/releasenotes): release communication sample.
+
+## Portfolio: documentation engineering
+
+- [Automation Scripts](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/code-samples): production Python tool that compiles release notes source material from TFS queries.
+- [Pipeline Simulator](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/dz-pipeline-simulator): interactive artifact documenting a Snowflake, dbt, Airflow and Metabase data platform.
+
+## Portfolio: AI and RAG
+
+- [Writing for AI Retrieval](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/ai-retrieval): rules for content that survives chunking, and the failure each one prevents.
+- [Documentation Assistant](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/docs-assistant): retrieval assistant over the five knowledge base guides, with worked cases and a documented retrieval defect found in them.
+- [Retrieval Pipeline](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/retrieval-pipeline): one question walked through seven pipeline stages, with failure ownership per stage.
+- [RAG Evaluation in CI](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/rag-evaluation): agent answers as a test suite gating documentation changes.
+
+## API documentation
+
+- [API Reference](https://thenameisdmitry.github.io/KBDZ/api): hand-written reference for a fictional treasury API.
+- [Conventions](https://thenameisdmitry.github.io/KBDZ/api/conventions): pagination, filtering, rate limits, idempotency, versioning, data formats.
+- [Errors](https://thenameisdmitry.github.io/KBDZ/api/errors): error envelope, status code catalogue, retry guidance.
+- [OpenAPI specification](https://thenameisdmitry.github.io/KBDZ/openapi/dz-api.yaml): the machine-readable contract the reference is generated from.
+
+## About
+
+- [Competence and expertise](https://thenameisdmitry.github.io/KBDZ/expertise): skills, tools, achievements, availability.
+- [How I Work](https://thenameisdmitry.github.io/KBDZ/docs/portfolio/How-I-Work): information architecture, docs-as-code pipeline, release workflow, quality loop.
+- [Articles](https://thenameisdmitry.github.io/KBDZ/articles): writing on documentation practice and AI-assisted workflows.

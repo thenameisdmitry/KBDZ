@@ -1,43 +1,77 @@
 ---
 id: portfolio-overview
 title: Overview
+sidebar_label: Overview
 sidebar_position: 1
+description: "Writing samples, documentation tooling, and AI retrieval artifacts from a Senior Technical Writer working in fintech and B2B SaaS."
 ---
 
-## Portfolio: Documentation, Code, Release Notes
+# Portfolio
 
-This portfolio collects writing samples from my most recent role at **Hazeltree**, a fintech SaaS 
-platform for treasury management: cash optimization, portfolio profitability analysis, and 
-financial risk management.
-
-The examples show how I turn complex product capabilities, workflows, and technical concepts into 
-clear, concise, user-focused documentation. Together, they cover the range of content I delivered as a 
+Writing samples, documentation tooling, and working artifacts from my practice as a
 **Senior Technical Writer** and writing team lead.
 
-### 📘 Product Documentation
+Most of the product documentation here comes from my most recent role at **Hazeltree**, a
+fintech SaaS platform for treasury management: cash optimization, portfolio profitability
+analysis, and financial risk management. The engineering and AI sections are original work
+built for this portfolio.
 
-Examples of [customer-facing documentation](./), including:
+:::tip[If you have five minutes]
+Three pages give the clearest picture of how I work:
 
-- Knowledge Base standard guides
-- Getting Started With guides
-- Conceptual overviews
-- Step-by-step implementation instructions
+1. [Transaction Matching](./Case-5-Transaction-Matching): a guide that explains an
+   algorithm to people who have to trust its output.
+2. [Documentation Assistant](./docs-assistant): ask the guides above a question and see
+   what an AI assistant can and cannot answer from them.
+3. [How I Work](./How-I-Work): the operating process behind all of it, in one page.
+:::
 
-Each sample opens with a short summary that gives the context: intended audience, documentation 
-objectives, and the business and compliance constraints it was written under.
+## Product Documentation
 
-### 🐍 Documentation Engineering
+Customer-facing documentation written for an enterprise fintech platform: knowledge base
+guides, conceptual overviews, getting-started articles, and step-by-step implementation
+instructions across five product modules.
 
-The portfolio includes a [Python automation script](./code-samples) that I designed and built to 
-streamline release note creation.
+Each sample opens with a short summary giving the context it was written under: intended
+audience, documentation objective, and the business and compliance constraints that shaped
+it. The section also contains a [release notes sample](./releasenotes) showing how I
+structure release communication so stakeholders can act on it.
 
-The script pulls release information from TFS queries and consolidates it into a single structured 
-file, removing hours of manual collection from every release cycle.
+[Browse the guides →](./)
 
-### 🚀 Release Notes Strategy
+## Documentation Engineering
 
-The portfolio also contains a [release notes sample](./releasenotes) that shows my approach to release 
-communication and delivery.
+Documentation work that is closer to building than to writing.
 
-It illustrates how I structure release information to improve readability, highlight customer 
-impact, surface the changes that matter, and give stakeholders something they can act on.
+- **[Automation Scripts](./code-samples)**. A production Python tool that pulls release
+  information from TFS queries into a single structured file, removing hours of manual
+  collection from every release cycle.
+- **[Pipeline Simulator](./dz-pipeline-simulator)**. An interactive artifact documenting
+  a Snowflake, dbt, Airflow and Metabase data platform, with per-node documentation,
+  schema contracts, and metric governance.
+
+## AI & RAG
+
+Documentation now has a second reader: the retrieval system behind a support agent or an
+IDE assistant. This section is about what that changes, demonstrated rather than claimed.
+
+- **[Writing for AI Retrieval](./ai-retrieval)**. The rules that decide whether a fact
+  survives chunking, and the failure each one prevents.
+- **[Documentation Assistant](./docs-assistant)**. A retrieval assistant answering real
+  questions from the five guides above, including a retrieval defect it found in them.
+- **[Retrieval Pipeline](./retrieval-pipeline)**. One question walked through seven
+  stages, labelling which failures belong to the writer and which to the platform.
+- **[RAG Evaluation in CI](./rag-evaluation)**. Treating agent answers as a test suite
+  that gates every documentation change.
+
+## How I Work
+
+[How I Work](./How-I-Work) describes the system behind the samples: information
+architecture, the docs-as-code pipeline, the release workflow, and the quality loop that
+turned support tickets into documentation tasks.
+
+:::note[Confidentiality]
+Company-specific information and sensitive implementation details in the Hazeltree samples
+have been removed, blurred, anonymized, or generalized. The samples preserve the original
+structure, writing style, and technical depth.
+:::

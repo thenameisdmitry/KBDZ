@@ -1,0 +1,1354 @@
+[
+ {
+  "id": "Case-1-Algo-Recon#0",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Introduction",
+  "anchor": "introduction",
+  "text": "Format Knowledge base article examining the Algorithmic Reconciliation process at the core of the Reconciliation Manager module. Target Readers Quantitative analysts, financial data engineers, portfolio risk managers, and fund accountants. Description Original internal research and analysis of a company-developed self-learning engine algorithm, demonstrating how it reconciles Security entities across multiple data sources using Fuzzy logic. Business Impact Used by hedge funds and banking accounting systems for daily reference data accuracy. Critical for collateral management, loan positions, cashflows, and projected portfolios. Contributed to a 70% increase in module sales. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#1",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Introduction (1/3)",
+  "anchor": "introduction",
+  "text": "Reconciliation Manager is an administrative dashboard that helps confirm portfolio elements against counterparties and accounting systems. It enables clients to manage portfolio figures and ensure accurate reconciliation to mitigate operational risks and errors. Reconciliation Manager offers two data reconciliation solutions: Classic and Algorithmic. This Guide provides user instructions and explains the working principles of Algorithmic Recon. Algorithmic Recon: A data reconciliation engine based on Fuzzy logic. The Algorithmic Recon engine is a machine-learning background process that uses a special algorithm to calculate certainty and identify the best entity match based on reconciliation history. Fuzzy logic: A form of probability theory that calculates \"degrees of truth\" rather than the usual \"true or false\" Boolean logic. It addresses partial truth, where the truth value may range between completely true and completely false."
+ },
+ {
+  "id": "Case-1-Algo-Recon#2",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Introduction (2/3)",
+  "anchor": "introduction",
+  "text": "Fuzzy logic is used in many fields, such as artificial intelligence. In the Algorithmic Recon, it powers the machine-learning process at the core of the engine. Security Recon runs in two phases: ID-Based Recon and Algorithmic Recon. ID-Based Recon runs first and processes only Listed Securities and Equity Swaps. Algorithmic Recon runs second and covers all Securities, including those not matched during the first phase. This document describes the second phase: Algorithmic Recon. Security Analysis: retains Securities with Strong, Weak, Potential, and Ambiguous map types assigned as a result of Security Algorithmic Recon. Not Mapped Securities: contains Securities not included in any Positions’ search spaces for the Algorithmic reconciliation process. Reinforcement Learning: contains and analyzes Algorithmic Recon data in a matrix table."
+ },
+ {
+  "id": "Case-1-Algo-Recon#3",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Introduction (3/3)",
+  "anchor": "introduction",
+  "text": "Rejected Mappings: contains Security mappings from the Weak certainty group that users rejected on the Security Analysis screen. INFORMATION. The Security Mappings screen in the ID-Based Security Recon toolbox is also considered part of Algorithmic Recon because it aggregates all extracted Securities mapped to system Securities (using both ID-Based and Algorithmic methods)."
+ },
+ {
+  "id": "Case-1-Algo-Recon#4",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Security Algorithmic Recon: Principle of Work",
+  "anchor": "security-algorithmic-recon-principle-of-work",
+  "text": "Security Algorithmic Recon, built on Fuzzy logic, follows a working principle different from Classic Security Recon. Security entities are extracted from the HUBPOSN and HUBMRGD files (which contain Position records). The matching algorithm consists of the following steps:"
+ },
+ {
+  "id": "Case-1-Algo-Recon#5",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 1: Search space formation (1/2)",
+  "anchor": "step-1-search-space-formation",
+  "text": "The search space is formed for Positions on the left side (House-side entities) and on the right side (Counterparty feed files). When Positions are extracted from the HUBPOSN and HUBMRGD feed files, a search space is created for each right-side Position (Counterparty feed file). The search space is a pool of possible matches selected by the parameters Account, Direction, and Settlement Date. A Cartesian join method is used for this step. Click on the image below to expand it: Positions A, B, and C are candidates for collation on the House side because their basic parameters match. This forms the search space for Fuzzy logic reconciliation. The Algorithmic Recon Fuzzy engine then determines which candidate is the correct match. Positions with expired Securities (past their Maturity or Expiry date) do not participate in reconciliation and are excluded from the search space in the first step of the algorithm. INFORMATION."
+ },
+ {
+  "id": "Case-1-Algo-Recon#6",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 1: Search space formation (2/2)",
+  "anchor": "step-1-search-space-formation",
+  "text": "It is common for a House Position to be split into several Positions for business or planning purposes (for example, by Position strategy). In that case, multiple House Positions may be matched to a single Counterparty Position (for example, in bank reports). The matching routine proceeds in the same way as regular one-to-one matching."
+ },
+ {
+  "id": "Case-1-Algo-Recon#7",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (1/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Pair Similarity calculation is performed for Positions within the search space, using three Predicates for a specific group of fields and the selected Strategy. To determine the correct candidate, the Algorithmic Recon engine calculates the Pair Similarity value. This value is assembled from three Predicates computed for each candidate. Predicate: A calculated variable that represents the matching strength of Position and Security entities and is used to compute the Pair Similarity value. Predicates are based on the matching fields of reconciled right-side and left-side Position items. Algorithmic Recon uses three Predicates: Position required fields (Quantity and Market Value Local), Security description fields (ISIN, CUSIP, Underlying Security, Issuer, Description, etc.), and Position additional fields (Market Value Book, Price Local, FX Rate, Daily Accrual Basis, etc.)."
+ },
+ {
+  "id": "Case-1-Algo-Recon#8",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (2/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Position required fields have the highest weight at 0.4, Security description fields have a weight of 0.35, and Position additional fields have the lowest weight at 0.25. Together, the three Predicates sum to a total weight of 1. Therefore, the algorithm scans the fields of the Counterparty Position and House Position candidates, starting with the most important fields: Quantity and Market Value Local, which form the first Predicate target group (Position required fields). Values may be missing on one side of the comparison. For example, the House Position may have the ISIN field populated while the Counterparty file does not (or vice versa). In these cases, the Fuzzy engine applies the Recon Missing Values Strategy. Recon Missing Values Strategy: A two-way method used during field collation when compared Positions lack a value on one side but have it on the other."
+ },
+ {
+  "id": "Case-1-Algo-Recon#9",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (3/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "When the Recon Strategy is set to Optimistic, the system assumes the missing value matches the value on the opposite side, which adds points to the computed Predicate. When the Recon Strategy is set to Pessimistic, the system assumes the missing value does not match the value on the opposite side, which subtracts points from the Predicate. INFORMATION . When both sides lack data in the compared field, the Recon Strategy is not applied and does not affect the Predicate result. Click the image below to see the complete Algorithmic reconciliation workflow schema: --- CRITICAL FAILURE IN FIELDS COMPARISON. The second Predicate, Security description fields, includes fields that compare the Securities attributes of Positions on opposite sides. These fields are grouped into two sets: Required and Sufficient."
+ },
+ {
+  "id": "Case-1-Algo-Recon#10",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (4/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Required is a group of highly critical values (Security Type, Currency Code, Effective Date, Strike Price, Underlying SEDOL, Underlying CUSIP, Underlying ISIN). If values in these fields do not match, the Predicate’s weight decreases sharply, which reduces the chance of a match. If they do match, the weight increases slightly. Sufficient is a group of values with lower criticality (SEDOL, CUSIP, ISIN, Ticket, RIC, and Security Code). These fields may legitimately differ for the same Security. For Sufficient fields, a match drives a sharp increase in weight, while a discrepancy causes a sharp decrease. --- When all three Predicates are calculated, the Pair Similarity value is assembled for each candidate. Pair Similarity ranges from zero to one hundred, where zero indicates a complete mismatch across all Position and Security fields and one hundred indicates a perfect match across all fields."
+ },
+ {
+  "id": "Case-1-Algo-Recon#11",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (5/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "In general, each mismatch subtracts points from the Predicate. It is unlikely that all Predicates will achieve the full combined weight of 1. As a result, Pair Similarity works like a competition: the highest-scoring candidate is selected to match with the House Security. See the example below. Predicates calculation. The incoming Broker Report from the HUBPOSN file contains thousands of records, and each one undergoes the Algorithmic Recon procedure. Here is an example of a single record retrieved from HUBPOSN to find its match among the entities on the company side: Based on the search space formed using the Position parameters (Account, Direction, and Settlement Date), there are four candidates for the right-side Security with the appropriate Security Map Type. Pair Similarity is then calculated for each candidate: GLTUK2022: has only one matching Security Description field. Pair Similarity is computed as 13% probability."
+ },
+ {
+  "id": "Case-1-Algo-Recon#12",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 2: Pair Similarity calculation (6/6)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "GLTUK-RA: has three matching fields, one of which adds points to the Position required fields Predicate. In addition, the critical values in the second Security description field Predicate match. Pair Similarity is computed at 76% probability. GL-T-UK22: also has three matching fields, but none align with the highest-weighted Predicate. Pair Similarity is computed at 59% probability. GTU: this candidate has the lowest Pair Similarity at 0 percent probability, since no fields match on the right side. In this reconciliation round, GLTUK-RA scores the highest Pair Similarity and is therefore mapped to the right-side Security. However, whether the mapping is automatically approved, requires user approval, or is classified as a potential map is determined in the third step of the reconciliation process."
+ },
+ {
+  "id": "Case-1-Algo-Recon#13",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 3: Best Pair selection",
+  "anchor": "step-3-best-pair-selection",
+  "text": "Based on the calculated Pair Similarity value, the system selects the best Securities for mapping. Position matching based on the highest Pair Similarity leads to a key step in Security Recon: matching Securities within Positions. Securities inherit the Pair Similarity score of their Positions. This Security Pair Similarity determines the mapping strength applied in step 4. The Pair Similarity for Positions (and for Position Securities) is calculated using the engine logic described in Step 2."
+ },
+ {
+  "id": "Case-1-Algo-Recon#14",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 4: Mapping Strength (1/5)",
+  "anchor": "step-4-mapping-strength",
+  "text": "The system determines the mapping strength for the best Pair Similarity scorer, based on the Confidence Level and Distance. After the engine identifies the winner of the matching contest, it determines the mapping strength. There are four possible mapping strengths: Strong: high accuracy, mapping is created automatically. Weak: decent accuracy, mapping is created but requires the user’s approval. Potential: low accuracy, mapping is automatically added to the Candidates list and can be reviewed; mappings can then be created manually. Ambiguous: undecided mapping, since the Pair Similarity of matching candidates is identical; in this case, the mapping conflict must be resolved manually by a user. The engine determines the mapping strength based on two parameters (Confidence Level and Distance) and their ratio within the Reinforcement Learning matrix. Confidence Level: Mapping certainty value."
+ },
+ {
+  "id": "Case-1-Algo-Recon#15",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 4: Mapping Strength (2/5)",
+  "anchor": "step-4-mapping-strength",
+  "text": "This value is taken directly from the calculated Pair Similarity of the reconciliation winner. The higher the Confidence Level, the stronger the mapping. Distance: Difference between the Pair Similarities of the reconciliation winner and the second-place candidate. The greater the difference between the winner and the closest competitor, the higher the certainty of the mapping. If there is only one candidate in the search space, the Distance equals the Confidence Level. Confidence Level and Distance form the axes of the Reinforcement Learning matrix table. The matrix table is available on the [Reinforcement Learning screen] (#reinforcement-screen). Reinforcement Learning matrix table: A dynamic, self-modifying table. Columns represent Confidence Level ranges and rows represent Distance ranges."
+ },
+ {
+  "id": "Case-1-Algo-Recon#16",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 4: Mapping Strength (3/5)",
+  "anchor": "step-4-mapping-strength",
+  "text": "The system calculates these ranges from the full set of Algorithmic mappings: the more mappings that exist across different Confidence Levels and Distances, the narrower each range becomes. IMPORTANT. The position of a new mapping on the matrix table determines its strength: landing in a green cell defines a Strong mapping, landing in a yellow cell defines a Weak mapping, and landing in a white cell grants a Potential status. Ambiguous mappings are not considered in the matrix table unless the mapping conflict is resolved manually by a user. The Reinforcement matrix table is shown in the screenshot below. Click to expand: --- SELF-LEARNING MECHANISM OF THE ALGORITHMIC RECON ENGINE."
+ },
+ {
+  "id": "Case-1-Algo-Recon#17",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 4: Mapping Strength (4/5)",
+  "anchor": "step-4-mapping-strength",
+  "text": "In an ideal situation, with equal proportions of reconciled data and no discrepancies or user corrections, the ratio of the Strong/Weak/Potential zones in the Reinforcement Learning matrix table would be approximately as follows: Indeed, the smaller the difference in Pair Similarity between a low-Confidence Level winner and the second-place candidate, the higher the odds of an erroneous mapping. By contrast, the higher the Confidence Level and the larger the gap between Pair Similarities, the smaller the margin for error. In practice, mismappings occur across different Confidence Levels and Distances, so the strength ratio within the Reinforcement Learning matrix is constantly changing. For example, when a user finds an error in a Strong mapping and corrects it, the green Strong cell where the mapping landed is downgraded to Weak or Potential."
+ },
+ {
+  "id": "Case-1-Algo-Recon#18",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 4: Mapping Strength (5/5)",
+  "anchor": "step-4-mapping-strength",
+  "text": "As a result, the final decision on mapping strength depends on a self-learning mechanism that adapts dynamically to mapping history and user corrections. The more entities are mapped, the more mappings are confirmed, and the more errors are corrected manually, the smarter the Fuzzy engine becomes. --- The Reinforcement Learning screen allows users to dive deep into mapping statistics, review mapping Pair Similarities and Predicates at different levels, and analyze mappings alongside the Fuzzy engine."
+ },
+ {
+  "id": "Case-1-Algo-Recon#19",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 5: Reconciliation results (1/2)",
+  "anchor": "step-5-reconciliation-results",
+  "text": "The system populates the Security Mappings, Security Analysis, and Not Mapped Securities screens with the Algorithmic Recon results for every reconciled Security entity. In the Algorithmic Recon final phase, the system populates the screen grids with reconciliation results. There are three resultant screens of Security Algorithmic Recon: Security Mappings: an aggregation screen that shows all mappings and mapping suggestions in the system for a designated period. Security Analysis: an operational analysis screen that contains mapped and not-mapped Securities, and allows users to create, approve, reject, and break mappings. Not Mapped Securities: an aggregation screen that contains only not-mapped Securities, allowing users to review and manually map entities that have no mappings."
+ },
+ {
+  "id": "Case-1-Algo-Recon#20",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Step 5: Reconciliation results (2/2)",
+  "anchor": "step-5-reconciliation-results",
+  "text": "Once the results are written to the system, users can begin reviewing Security mappings, approving Weak mappings, creating Potential mappings, and correcting errors. --- ROLL-UP ACCOUNT IN SECURITY POSITIONS. You can configure the system to check whether Security Positions have Accounts with assigned Roll-up Accounts. To activate this check during Algorithmic Recon, set the Company Preference HubRecon - Aggregate Positions On Rollup Account to True: If activated, reconciled Security Positions will show Roll-up Accounts instead of the main Account on the resultant Security Analysis screen. NOTE: Activating this Company Preference also impacts the Classic Position Recon process in the same way. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#21",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Algorithmic Security Analysis",
+  "anchor": "algorithmic-security-analysis",
+  "text": "Algorithmic Security Analysis is an operational screen that contains Securities with Strong, Weak, Potential, and Ambiguous map types assigned by the Security Algorithmic Recon process. The Algorithmic Security Analysis screen lets users manage Security mappings, approve or reject Weak mappings, edit Securities, and rerun an Algorithmic Recon reprocess. It also maintains a backlog and technical data for each Algorithmic Recon process. Date selector: specifies the date range for displaying Securities. Filter set: filters Securities using two filter types (Security Type and Security Code). Operation buttons: the tools for managing Security mappings (Reprocess, Details, Edit Security, Unmap Security, Create Mapping, Approve Mapping, and Reject Mapping). Context menu: options for operating with an individual selected Security. Grid: list of Securities within the time frame specified by the Date selector (1)."
+ },
+ {
+  "id": "Case-1-Algo-Recon#22",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Operational buttons",
+  "anchor": "operational-buttons",
+  "text": "The upper toolbar contains the buttons for managing Security mappings. A greyed-out button means the action is unavailable for the selected Security. The available actions are described below."
+ },
+ {
+  "id": "Case-1-Algo-Recon#23",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reprocess button (1/4)",
+  "anchor": "reprocess-button",
+  "text": "The Reprocess button opens the Run Algorithmic Reconciliation dialog, where you run the Security Algorithmic Recon. The Run Algorithmic Reconciliation screen is divided into three sections: General, Tune Algorithm, and Detail Settings. --- The General section sets the primary Security Algorithmic Recon parameters. Model Type: type of Algorithmic Recon to reprocess (Security). This option is unavailable and is provided strictly for reference. Definition: dropdown containing Security Reconciliation. Further Algorithmic Recon options will be added as the capability expands. Date: select the date to re-run the Algorithmic Recon for. Override Company: select the Company from the dropdown list to re-run the Algorithmic Recon for. Detail Mode: check the box to enable the Detail Settings section at the bottom of the screen."
+ },
+ {
+  "id": "Case-1-Algo-Recon#24",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reprocess button (2/4)",
+  "anchor": "reprocess-button",
+  "text": "Owner Definition: check the box to re-run the Algorithmic Recon for all subsidiary Companies and the Owner company afterward. NOTE: If this checkbox is not selected, the Algorithmic Recon will be re-run only for the company selected in the Override Company dropdown (4). Description: brief information about the Algorithmic Recon. --- The Tune Algorithm section defines the scope of the Security Algorithmic Recon. Matching Strategy Type: select the Recon Strategy for the re-run (Pessimistic or Optimistic). See Principle of Work for details on the Recon Missing Values Strategy. Confidence Level: set the Confidence Level lower threshold. When the Algorithmic Recon is launched in work mode, it rewrites Security entities above the threshold. INFORMATION . Algorithmic Recon reprocess can be launched in working or debug mode. Working mode creates mappings, just like the regularly scheduled Algorithmic Recon."
+ },
+ {
+  "id": "Case-1-Algo-Recon#25",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reprocess button (3/4)",
+  "anchor": "reprocess-button",
+  "text": "Debug mode does not create mappings; instead, it retains the full set of extracted Security entities for Fuzzy learning purposes. The debug mode results are allocated in the Reinforcement Learning matrix. The switch between working mode and debug mode is located in the Detail Settings section. --- The Detail Settings section specifies the parameters for Detail Mode. NOTE . This section becomes available only when the Detail Mode checkbox (5) in the General section is selected. Detail Output Columns After Matching: the set of columns saved for every compared pair in the reconciliation search space. This field is read-only. It is provided for reference and debugging, so that you can review Pair Similarity and Predicate values during manual analysis. Reinforcement Learning Enabled: switch between working mode and debug mode. Check the box to launch Algorithmic Recon re-run in debug mode. INFORMATION ."
+ },
+ {
+  "id": "Case-1-Algo-Recon#26",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reprocess button (4/4)",
+  "anchor": "reprocess-button",
+  "text": "Each Algorithmic Recon run evaluates all possible Security pairs considered by the Algorithmic Security Recon Fuzzy engine. As a result, the best pairs are used to create Security mappings. The remaining candidates in the search space can be reviewed and analyzed on three levels. To review the search space with the calculated Predicates and Pair Similarities, use the Upper toolbar button Details. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#27",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Details button (1/4)",
+  "anchor": "details-button",
+  "text": "The Details button opens a Mapping Details pop-up screen that shows the right-side Security (Counterparty), the mapped left-side Security (House) and the remaining candidates from the search space that were not mapped. The Mapping Details screen allows users to review Security mappings across three levels and manually change the mapping if the Algorithmic choice was inaccurate. The mapping and candidates are distributed across the following levels: Level 3: all possible mapping variations (in other words, the reconciliation search space). Level 2: best variations selected in all three Predicate groups. Level 1: the actual winner and the mapped Security. Their Security: the right-side Counterparty Security and its basic parameters (Security Code, Security Description, Security Type, and Map Type). Level section: contains mapping candidates grouped into three levels."
+ },
+ {
+  "id": "Case-1-Algo-Recon#28",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Details button (2/4)",
+  "anchor": "details-button",
+  "text": "The number of candidates varies by Security (a Security can have multiple candidates in the Level 3 group or just one, depending on how the Algorithmic mapping performed in that case). Level Up/Level Down: buttons that move you up or down through the levels to review the candidates. Grid: contains the list of mapping candidates and shows their technical reconciliation background data (calculated Similarities and Predicates values). Context menu: the actions you can run against the selected mapping. --- CONTEXT MENU. Context menu of the Mapping Details screen contains various options that depend on the mapping itself and its strength. Possible options are reviewed below. Unmap: available for established Strong mappings. Use it to break the Security mapping. When the mapping is broken, the Security is added to the Not Mapped Securities grid."
+ },
+ {
+  "id": "Case-1-Algo-Recon#29",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Details button (3/4)",
+  "anchor": "details-button",
+  "text": "Change Mapping to this Security: available for Potential candidates that were not mapped to the Security. Use it to manually establish the mapping. The previous mapping is automatically broken. Approve or Reject Mapping: available for established Weak mappings. Use it to approve or decline the mapping. Rejected mappings are added to Rejected Mappings. --- INFORMATION. Using the Level Up and Level Down buttons, users can jump between groups to review the Similarity parameters and each Predicate that constitute the Pair Similarity value. The Level grid provides full technical details for every mapping candidate in the search space. You can select the required columns in the Column Chooser: By default, only the most important Predicates are stored in the database and are visible on the Mapping Details screen. However, if the Algorithmic Recon is re-run in debug mode, additional values will populate the Level grid. Important."
+ },
+ {
+  "id": "Case-1-Algo-Recon#30",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Details button (4/4)",
+  "anchor": "details-button",
+  "text": "The search group candidates are not stored in the database permanently because this would add load to the servers and slow down the application. The entities are cleaned up one month after the reconciliation process. When the entities are purged, the Level grid displays the message: ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#31",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Edit Security button (1/2)",
+  "anchor": "edit-security-button",
+  "text": "Edit Security button opens the Security Editor (Reference Data Security Master tool). It is used to edit Security instruments and manage their mapping lists: Basic Security information: displays the Security Code, Security Description, and Type. Tab bar: an operational ribbon with Security tabs. The tabs may vary depending on the Security type. General section: contains the primary Security parameters. Identifiers: contains Security identifier parameters. Issuer: contains Security issuer parameters. Save and Close/Save/Cancel: use these buttons to save your changes or discard them. --- SECURITY MAPPINGS. Mappings tab displays all mappings assigned to the Security, including those created by Classic and Algorithmic Recons, the Reference Data Job, and manual mapping. Each accounting and banking system may label the same Security differently."
+ },
+ {
+  "id": "Case-1-Algo-Recon#32",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Edit Security button (2/2)",
+  "anchor": "edit-security-button",
+  "text": "For example, the client’s accounting system may store it as MSFT, while a bank system stores it as MSFT US (based on BBG ID). Another bank may report it as MSFT.O, and another counterparty may label it as MSFT SHS. As a result, House Securities typically have multiple mappings. You can create manual mappings directly in the Mappings grid: ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#33",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Unmap Security button",
+  "anchor": "unmap-security-button",
+  "text": "Unmap Security button breaks an existing active mapping. When an Algorithmic active mapping is broken (it can be Strong, Weak or Potential), the mapping is considered erroneous. When this happens, the mapping’s initial parameters (Security Id Left + Security Code Right + Security Map Type Right) are added to the blacklist and will no longer appear in the Algorithmic Recon search space. Unmapping also adjusts the matrix table on the Reinforcement Learning screen. Before breaking a mapping, users must confirm the action in the pop-up window: NOTE . If a mapping is broken by mistake and later restored, the statistics revert as if the break never happened, returning to the status quo. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#34",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Create Mapping button",
+  "anchor": "create-mapping-button",
+  "text": "Create Mapping allows you to create a mapping manually. It opens the Mapping Details screen with the candidates selected for the Security’s mapping search space. When you create a manual mapping, the system updates mapping statistics and adjusts the Reinforcement Learning matrix table accordingly. If you try to create a mapping for a Security that is already mapped, the following warning appears: ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#35",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Approve Mapping/Reject Mapping buttons",
+  "anchor": "approve-mapping-reject-mapping-buttons",
+  "text": "Approve Mapping and Reject Mapping buttons are used for Securities with a Weak or Potential Algorithmic Map Type. A Weak mapping has a decent Confidence Level, but it is not high enough to qualify as Strong; therefore, it requires approval from an authorized user. NOTE . When a mapping is rejected, it is automatically added to the Rejected Mappings list (available on the screen of the same name). A rejected mapping severely impacts the algorithmic reconciliation routine. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#36",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Grid",
+  "anchor": "grid",
+  "text": "The Algorithmic Security Analysis grid contains Algorithmic Security mappings’ parameters. The primary columns of the grid are: Algorithmic Map Type: indicates mapping certainty (Strong, Weak, Potential, Ambiguous). Is Active: indicates whether the mapping is active (applies to the Security). Is Approve Required: indicates whether the mapping requires approval. Has Ambiguity Mappings: indicates whether the Security has ambiguous mappings. You can filter entities in the grid by selecting a Strength value in the Algorithmic Map Type column. NOTE . Securities in the grid are color-coded so users can quickly review their status. The color codes are: Not mapped Security: the available action is Create mapping. Mapped Security: the available action is Unmap Security. Security needs approval: the available actions are Approve mapping and Reject mapping. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#37",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Security Mappings (1/2)",
+  "anchor": "security-mappings",
+  "text": "Security Mappings is the primary Security Recon screen. It aggregates all Security mappings and mapping suggestions that persist in the system (created by both Classic and Algorithmic recon, Reference Data Job, Hub Client, or established manually by users). Date selector: specifies the time range for displaying Security mappings. Show Mappings: selects the mapping status used to filter Security mappings in the grid (All, Active, Approve Required, Ambiguous, Potential). Operational buttons: actions that can be executed against mappings in the grid. Grid: lists all Security mappings for the selected time period. Context menu: actions available for the selected item in the grid. INFORMATION . The Approve Required, Ambiguous, and Potential statuses refer to mappings established via Algorithmic Recon. Each status implies a possible action against the Security. As a result, the Mapping Details screen and its available tools vary by status."
+ },
+ {
+  "id": "Case-1-Algo-Recon#38",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Security Mappings (2/2)",
+  "anchor": "security-mappings",
+  "text": "See the examples below."
+ },
+ {
+  "id": "Case-1-Algo-Recon#39",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Mapping statuses (Approve Required, Ambiguous, Potential) (1/4)",
+  "anchor": "mapping-statuses-approve-required-ambiguous-potential",
+  "text": "Approve Required mapping status implies the following Mapping Details screen and available options: Their Security: the right-side Security (delivered from the Counterparty source) with basic parameters. Candidates: list of House Securities that make up the candidate list. Context menu for the main candidate: allows users to Approve or Reject the mapping. The main candidate is highlighted in yellow. Context menu for other candidates: allows users to map the right-side Security to a different candidate. If this happens, the main candidate is automatically rejected, and the suggested mapping moves to the Rejected Mappings. Search Notes: text block containing brief logs about the suggested mapping search and results. If Search Notes are blank, it means the system purged the logs after one month. Advanced View: select to switch to the Levels grid and review the mapping’s technical details. INFORMATION ."
+ },
+ {
+  "id": "Case-1-Algo-Recon#40",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Mapping statuses (Approve Required, Ambiguous, Potential) (2/4)",
+  "anchor": "mapping-statuses-approve-required-ambiguous-potential",
+  "text": "The Advanced View button takes users to the Level grid with the full candidate list and technical reconciliation parameters (Predicate variables and Pair Similarities). The Levels grid supports the same actions (Approve, Reject, and Map to this Security). --- Ambiguous mapping status implies the following Mapping Details screen and available options: Their Security: the right-side Security (delivered from the Counterparty source), with basic parameters. Levels: list of candidates grouped by algorithmic mapping level. Context menu for all candidates: allows you to create a mapping to the selected Security. Other mapping candidates remain on lower levels and are not rejected. Pair Similarity of the candidates: calculated Pair Similarities for the candidates. INFORMATION . Ambiguous status is assigned when the Confidence Level is identical for two or more candidates."
+ },
+ {
+  "id": "Case-1-Algo-Recon#41",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Mapping statuses (Approve Required, Ambiguous, Potential) (3/4)",
+  "anchor": "mapping-statuses-approve-required-ambiguous-potential",
+  "text": "In this case, the algorithm cannot determine the correct mapping and delegates the decision to the user. Once the correct candidate is identified, it can be mapped manually. --- Potential mapping status implies the following Mapping Details screen and available options: Their Security: right-side Security (delivered from the Counterparty source) with basic parameters. Levels: list of candidates grouped by algorithmic mapping level. Context menu for all candidates: allows you to create a mapping to the selected Security. Other candidates remain on the lower levels but are not rejected. INFORMATION . Potential mapping status is assigned to a Security when the combination of Confidence Level and Distance places the mapping in the gray zone of the Reinforcement Learning matrix table. This means the candidate list is formed, but the top-scoring candidate is not strong enough to be mapped automatically."
+ },
+ {
+  "id": "Case-1-Algo-Recon#42",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Mapping statuses (Approve Required, Ambiguous, Potential) (4/4)",
+  "anchor": "mapping-statuses-approve-required-ambiguous-potential",
+  "text": "Potential mappings can be rejected (unmapped). In this case, the mapping is considered erroneous. When this happens, the mapping’s initial parameters Security Id Left + Security Code Right + Security Map Type Right are added to the blacklist and will never enter the Algorithmic Recon search space. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#43",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Operational buttons",
+  "anchor": "operational-buttons",
+  "text": "Operational buttons are used to manage Security mappings and handle mapping requests originating from the Security screen. Request Data: press to load entities into the grid when filters are set (Date range and Mapping status). Automatic loading is turned off by default. Details: opens the Mapping Details screen. The user interface depends on the Security’s mapping status. Edit Security: opens the Edit Security screen, which mirrors the Security Master Editor. It allows you to modify all Security parameters, including mappings. Create Mapping: press to create a Security mapping with the top Confidence Level-scoring candidate. This option is available only for mappings in Potential. Approve Mapping: press to approve a Security mapping in Approve Required status. Reject Mapping: press to decline a Security mapping in Approve Required status. Unmap Security: press to break an existing Security mapping. ---"
+ },
+ {
+  "id": "Case-1-Algo-Recon#44",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reinforcement Learning (1/4)",
+  "anchor": "reinforcement-learning",
+  "text": "Reinforcement Learning is an operational analytics screen that consolidates and analyzes Algorithmic Recon data in a specialized matrix table. It recalculates the accuracy of previously created mappings and generates a heatmap of accuracy zones for Algorithmic Recon mappings. For details, refer to the Principle of Work section. Date selector: selects the time range for Reinforcement Learning statistics. Distance rows: Distance value ranges. Quality parameters: sub-rows showing quality parameters (Total verified, Verified as correct, Unverified). Confidence Level columns: Confidence Level value ranges. Totals: totals per Quality Parameter group for each Distance row. Summary: averages for Strong, Weak, and Unused mappings, including Accuracy and Coverage for each group. INFORMATION . The Reinforcement Learning screen is scheduled to run once per day at the end of the day for the previous business day."
+ },
+ {
+  "id": "Case-1-Algo-Recon#45",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reinforcement Learning (2/4)",
+  "anchor": "reinforcement-learning",
+  "text": "During the run, Reinforcement Learning recalculates Confidence Levels and Distances for all mappings (including approved and rejected mappings), gathers statistics, and regenerates the accuracy zones in the matrix table. To do this, Algorithmic Recon runs for the past date using real historical input and produces new outputs for mappings and mapping suggestions. These outputs are then compared with existing real mappings (Etalon mappings): verified, approved, rejected, corrected, or manually created. --- FUZZY ENGINE SELF-LEARNING PROCESS. By comparing the calculated outputs of an Algorithmic Recon run with Etalon mappings, the Fuzzy engine can self-learn and evolve. This learning process enables the engine to calculate actual accuracy for each Confidence Level/Distance segment and apply a similar expected accuracy rate to future mappings within the same segment."
+ },
+ {
+  "id": "Case-1-Algo-Recon#46",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reinforcement Learning (3/4)",
+  "anchor": "reinforcement-learning",
+  "text": "Segments are divided into three groups: Strong (matrix green cells): accuracy is higher than 99.5%. Weak (matrix yellow cells): accuracy is between 98% and 99.5% (that is, at most one error per hundred mappings). Potential (matrix white cells): accuracy is less than 98%. As a result, the Reinforcement Learning matrix table dynamically adjusts the heatmap accuracy zones based on automatic Strong mappings, approvals and rejections of Weak mappings, and manual mappings created by users. --- NOTE . Due to the dynamic nature of the Reinforcement Learning matrix table, the number of columns and rows (and the chunk ranges) change automatically and are not controlled by the user. The matrix table skeleton is calculated based on the average distribution of mapping volume (each row and column includes the nearest number of mappings). Important."
+ },
+ {
+  "id": "Case-1-Algo-Recon#47",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Reinforcement Learning (4/4)",
+  "anchor": "reinforcement-learning",
+  "text": "The Reinforcement Learning matrix begins to work only after the system accumulates a significant number of verified matching instances. This threshold is set individually for each client during implementation (the default value is 10,000 matching instances). Additionally, the accuracy zones shift in response to users breaking mappings. For example, the Strong cell for a Confidence Level of 89–93 with a Distance of 1–30 can be downgraded to Weak or Potential if a user manually breaks a Strong mapping they deem incorrect within this cell."
+ },
+ {
+  "id": "Case-1-Algo-Recon#48",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Matrix table",
+  "anchor": "matrix-table",
+  "text": "Matrix table shows the accuracy zones of Strong, Weak, and Potential Map Types for Security mappings. Rows represent Distance ranges, and columns represent Confidence Level ranges. Each cell contains three quality parameters: Total verified: number of legitimate mappings (constituted from correct and rejected mappings). Verified as correct: number of mappings that were verified (constituted from approved mappings, manually created mappings, or mappings created by Classic Recon). Unverified: number of mappings that are not currently verified (constituted from mappings that require approval and have not yet been approved). Each value lets users drill down to the list of mappings within that Distance and Confidence Level segment. When a value is clicked, the user is directed to the Learning Details grid."
+ },
+ {
+  "id": "Case-1-Algo-Recon#49",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Summary",
+  "anchor": "summary",
+  "text": "Summary is an overview at the bottom of the Reinforcement Learning matrix table. It shows the totals for Total verified, Verified as correct, and Unverified mappings across all three groups (Strong, Weak, and Unused). It also displays each group’s Accuracy and Coverage: Accuracy: calculated as the total number of suggested mappings verified as correct divided by the total number of suggested verified mappings. Coverage: calculated as the total number of suggested Broker Security-to-House Security mappings divided by the total number of not-mapped Broker Securities."
+ },
+ {
+  "id": "Case-1-Algo-Recon#50",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Learning Details",
+  "anchor": "learning-details",
+  "text": "Learning Details is an overlay screen that displays all mappings within the selected matrix-table cell and quality parameter. To open the Learning Details grid, click a value in the matrix table on the Reinforcement Learning screen: Model Id: currently not used filter. Confidence From/To: specify the Confidence Level range to filter Securities in the grid. Default values are taken from the selected cell on the matrix table. Distance From/To: specify the Distance range to filter Securities in the grid. Default values are taken from the cell of selected value on the matrix table. Grid: Security mappings displayed based on the selected filters. Context menu: selective options that can be performed against the Security mapping."
+ },
+ {
+  "id": "Case-1-Algo-Recon#51",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Context menu (1/2)",
+  "anchor": "context-menu",
+  "text": "Context menu adapts to the parameters of the Security mapping. The available options and the conditions for using them are listed below. Unmap Security The option is available for Security mapping where the mapping is Fuzzy Mapped and is not rejected. When applied to the mapping, it switches to the Is Rejected status: --- Restore Mapping The option is available for Security mappings in the Rejected state. When applied, it restores the mapping to its previous status: --- Reject The option is available for Security mappings where the mapping is Fuzzy Mapped and is not rejected. When applied, the mapping switches to the Rejected state, and the combination of Security Id Left + Security Code Right + Security Map Type Right will not enter the Algorithmic Recon search space going forward: --- Create The option is available for Security mappings where Etalon Security Id is not specified and the mapping is not rejected."
+ },
+ {
+  "id": "Case-1-Algo-Recon#52",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Context menu (2/2)",
+  "anchor": "context-menu",
+  "text": "When applied, a new mapping is created with the combination Security Id Left + Security Code Right + Security Map Type Right: --- Change Mapping to Security Id Left The option is available for Security mappings where the mapping is not Fuzzy-correct, Etalon Security Id does not match Security Id Left, and the mapping is not rejected. When applied, the mapping is changed to the Security Id from the left side: --- INFORMATION . Two options are always available: Details (opens the Mapping Details screen with the mapping candidates grouped by level) and Edit Security (opens the Security Master Editor to adjust Security parameters and mappings)."
+ },
+ {
+  "id": "Case-1-Algo-Recon#53",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Not Mapped Securities & Rejected Mappings",
+  "anchor": "not-mapped-securities-rejected-mappings",
+  "text": "The Not Mapped Securities and Rejected Mappings screens are aggregation grids for, respectively, Securities that did not find a match and Security mappings that were rejected by users."
+ },
+ {
+  "id": "Case-1-Algo-Recon#54",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Not Mapped Securities",
+  "anchor": "not-mapped-securities",
+  "text": "The Not Mapped Securities grid contains Securities extracted from incoming feed files that were not included in any Positions’ search spaces for the Algorithmic reconciliation process. As a result, reconciliation was not performed because there were zero mapping candidates. Date To: select the date for which to display not mapped Securities. Reprocess: press the button to open the Algorithmic Recon Reprocess screen and initiate the reprocess procedure. Grid: list of not mapped Securities for the selected day. Context menu: contains the Details option that opens the Mapping Details pop-up screen."
+ },
+ {
+  "id": "Case-1-Algo-Recon#55",
+  "doc": "Case 1: Algorithmic Reconciliation",
+  "slug": "Case-1-Algo-Recon",
+  "heading": "Rejected Mappings",
+  "anchor": "rejected-mappings",
+  "text": "The Rejected Mappings grid contains Security mappings from the Weak certainty group that users rejected on the Security Analysis screen. Grid: list of mappings in the Rejected state. Context menu: contains the Restore Mapping option, which returns the mapping to its previous state. Important. Rejected mappings directly impact the Algorithmic reconciliation processes. Before starting, the Fuzzy algorithm checks the pool of rejected mappings; if it finds a mapping flagged as Rejected, it excludes entities with the same Security Code, Map Type, and Company ID from the search space."
+ },
+ {
+  "id": "Case-2-Approver-App#0",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Introduction",
+  "anchor": "introduction",
+  "text": "Format Step-by-step instructional guide covering the full setup and operation of the Approver mobile application. Target Readers Transaction Manager module users, including treasury operations managers, collateral management officers, fund controllers, and credit operations specialists. Description Enables users to review, approve, or reject transactions on the go. Walks users through initial configuration, authentication, and day-to-day operations. Supports a critical routine: time-sensitive Transaction requests are verified without delay. Business Impact Closes a critical operational gap in Transaction management: the ability to approve or reject on the go. Essential when managing asset movements under credit or collateral agreements, where delays carry significant financial and contractual risk. ---"
+ },
+ {
+  "id": "Case-2-Approver-App#1",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Introduction",
+  "anchor": "introduction",
+  "text": "The Approver Mobile Application (Approver) lets users review and manage Vouchers on the go. Approver runs on smartphones and tablets and is available for iOS™ and Android™ devices. It can be installed from the App Store™ and Google Play™. NOTE. To add an extra layer of security and prevent unauthorized access, Approver cannot connect to the environment without administrator approval. To connect your device to the system, complete the following steps: License & Device Approval."
+ },
+ {
+  "id": "Case-2-Approver-App#2",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Device Enrollment",
+  "anchor": "device-enrollment",
+  "text": "Device Enrollment is the process of connecting your personal handheld device to the platform. To enroll your device and start using it, complete the following steps: Licensing Installation & First launch Device Approval"
+ },
+ {
+  "id": "Case-2-Approver-App#3",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Licensing",
+  "anchor": "licensing",
+  "text": "The Approver Mobile App license is a paid item, and licensing requires an update to your contract. Contact your sales manager to discuss the available options."
+ },
+ {
+  "id": "Case-2-Approver-App#4",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Installation",
+  "anchor": "installation",
+  "text": "Download and install the Approver Mobile App from the App Store™ or Google Play™. The app supports the current versions of iOS™ and Android™. IMPORTANT:. The Mobile App will not work on rooted (jailbroken) devices."
+ },
+ {
+  "id": "Case-2-Approver-App#5",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "First launch (1/2)",
+  "anchor": "first-launch",
+  "text": "When you open Approver for the first time, you must configure the connection to your environment. Only then will your device appear on the Device Approval screen. During the initial launch, you will be prompted to allow push notifications on your device: If accepted: notifications will be sent directly to your device. Notifications may also include confirmation codes required for voucher approval. If declined: notifications will not be displayed. Confirmation codes will be delivered via email. When you open the Approver for the first time, specify the following parameters to connect to your environment: Access Code: a unique identifier for your tenant (company). INFORMATION: Contact your representative to obtain the Access Code for your company’s users. This code is confidential and should be shared only with authorized users. Login and Password: enter the credentials for your user profile."
+ },
+ {
+  "id": "Case-2-Approver-App#6",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "First launch (2/2)",
+  "anchor": "first-launch",
+  "text": "About: tap to view information about the Approver application. The Approver application does not support single sign-on (SSO); therefore, the password you use to log in must be your system password. After you authorize with the Access Code and your credentials, the device registration process begins. An administrator must approve your handheld device to complete the process."
+ },
+ {
+  "id": "Case-2-Approver-App#7",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Device approval (1/2)",
+  "anchor": "device-approval",
+  "text": "Your mobile device must be approved before the Approver can connect to the environment. When your credentials are accepted during the initial launch, your device appears on the Device Approval screen (System Administration module > User Administration folder > Device Approval screen). The Device Approval screen is an administrative console used to manage mobile device enrollment. It is available only to administrators: Upper toolbar: contains Approve, Reject, and Set notification options. Device Code: a unique code assigned to each device associated with the application. Approval State: the approval status. Only Approved devices can read data in Approver. Push/Email Notifications: shows how the device receives notifications (including confirmation codes). INFORMATION. If you need to disconnect the device from the system, select the device on the grid and click the Reject button."
+ },
+ {
+  "id": "Case-2-Approver-App#8",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Device approval (2/2)",
+  "anchor": "device-approval",
+  "text": "The device will be automatically disconnected from the system, and the user will be forcefully logged out of the Approver. Any repeated login attempt will be unsuccessful. To change the notification delivery method, click the upper toolbar button Set notification options. The Device Notification Options screen opens with two checkboxes (as shown below). Select the preferred method and click Save. The change will apply to the mobile device. Once the device is successfully approved on the server side, the application displays a Confirmation screen prompting you to enter the confirmation code sent to you either as a push notification or to your registered email address. Enter the code in the Confirmation Code field, then click the Next button. You will then be taken to the Access Code screen, where you must set up a short PIN code for Approver login:"
+ },
+ {
+  "id": "Case-2-Approver-App#9",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Access Code length and Login attempts (1/2)",
+  "anchor": "access-code-length-and-login-attempts",
+  "text": "You can configure the length of the Access Code used for Approver login and the number of login attempts allowed for the application user. Use the following Company Preferences to set up these parameters: Mobile Device Pin Length: specify a 4-, 6-, or 8-digit PIN as a User Preference Value. If the PIN length is set to 8 digits, users must create an 8-digit PIN. Mobile Device Login Attempts: the number of login attempts is configurable. A value of 3 means users have three attempts to enter the PIN code. After three unsuccessful attempts, the user will be logged out of the application and will have to enter the Access Code, Username and Password. The Approver login screen shows a countdown indicating how many login attempts remain: TIP. You can also log in using your fingerprint or Face ID if your device supports it. The corresponding prompt will appear on the Approver login page when you set up the PIN code."
+ },
+ {
+  "id": "Case-2-Approver-App#10",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Access Code length and Login attempts (2/2)",
+  "anchor": "access-code-length-and-login-attempts",
+  "text": "--- NETWORK OR SERVER ISSUES. If the Approver displays an error when you attempt to log in, perform the following troubleshooting steps: Verify that your username and password are correct. Check the internet connectivity on your handheld device. Enable Airplane Mode, wait 30 seconds, then disable it. If no issues are detected on your side, contact the Support Team for immediate assistance. The Approver always warns customers about maintenance work performed on the servers. ---"
+ },
+ {
+  "id": "Case-2-Approver-App#11",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Approver Navigation",
+  "anchor": "approver-navigation",
+  "text": "The primary purpose of the Approver application is to allow users to review and approve or decline Vouchers remotely. The My Approvals screen displays a list of all Vouchers in the system that are ready for an approval or rejection decision. Vouchers are automatically sorted by Voucher ID, with the most recent Voucher at the top. The Approver user interface contains the following items: Left menu: provides options to review Vouchers in different states. Here you can also change the application theme (Dark & Light), select custom statuses, and switch your tenant. Search: an advanced search engine that allows you to filter Vouchers by date range, date type (e.g., Settlement Date), sort by (e.g., Voucher Id desc), and status. The results are displayed on the All Vouchers screen. Voucher details: a short recap of the Voucher details (total amount size, total number of Transactions that constitute the Voucher, State, Attachments, etc.)"
+ },
+ {
+  "id": "Case-2-Approver-App#12",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Tenant selection",
+  "anchor": "tenant-selection",
+  "text": "Approver allows users in the parent tenant (Company) to switch tenants in a multi-tenant environment and then review and manage Vouchers for child tenants. To change tenants, open the left menu and tap the Company name. A list of available tenants appears. Tap the tenant you want to switch to. NOTE . You must have access to the parent tenant to switch to a child tenant. When you are logged in to a child tenant, you will not be able to see any other tenants except your own."
+ },
+ {
+  "id": "Case-2-Approver-App#13",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Advanced Search",
+  "anchor": "advanced-search",
+  "text": "The Approver application includes an advanced search engine that lets you filter Vouchers by Voucher ID, date range, date type, and status, and sort results in the desired order. After you set the search parameters, results are displayed on the All Vouchers screen. Simple search example: a user needs to find a specific Voucher by Voucher ID. They enter the Voucher ID in the Search data field and adjust the date range. Advanced search example: a user needs to review all Vouchers with the Awaiting Approval status, starting with those with the largest amounts. They specify the date range, Voucher status, and Sort order."
+ },
+ {
+  "id": "Case-2-Approver-App#14",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Voucher Details (1/2)",
+  "anchor": "voucher-details",
+  "text": "Vouchers are listed on the My Approvals screen, which opens as the default start page. To review a Voucher’s contents and details, tap a Voucher to open the Voucher Details screen: Voucher recap: shows the Voucher’s State, Currency, Amount, and Settlement Date. Notes: tap to open the Notes screen with Internal and External Notes of the Voucher. Outputs: tap to open the Outputs screen, where you can download the generated Voucher’s output messages. Advanced: tap to open the screen with Audit data and Attachments. Wires: list of the Wires that constitute the Voucher. Tap on the Wire to open the Wire’s Details screen. Approve/Reject: buttons you use to approve or reject the Voucher. INFORMATION."
+ },
+ {
+  "id": "Case-2-Approver-App#15",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Voucher Details (2/2)",
+  "anchor": "voucher-details",
+  "text": "You can control whether users can download output messages and attached files using the Mobile Device File Download Option (no spaces) Company Preference: This preference supports four values: None: attachments and output messages are unavailable for download on the handheld device. Attachments: users can download only attachments clipped to the Vouchers. Outputs: users can download only the Vouchers’ output messages. AttachmentsAndOutputs: users can download both Attachments and Outputs."
+ },
+ {
+  "id": "Case-2-Approver-App#16",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Notes",
+  "anchor": "notes",
+  "text": "The Notes section contains internal notes (for users) and external notes (for external users). It is displayed only if internal or external notes were added during Voucher submission. You can select Notes text by tapping and holding your finger on the screen."
+ },
+ {
+  "id": "Case-2-Approver-App#17",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Outputs",
+  "anchor": "outputs",
+  "text": "The Outputs section contains output messages in XML format (UTF-8 encoding). You can download them and review transfer details before the transfer is sent to the receiving party. NOTE: If no outputs are generated for a Voucher, this section is not displayed."
+ },
+ {
+  "id": "Case-2-Approver-App#18",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Advanced",
+  "anchor": "advanced",
+  "text": "The Advanced section contains additional Voucher information: Audit (logs that show all actions applied to the Voucher and its contents) and Attachments (files such as confirmation letters, agreements, and invoices that are attached to the Voucher and can be downloaded to your device). TIP. For security reasons, follow general safety policies and remove any downloaded attachments from your handheld device after approving or declining the Voucher."
+ },
+ {
+  "id": "Case-2-Approver-App#19",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Wires",
+  "anchor": "wires",
+  "text": "Vouchers consist of one or more Wires. To review a Wire, tap it to open a detailed recap: General section: contains Settlement Date, Currency, and Type. From/To: shows the sender’s and receiver’s Portfolio, Account, and the Amount of transferred money. Notes: contains Internal and External notes created for this Wire. Advanced: contains Audit, Attachments, and SSI/DI. Cancel: tap to cancel this Wire. NOTE: This action must be approved. Refer to Approval confirmation."
+ },
+ {
+  "id": "Case-2-Approver-App#20",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Approve/Reject/Lock Voucher (1/2)",
+  "anchor": "approve-reject-lock-voucher",
+  "text": "Approval or Rejection of a Voucher is a mandatory step in the Voucher Workflow. Depending on the workflow configuration, a Voucher may require multiple approvals before it is delivered to the operational institute. Users with delegated approval permissions can approve or reject a Voucher in the Approver application. Approver offers three ways to approve or reject a Voucher: Directly from the Voucher: open the Voucher Details screen and tap one of the buttons at the bottom of the screen. Bulk Approval/Rejection: select multiple Vouchers on the All Vouchers screen (tap and hold any Voucher to activate the Select All checkbox), then approve or reject your selection using the buttons at the bottom of the screen. The number of selected Vouchers is not limited. Swiping Right/Left: on the All Vouchers screen, place your finger on a Voucher and swipe (right to approve or left to reject)."
+ },
+ {
+  "id": "Case-2-Approver-App#21",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Approve/Reject/Lock Voucher (2/2)",
+  "anchor": "approve-reject-lock-voucher",
+  "text": "After swiping, tap Approve or Reject to complete the action."
+ },
+ {
+  "id": "Case-2-Approver-App#22",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Approval confirmation",
+  "anchor": "approval-confirmation",
+  "text": "Approval confirmation is mandatory for approve, reject, or cancel actions. The confirmation code is delivered to your device based on the selected notification delivery method (push or email). The action is completed only after you enter the confirmation code in the corresponding field. You must enter a supplementary note before you can confirm the Voucher for approval or rejection."
+ },
+ {
+  "id": "Case-2-Approver-App#23",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Reject for Edit",
+  "anchor": "reject-for-edit",
+  "text": "Reject for Edit is an option available within the Reject action. It assigns the Voucher the Rejected for Edit status, allowing you to update the Voucher details and resubmit it. To reject for edit, tap Reject on the Voucher screen to open the Confirmation screen. Then select the Reject for Edit checkbox, add a comment, and tap Submit reject:"
+ },
+ {
+  "id": "Case-2-Approver-App#24",
+  "doc": "Case 2: Approver Application",
+  "slug": "Case-2-Approver-App",
+  "heading": "Lock Voucher",
+  "anchor": "lock-voucher",
+  "text": "You can lock a Voucher to prevent other users from editing it. To lock the Voucher, tap the unlocked lock icon in the top-right corner of the Voucher interface. A locked Voucher can be unlocked only by the user who locked it or by users with permission to unlock Vouchers. To unlock the Voucher, tap the locked lock icon: Vouchers with a Failed or Rejected status cannot be locked. To complete the lock/unlock action, you must confirm it with the code delivered to your device based on the selected notification delivery method (push or email):"
+ },
+ {
+  "id": "Case-3-GL-Manager#0",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Introduction",
+  "anchor": "introduction",
+  "text": "Format Getting Started guide introducing key features of the GL Manager screen, supplemented with real business use cases. Target Readers Fund accountants, general ledger accountants, financial controllers, and NAV reporting specialists. Description Onboarding article for the GL Manager screen within the Transaction Manager module. Helps new and existing users orient quickly within the interface and understand common practices. Business Impact Brings full transparency to ledger records within a unified system and provides a single point of visibility across accounting data. Allows accountants, analysts, and operations staff to immediately identify discrepancies in their own or counterparty records and react in real time. ---"
+ },
+ {
+  "id": "Case-3-GL-Manager#1",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Introduction (1/2)",
+  "anchor": "introduction",
+  "text": "GL (General Ledger) entries are ledger records produced from Transactions and Vouchers for clients’ accounting systems. --- GENERAL LEDGER ENTRIES. Accounting systems typically use double-entry bookkeeping, where each Transaction is represented by two cash flow movements, a debit and a credit, that affect different accounting categories. These categories are defined in the Chart of Accounts (CoA), which may include multiple hierarchical levels. The CoA example is presented below."
+ },
+ {
+  "id": "Case-3-GL-Manager#2",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Introduction (2/2)",
+  "anchor": "introduction",
+  "text": "| Category | Bank Account | GL Account | Description | Transaction Types | | --- | --- | --- | --- | --- | | Assets | Account A | 10556 | Cash Account A | Income | | | | | | Expense | | | - | 10557 | General Investments | Buy | | | | | | Sell | | Liabilities | Account B | 10558 | Loan Account B | Drawdown | | | | | | Paydown | | | - | 10559 | Distributions | Loan Allocation | | | | | | Capital Call | Any Voucher or Transaction that represents an actual money movement can contain multiple General Ledger entries required for downstream accounting systems. GL entries are produced according to GL allocation rules: system rules, custom rules, or both. GL Allocation Rules define the General Ledger entry templates applied to the target Transactions."
+ },
+ {
+  "id": "Case-3-GL-Manager#3",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "General Ledger entries (1/5)",
+  "anchor": "general-ledger-entries",
+  "text": "GL entries are created and edited in the Voucher Details screen. For each Voucher or Transaction that must be reported to the accounting system, create or update the GL entries on the General Ledger Entries tab. Once created, they automatically populate the aggregating grid in the GL Manager screen. General Ledger entries tab: go to this tab to create and manage GL entries for the transactions. Operational bar: contains buttons to create (Add), modify (Edit), save, cancel, automatically generate GL entries (Generate Entries), and preview the GL entry output (Preview Output). Grid: lists the GL entries created for this voucher. Details: GL entry parameters section. You can modify these parameters after switching the entry to Edit mode. It contains the following parameters: Transaction: select the transaction within the voucher for which you want to create the GL entry."
+ },
+ {
+  "id": "Case-3-GL-Manager#4",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "General Ledger entries (2/5)",
+  "anchor": "general-ledger-entries",
+  "text": "This field is mandatory and is automatically populated if the voucher contains only one transaction. If the voucher contains more than one transaction, you must specify it manually. Description: provide a brief description for the GL entry. By default, this field is populated with the transaction’s External notes (if specified) or Internal notes. Chart of Accounts parameters: select the parameters of the GL hierarchy. All parameters are created, managed, and customized in the Dictionary tool (path: Reference Data module > Preference folder > Dictionaries screen). Effective Date: select the date when the GL entry can be included in the ledger books. This field is mandatory. NOTE: By default, the Effective Date repeats the Settlement Date of the selected transaction but can be changed manually. Credit/Debit: choose the direction of the asset movement. This field is mandatory."
+ },
+ {
+  "id": "Case-3-GL-Manager#5",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "General Ledger entries (3/5)",
+  "anchor": "general-ledger-entries",
+  "text": "INFORMATION: In accounting systems, a Credit GL entry for one account must be paired with a Debit GL entry for another account, and vice versa. When GL entries are generated automatically, these credit/debit entries are created automatically. Currency: select the GL entry currency. By default, the transaction’s currency is filled in automatically. This field is mandatory. Amount: enter the transaction amount related to the GL entry. This field is mandatory. Allocation Rule: select the allocation rule from the dropdown. This parameter’s values are created and managed in the Dictionary tool. Reference and External Reference: provide the GL entry with reference numbers. By default, the Reference number is taken from the transaction. INFORMATION. The Details section of the GL Allocation Rule may also contain UDFs (User Defined Fields), if they were implemented for the environment. --- CHART OF ACCOUNTS PARAMETERS."
+ },
+ {
+  "id": "Case-3-GL-Manager#6",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "General Ledger entries (4/5)",
+  "anchor": "general-ledger-entries",
+  "text": "The Details section of a GL Entry includes Chart of Accounts parameters that define the customizable GL hierarchy. These parameters help categorize General Ledger Entries and add specificity. You can customize these parameters in the Dictionary tool in the Reference Data module (Reference Data module > Preference folder > Dictionaries screen). Chart of Accounts parameters are displayed across three levels (Level 1, Level 2, Level 3), with GL Type and GL Account Level grouped by level. Each GL Type can be linked to a parent parameter. For example, if the General Expenses parameter has a parent Account Level parameter BBHY-1, selecting the GL Transaction Type in the Details section automatically populates the remaining parameters (in this case, Account, Group, and Class). If you modify captions for Account-level parameters, the corresponding field names in the Details section of the General Ledger Entries tab will also change."
+ },
+ {
+  "id": "Case-3-GL-Manager#7",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "General Ledger entries (5/5)",
+  "anchor": "general-ledger-entries",
+  "text": "INFORMATION. You can control how many Chart of Accounts parameters are shown in the Details section of the Allocation Rule Editor by using the Company Preference General Ledger Available Account Levels. This preference can be set to 1, 2, or 3, and it defines how many Chart of Accounts parameters are displayed in the Details section: ---"
+ },
+ {
+  "id": "Case-3-GL-Manager#8",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL User Defined Fields",
+  "anchor": "gl-user-defined-fields",
+  "text": "User Defined Fields for the GL entries are bespoke fields tailored for every individual client during system implementation. UDFs can capture any required additional information."
+ },
+ {
+  "id": "Case-3-GL-Manager#9",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Operational buttons (1/2)",
+  "anchor": "operational-buttons",
+  "text": "The Operational bar on the General Ledger entries tab lets you add, edit, save, and remove GL entries for the voucher. It also includes two special buttons that enhance the tab’s capabilities: Generate Entries: click to have the system automatically create all GL entries according to the GL Allocation Rule that targets the voucher. Preview Output: click to generate and download the preview output file based on the GL Message Layout. The file contains all created GL entries and their parameters: a snapshot of the output that will be delivered to the accounting system. INFORMATION . The system includes a default system GL Allocation Rule that produces either two or four records (depending on the number of accounts that participate in the transaction). For every account, the system automatically creates Credit and Debit entries and populates Details parameters with the transaction details (Amount, Currency, Date, Notes)."
+ },
+ {
+  "id": "Case-3-GL-Manager#10",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Operational buttons (2/2)",
+  "anchor": "operational-buttons",
+  "text": "You can create an unlimited number of custom GL Allocation Rules to produce GL Entries of your own design."
+ },
+ {
+  "id": "Case-3-GL-Manager#11",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Message Layout (1/2)",
+  "anchor": "gl-message-layout",
+  "text": "GL Message Layout defines the GL output file that contains all generated GL entries and is delivered from the system to the client’s endpoint. The default GL Message Layout is shipped with the system and includes pre-designed markup. You can modify the output file markup here: Reference Data module > Message Layouts folder > Message Layouts screen. Find the Message Layout with the GL Output Message Type parameter and switch it to Edit mode: NOTE. You can modify certain parameters (Output format, File Name, File Extension) and redesign the output message markup (click the Edit in Designer button to open the DevExpress designer). General Ledger entries."
+ },
+ {
+  "id": "Case-3-GL-Manager#12",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Message Layout (2/2)",
+  "anchor": "gl-message-layout",
+  "text": "The voucher contains a single transaction with a settlement date of 7/23/2023: a simple cash wire transfer for $555,000: The user, Author Curry, must create the corresponding GL entries that will be posted and delivered to Aqua Trading’s in-house accounting system when the transaction is settled. They use the Generate Entries button to create all GL entries automatically. The button creates four entries, two for each account involved in the transfer (Credit and Debit): To verify the integrity of the GL entry output before it is delivered to the accounting system, Author Curry generates the preview, downloads it, and confirms that the output message follows the Message Layout markup they established. Once the General Ledger entries are created for the Transaction, they automatically populate a special GL Manager grid that is developed specifically for aggregating GL Entries:"
+ },
+ {
+  "id": "Case-3-GL-Manager#13",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Allocation Rules (1/2)",
+  "anchor": "gl-allocation-rules",
+  "text": "GL Allocation Rule is a Reference Data item that defines how to generate GL entries for a selected set of Transactions. The GL Allocation Rules grid is located here: Reference Data module > Cash/Wires folder > GL Allocation Rules screen. The GL Allocation Rules screen displays a grid that contains all existing GL Allocation Rules in the system, both default and custom: Upper toolbar: a set of buttons used to create (Add), modify (Edit), duplicate (Copy), and remove (Delete) GL Allocation Rules. You can also Export Rules as JSON configuration files and Import them into new environments. Grid: a list of all GL Allocation Rule configurations in the system. INFORMATION. The system can contain an unlimited number of GL Allocation Rules. Rule priority is determined by the Order parameter you define in the GL Allocation Rule Editor. Note that no user can modify or remove the default system GL Allocation Rule."
+ },
+ {
+  "id": "Case-3-GL-Manager#14",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Allocation Rules (2/2)",
+  "anchor": "gl-allocation-rules",
+  "text": "Its priority is generally the lowest."
+ },
+ {
+  "id": "Case-3-GL-Manager#15",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Allocation Rule Editor (1/2)",
+  "anchor": "gl-allocation-rule-editor",
+  "text": "GL Allocation Editor is the tool for building rules. Use the Add or Edit buttons on the upper toolbar to open the editor in a pop-up window. The GL Allocation Rule Editor includes the following parameters: Code: specify the code for the GL Allocation Rule. No spaces are allowed. This parameter is mandatory. Name: specify the name of the GL Allocation Rule. This parameter is mandatory. Order: enter the priority number that determines when the GL Allocation Rule is applied. The order is ascending: 1 is the highest priority, 2 is lower than 1, 3 is lower than 2, and so on. This parameter is mandatory. NOTE: If a Transaction matches the conditions of multiple rules, the rule with the highest priority is applied. Active: select this checkbox to activate the rule. Inactive rules are not applied to Transactions. Description: provide a brief description of the rule."
+ },
+ {
+  "id": "Case-3-GL-Manager#16",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Allocation Rule Editor (2/2)",
+  "anchor": "gl-allocation-rule-editor",
+  "text": "Matching Rule: build the matching rule that determines which Transactions the rule targets. In the screenshot above, the clause includes Transactions with amounts between 100 and 150 USD. Advanced Mapping Mode: select this checkbox to enable the Mapping Expression field, where you can write the expression manually. Clear it to return to the Mapping Templates grid. Mapping Templates grid: lists the rule’s templates and their parameters. Template parameters: select a template from the grid and define the parameters and their sources."
+ },
+ {
+  "id": "Case-3-GL-Manager#17",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Mapping Templates (1/2)",
+  "anchor": "mapping-templates",
+  "text": "Mapping Templates section defines how many GL entries will be generated for the target Transaction, and which parameters will be used. The section also includes UDFs, if they are configured for the environment: INFORMATION. In custom GL Allocation Rules, you can control the number of GL entries produced and their parameters. For example, the Mapping Template in the screenshot above produces only two GL entries for the Credit and Debit sides. The Mapping Template parameters can be selected from two sources: From Constant: system or custom Dictionary parameters. From Transaction: Transaction’s fields. NOTE: You can also select a third source (Not mapped), which hides the drop-down field and leaves the parameter unspecified: GL Allocation Rule. The above GL Allocation Rule includes Transactions with amounts between 100 and 150 USD. The rule’s Mapping Template produces only two GL entries for the Credit and Debit sides."
+ },
+ {
+  "id": "Case-3-GL-Manager#18",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "Mapping Templates (2/2)",
+  "anchor": "mapping-templates",
+  "text": "As a result, Generate Entries for the 123 USD Transaction produces the following GL entries: This simplified example demonstrates the logic behind custom GL Allocation Rules. In practice, you can create numerous Mapping Templates that reflect transaction details in different ways."
+ },
+ {
+  "id": "Case-3-GL-Manager#19",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Manager (1/2)",
+  "anchor": "gl-manager",
+  "text": "The GL Manager screen contains an aggregation grid of all GL Entries generated within Vouchers. It lets you review GL entries and their statuses for specific dates, and it also provides direct access to the General Ledger Entries tab, where you can edit an entry. The GL Manager screen contains the following tools: Date selector: specify From and To dates to display GL entries for that period. NOTE: The date parameter used by the selector is Effective Date. By default, Effective Date matches the transaction’s Settlement Date, but it can be changed on the Transaction entry screen. Filters: use the Chart of Accounts filters to narrow the entries in the grid. In the screenshot above, the filters are GL Trans Type, GL Account, and GL entry Status. Keep in mind that customizing Chart of Accounts captions also changes the filter names. Edit: click to open the Voucher Details screen on the General Ledger Entries tab."
+ },
+ {
+  "id": "Case-3-GL-Manager#20",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL Manager (2/2)",
+  "anchor": "gl-manager",
+  "text": "There, you can manage the voucher’s GL entries. Grid: lists GL entries for the selected period. Context menu: contains the Edit action."
+ },
+ {
+  "id": "Case-3-GL-Manager#21",
+  "doc": "Case 3: GL Manager",
+  "slug": "Case-3-GL-Manager",
+  "heading": "GL entries delivery",
+  "anchor": "gl-entries-delivery",
+  "text": "Created GL entries are stored in the GL Manager grid and can be reviewed and amended at any time. Their main purpose is to be delivered to the client’s endpoint (for example, an accounting system where ledger records are kept). GL entries are generated by a dedicated action within the Voucher Workflow. Voucher Workflows can be reviewed and configured here: Reference Data module > Cash/Wires folder > Voucher Workflow screen. The screenshot below shows an example of two consecutive workflow steps: one generates GL entries according to the GL Allocation Rule, and the next delivers output messages to the endpoint: NOTE. When the Deliver Output action runs, GL entries are delivered to the location and through the channel specified in the Communication Profile linked to this Voucher Workflow action. For details on Voucher Workflow configuration, refer to the dedicated Voucher Workflow Guide."
+ },
+ {
+  "id": "Case-4-Optimizer#0",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Introduction (1/2)",
+  "anchor": "introduction",
+  "text": "Format Knowledge base guide combining a functional overview of the Optimizer tool with its algorithms library. Target Readers Quantitative analysts, portfolio strategists, and risk and optimization specialists. Description Technical reference and onboarding guide for a company-developed scripting environment. Introduces the Optimizer module, explains its architecture and workflow, and guides users through writing and deploying C# scripts against portfolios, positions, and agreements. Business Impact Automated analysis helps analysts streamline work at scale. Each Optimizer iteration is complemented with logs and scripts explaining suggested actions from a financial perspective, such as a better benchmark rate or a closer re-rate date. NOTE. This is a shortened version of the guide: the Algo source code is covered by a confidentiality agreement and cannot be published."
+ },
+ {
+  "id": "Case-4-Optimizer#1",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Introduction (2/2)",
+  "anchor": "introduction",
+  "text": "To keep the guide useful, the final section presents a library of default Algos with detailed code comments. ---"
+ },
+ {
+  "id": "Case-4-Optimizer#2",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Introduction (1/2)",
+  "anchor": "introduction",
+  "text": "Optimizer is a module that generates data-driven recommendations to help optimize client portfolios for improved profitability and risk management. The Optimizer engine consists of specialized algorithms (Algos), each developed to address a specific functional objective. These Algos analyze client data within the platform and generate recommended actions (Suggested Actions). The Optimizer module contains the following screens: Portal: the module landing page, containing a set of Optimizer widgets and summary views. Algos: a centralized grid containing all available Algos. Includes tools for creating, editing, and testing Algos. Solutions: a repository of configured Solutions (ordered combinations of Algos with defined parameters). Includes configuration and testing capabilities. Blotter: displays generated Suggested Actions for a selected date and enables users to review and post actions."
+ },
+ {
+  "id": "Case-4-Optimizer#3",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Introduction (2/2)",
+  "anchor": "introduction",
+  "text": "Filters: contains configurable filters that can be applied to Solutions to refine results. Sessions: displays historical runs of Solutions and Algos, including generated Suggested Actions and system logs. INFORMATION . The Optimizer module is shipped with a default library of Optimizer Algos and Solutions."
+ },
+ {
+  "id": "Case-4-Optimizer#4",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Optimizer’s Concept of Operation (1/3)",
+  "anchor": "optimizer-s-concept-of-operation",
+  "text": "The Optimizer engine processes client data (including rates, balances, currencies, interest rates, and maturity dates) and generates Suggested Actions based on predefined algorithmic logic: Standard Data Source: provides the Optimizer engine with the system data used by the triggered Solution. Optimizer pulls data from the sources designated in the Algos that make up the Solution. Solution: processes the source data and runs Algos one by one, in the order specified in the Solution setup. Generation of Suggested Actions: each Algo generates Suggested Actions based on its analysis of the source data. As a result, the Solution outputs a set of Suggested Actions produced by the Algos it contains. Blotter: generated Suggested Actions populate the Suggested Actions Blotter, where users can review the recommendations and post them."
+ },
+ {
+  "id": "Case-4-Optimizer#5",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Optimizer’s Concept of Operation (2/3)",
+  "anchor": "optimizer-s-concept-of-operation",
+  "text": "Suggested Actions Posting: users can post selected Suggested Actions as Transactions (Vouchers), Payments (Cashflows), Overrides (Security Finance), Book Movements (Collateral Management), or bulk-post all generated Suggested Actions. INFORMATION. Each Algo has an individual objective, which is described in the Algo’s description. For example, an Algo can suggest closing negative balances with high interest rates by moving funds to the account with the lowest rate within a portfolio."
+ },
+ {
+  "id": "Case-4-Optimizer#6",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Optimizer’s Concept of Operation (3/3)",
+  "anchor": "optimizer-s-concept-of-operation",
+  "text": "Below is an example of this Algo: csharp foreach (var portfolioId in OptimizerCustodianAccountBalances.Select(a => a.PortfolioId) .Distinct().ToList()) { var accounts = OptimizerCustodianAccountBalances .Where(a => a.RequiredDebit < 0 && a.IsCurrencyBalance && a.CurrencyId == a.PortfolioCurrencyId && a.PortfolioId == portfolioId); var bestDebitRateCustodianAccount = accounts.OrderBy(a => a.DebitRate).FirstOrDefault(); if (bestDebitRateCustodianAccount == null) continue; foreach (var debitAccount in accounts.Where(a => a.DebitRate > bestDebitRateCustodianAccount.DebitRate && Math.Abs(a.RequiredDebit) >= bestDebitRateCustodianAccount.WireThreshold)) { await Transfer(bestDebitRateCustodianAccount, debitAccount, Math.Abs(debitAccount.RequiredDebit)); } }"
+ },
+ {
+  "id": "Case-4-Optimizer#7",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Algos screen",
+  "anchor": "algos-screen",
+  "text": "Algos screen provides a centralized grid of all available Algos, along with tools to create, edit, and test them. Algo: A coded expression that processes selected system data and generates Suggested Actions based on programmed logic. The Algos screen is shown below: Upper toolbar: set of action buttons. Grid: all Algos available in the system. Is Public column: indicates whether this Algo is visible to all users with access to the screen (checked) or only to the Algo’s creator (idle). Used In Solutions column: indicates whether the Algo is part of a Solution."
+ },
+ {
+  "id": "Case-4-Optimizer#8",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Upper toolbar",
+  "anchor": "upper-toolbar",
+  "text": "Upper toolbar allows users to perform the following operations on Algos: Add: create a new Algo. Edit: modify the selected Algo. Delete: remove the selected Algo. Save As: duplicate the selected Algo. Publish: make an Algo publicly visible to authorized users. Export: export an Algo in JSON format. Import: import an Algo from a JSON file."
+ },
+ {
+  "id": "Case-4-Optimizer#9",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Algo Editor screen",
+  "anchor": "algo-editor-screen",
+  "text": "Algo Editor is a tool for creating, editing, and testing Algos. It includes three tabs: Data Sources: select the system data used by the Algo. Editor: configure parameters and write the Algo expression. Test Run: validate the logic and review results."
+ },
+ {
+  "id": "Case-4-Optimizer#10",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Data Sources",
+  "anchor": "data-sources",
+  "text": "Data Sources tab displays the full library of Hazeltree data blocks available for processing with the Optimizer engine. The expression written on the Editor tab will work with the data blocks selected here: Data blocks: data blocks available for processing within the Hazeltree system. Fields: fields within the selected data block. These are used in specific contexts (for example, the Data Source Optimizer Global Positions contains fields related to a Position: PositionID, SecurityID, AccountCode, PortfolioCode, Currency, Quantity, Market Value, MTM, etc.). These fields are processed by the Algo. Properties: data source system parameters. When data sources are selected, proceed to the Editor tab. If you forgot to select a data source, you can return to this tab and add the missing data block to the Algo."
+ },
+ {
+  "id": "Case-4-Optimizer#11",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Editor",
+  "anchor": "editor",
+  "text": "Editor tab allows you to specify general settings and parameters used in the Algo. It also includes an Expression field where the Algo code is written and validated: Data source fields: list of selected Data Sources and fields. If you click on the field name, it will automatically populate the Expression window. Expression: the Algo’s code. Code is written using the C# programming language. Expression map: minimized image of the Expression code sheet. General settings: specify Name, Description, Algo Type, and Public state. Custom parameters: set up custom parameters used in the Algo’s Expression. Data Source parameters: set up Data Source parameters used in the Algo’s Expression. Collapse button: use it to shrink the Data source fields (1) and the Settings (4) sections."
+ },
+ {
+  "id": "Case-4-Optimizer#12",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Custom parameters",
+  "anchor": "custom-parameters",
+  "text": "Custom parameters declare custom variables used in the Algo’s code. There is no limit to the number of custom parameters."
+ },
+ {
+  "id": "Case-4-Optimizer#13",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Data Source parameters",
+  "anchor": "data-source-parameters",
+  "text": "Data Source parameters are default parameters that come with the selected Data Source(s). The number and attributes of Data Source parameters cannot be modified. You can mark these parameters as mandatory (Is Required) and indicate whether they must be shown on the Test Run and during the Solution run. NOTE. After you complete the Algo’s setup, you need to perform the validation of the Expression: Validate: click to run the integrity check. Verdict plate: a positive or negative verdict appears on the green or red plate accordingly. Status: after the Expression is validated, you can proceed to the Test Run tab for testing. If validation fails, logs with error descriptions and troubleshooting tips are displayed at the bottom of the Expression window: The Algo must be saved before the Test Run. Click the Create button on the upper toolbar to save the Algo in the grid."
+ },
+ {
+  "id": "Case-4-Optimizer#14",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Test Run",
+  "anchor": "test-run",
+  "text": "Test Run tab is used to test an Algo: Test Run: run a test for the Algo. Algo parameters: specify the parameters marked with Is Required. Tabs: view the generated Suggested Actions (Suggested Actions tab), Algo run logs (Trace Messages tab), and system data used during processing (Data Sources tab). Test Suggested Actions: results of the Algo’s test run. These Suggested Actions do not populate the Blotter grid and cannot be posted. Algo Run. The Cover Debits in Base Currencies Algo finds Positions with negative Free Cash balances in the base currency that must be covered and generates Suggested Actions to cover the balance: If we look at the Cashboard prior to running the Algo, we can see two Positions with negative Free Cash: As a result, when the Algo is fired in test mode, the following Suggested Actions are produced: This is a simplified example that demonstrates the Optimizer’s approach and potential."
+ },
+ {
+  "id": "Case-4-Optimizer#15",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Solutions screen (1/2)",
+  "anchor": "solutions-screen",
+  "text": "Solutions screen lists Solutions in a single grid. It includes an embedded Solution Editor for configuring Solutions and running test runs. Solution: Optimizer unit that groups Algos targeting a single module (e.g. Collateral or Debt Management). Algos run in the specified order. Solutions can use preconfigured filters to exclude undesired results. The Solutions screen is presented below: Upper toolbar: allows users to create (Add), modify (Edit), and remove (Delete) Solutions. It also allows users to define default Data Source and custom parameters (Arguments). Grid: shows all existing Solutions in the system. Module Name column: indicates target modules. INFORMATION. The Arguments button allows users to set default values for parameters (both custom and Data Source) across all Algos within the Solution. When default values are specified, the Solution runs using those values only: NOTE."
+ },
+ {
+  "id": "Case-4-Optimizer#16",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Solutions screen (2/2)",
+  "anchor": "solutions-screen",
+  "text": "If AsOfDate and Company Code are not provided with default values in the Arguments pop-up screen, they automatically take the following values: AsOfDate: the day selected on the screen where the Solution is fired (for example, Optimizer Blotter or Cashboard). Company Code: the active tenant (Company) under which the user runs the Solution."
+ },
+ {
+  "id": "Case-4-Optimizer#17",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Solution Editor",
+  "anchor": "solution-editor",
+  "text": "Solution Editor is an embedded tool used to create and configure Solutions and perform test runs: Upper toolbar: operational buttons for Test Run, Update and Cancel. Tabs: the Details tab is used for Solution configuration and the Test Run tab is used to test the Solution. General settings: Solution’s parameters (Name, Description, Solution Type, Is Public, and Module). Algos ribbon: lets you add Algos to the Solution, apply preconfigured Filters, and establish the work order of the Algos. Algos: list of the Algos that constitute the Solution. The top Algo runs first when the Solution is triggered. Solutions can use Filters to control the outcome of the Algos. Click the Filters button on the ribbon and select a filter to apply. Filters must be preconfigured on the dedicated screen:"
+ },
+ {
+  "id": "Case-4-Optimizer#18",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Test Run tab",
+  "anchor": "test-run-tab",
+  "text": "Test Run tab is used to generate test Suggested Actions. Similar to the Algo Editor’s Test Run, Suggested Actions generated during the test are not conveyed to the Blotter but are registered in the Sessions screen: Test Run button: launch the test process. Algos parameters: specify the parameters of all Algos included in the Solution. Tabs: Suggested Actions, Trace Messages (test run logs) and Data Sources used in the Solution’s Test Run. Suggested Actions: generated during the test run."
+ },
+ {
+  "id": "Case-4-Optimizer#19",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Blotter screen",
+  "anchor": "blotter-screen",
+  "text": "Blotter screen stores all Suggested Actions generated for the selected date and allows users to launch Solutions directly from the screen: Notification plate: it indicates whether the Solution launched with the Run Optimizer button succeeded. If an error occurs, the plate turns red and links to the error log. Upper toolbar: Date selector, Scenarios filters and Run Optimizer operational button. Grid: Suggested Actions generated for the selected date. Post: context menu button that allows users to publish the Suggested Action as a Transaction."
+ },
+ {
+  "id": "Case-4-Optimizer#20",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Run Optimizer (1/2)",
+  "anchor": "run-optimizer",
+  "text": "Run Optimizer runs the selected Solution and generates Suggested Actions that populate the Blotter grid. Solution: select the Solution from the list. AutoPosting: check the box to enable the system to automatically publish Suggested Actions (as Transactions, Overrides, Book Movements, Payments, etc.). Data parameters: specify all parameters required for the Solution run. Run: after all data parameters are specified, click Run to start the Optimizer engine. After the Optimizer job completes, all generated Suggested Actions populate the Blotter grid. NOTE. The Run Optimizer button is available on several screens throughout the system (for example, Cashboard’s FX Hedge and Call Management). It allows users to run the Solution directly from those screens: The Solutions that run from each screen are specified in Company Preference (System Administration module > Company Administration folder > Company Preference screen)."
+ },
+ {
+  "id": "Case-4-Optimizer#21",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Run Optimizer (2/2)",
+  "anchor": "run-optimizer",
+  "text": "There are three Company Preferences that designate the Solutions per screen: Collateral Optimization FX Hedge Optimization FX Hedge Forward Roll Optimization"
+ },
+ {
+  "id": "Case-4-Optimizer#22",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Posting",
+  "anchor": "posting",
+  "text": "Posting enables a Suggested Action to be published as a Transaction on the Transactions grid or to trigger workflow-specific business actions (e.g. send an email to the Counterparty, create a Re-rate, generate a Book Movement, add a Payment to the Cashflow, etc.). Automatic posting is also available with the Run Optimizer button. The Post context menu button opens a pop-up window with the selected Suggested Actions: After a Suggested Action is posted, you can track its status on the Blotter grid: Successfully posted Suggested Actions receive a Posted status when processing is complete. If an error occurs, the action is assigned a Failed status. You can repost failed Suggested Actions after the cause of the issue is fixed."
+ },
+ {
+  "id": "Case-4-Optimizer#23",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Filters screen (1/2)",
+  "anchor": "filters-screen",
+  "text": "Filters screen stores filters used in Solutions to control the Algos’ outcome: Upper toolbar: lets users create (Add), edit (Edit), or delete (Delete) filters in the grid. Grid: list of all filters in the system. INFORMATION. Filters are useful when you want to control the Suggested Actions produced by Solutions, rather than picking the ones you need from a large set. See the example below. Solution Filters. The Algo produces two Suggested Actions that cover Positions with negative Free Cash. If the client is only interested in results that show Positions below one million in base currency (USD in this case), they can apply a filter to the Solution that runs the Cover Debits in Base Currencies Algo. The user goes to the Filters screen and opens the Filter Editor: Upper toolbar: use to Validate, Update, or Cancel. Data Sources: list of available fields from the selected Data Source. Expression: write a filter’s expression."
+ },
+ {
+  "id": "Case-4-Optimizer#24",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Filters screen (2/2)",
+  "anchor": "filters-screen",
+  "text": "This example demonstrates how the filter hides results higher than minus one million. General settings: filter’s Name, Description, Type and Public status, plus the custom and Data Source parameters. When the filter is ready (validated and saved), it can be applied to Solutions within the system. The user then opens the Solution Editor and selects the new filter for the Solution that runs the Cover Debits in Base Currencies Algo. As a result, the next Solution run produces only one Suggested Action recommending that the debit balance below one million be covered:"
+ },
+ {
+  "id": "Case-4-Optimizer#25",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Sessions screen",
+  "anchor": "sessions-screen",
+  "text": "Sessions screen provides a log of all Solution and Algo runs, including test executions."
+ },
+ {
+  "id": "Case-4-Optimizer#26",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Session Details",
+  "anchor": "session-details",
+  "text": "The Details button on the upper toolbar opens a pop-up window where you can view the following details of the Solution run: Suggested Actions tab: generated Suggested Actions. Note that you cannot post them from this window. Trace Messages tab: logs of the Optimizer run."
+ },
+ {
+  "id": "Case-4-Optimizer#27",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "Portal screen",
+  "anchor": "portal-screen",
+  "text": "Portal screen is a widget console page that contains Optimizer widgets: Date range and type: select the From and To date to define the time period you want to see the results for. Widgets: select the widgets from the pool in the top right corner and deploy them in the working area. Widget properties: use to customize the widgets. The Portal screen stores the following widgets: | Widget Name | Widget Type | Description | | --- | --- | --- | | Loan Board Widget | Grid | Snapshot from the Loan Board grid (Debt Management module) | | Position Management Widget | Grid | Snapshot from the Positions grid (Position Management module) | | Suggested Actions Widget | Grid | Snapshot from the Optimizer Blotter grid | | Suggested Payment Audit | Grid | Shows only posted Suggested Actions from the Optimizer Blotter grid |"
+ },
+ {
+  "id": "Case-4-Optimizer#28",
+  "doc": "Case 4: Optimizer",
+  "slug": "Case-4-Optimizer",
+  "heading": "System Algos Registry",
+  "anchor": "system-algos-registry",
+  "text": "This section contains the full library of Solutions and Algos shipped with the Optimizer module. IMPORTANT. Due to strict confidentiality policy, the System Algos Registry cannot be published as part of this portfolio. The registry contains each Algo’s name, business purpose, underlying logic/working algorithm, and C# source code with detailed inline comments. The registry is designed to enable third‑party developers to build their own Algos by extending system patterns and modifying specific clauses or programmed actions. Sharing this material publicly would disclose protected intellectual property and internal methodologies, so it is intentionally omitted from this public version."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#0",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Introduction (1/2)",
+  "anchor": "introduction",
+  "text": "Format Knowledge base guide combining an explanation of algorithmic transaction matching principles with a practical user guide for the Transaction Matching module. Target Readers Reconciliation analysts, operations analysts, accountants, and financial operations specialists responsible for validating and resolving transaction discrepancies. Description Technical reference and onboarding guide explaining the scientific principles behind algorithmic transaction matching across heterogeneous data sources. Also provides a complete walkthrough of the Transaction Matching interface supported by real-world reconciliation scenarios and live case examples. Business Impact Served as the primary reference for six of the company's largest reconciliation clients, improving adoption of advanced transaction matching workflows and reducing analyst onboarding time."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#1",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Introduction (2/2)",
+  "anchor": "introduction",
+  "text": "The documentation also supported customer enablement efforts that contributed to two existing clients purchasing the Reconciliation Manager module."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#2",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Introduction (1/3)",
+  "anchor": "introduction",
+  "text": "Transaction Matching is a critical step of the Transaction Reconciliation process. It matches Transaction records between the House side (Company) and the Counterparty side (Broker, Bank, or Accounting system). The Algorithmic Transaction Matching process runs on Hazeltree's in-house engine, built on Fuzzy logic at its core. ALGORITHMIC TRANSACTION MATCHING PROCESS. Comparing House and Counterparty Transactions with Fuzzy logic gives customers control over the integrity of real asset movements. Financial operations wired through multiple institutions vary too widely for exact matching, which is why the Fuzzy logic engine exists. Consider a set of international Transactions. The assets pass through intermediary banks before they reach the receiving Account, and the client needs to know which Transactions have settled and which are still in flight. The bank produces report files covering the day's operations and sends them to the client."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#3",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Introduction (2/3)",
+  "anchor": "introduction",
+  "text": "Hazeltree processes those files and compares the extracted data with the House data. The client then sees the full picture: what has completed, and what is still to come. The self-learning Algorithmic engine streamlines Transaction matching and reduces the risk of an incorrect match, giving clients fast and dependable results. Algorithmic Transaction Matching in a Private Equity deal. Algorithmic Transaction Matching is best illustrated through a Private Equity scenario. A client issues an Investor Call letter and creates a Voucher with multiple Transactions from the posted Cashflow Transfers. Naturally, the client needs to track the incoming investments until the call is fulfilled, and such investments usually take time to be agreed on and wired. The Transaction Matching screen gives the client a single control point for monitoring the steady stream of incoming investment Transactions."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#4",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Introduction (3/3)",
+  "anchor": "introduction",
+  "text": "Because the number of incoming Transactions can be large and their settlement timing varies, the client delegates Transaction comparison and matching to the Fuzzy engine. The user's job is to verify the integrity of the matching process and analyze the results. Once the final Transactions are wired and reported, the client can confirm whether everything was transferred as planned, or whether there are discrepancies to raise with the investors."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#5",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Working Principle and Logic (1/4)",
+  "anchor": "working-principle-and-logic",
+  "text": "The Algorithmic Transaction Matching process combines several approaches that improve accuracy and integrity. It is a multi-step procedure, shown in the diagram below: Input: the Fuzzy algorithm starts with the full set of Transactions that participate in the algorithmic matching process. This set is assembled on the Transaction Matching screen when the user starts Algorithmic Matching. Fuzzy Transaction Matching: the process runs in two parallel modes, 1:1 Matching and M:N Matching. 1:1 relations: relations are established between a single right-side Transaction (Broker) and a single left-side Transaction (House). This mode is called One-To-One and is based on the calculated Confidence Level. M:N relations: relations are established among right-side Transactions (Broker) and left-side Transactions (House). This mode is called Many-To-Many and works in several combinations (Many-To-One, One-To-Many, and Many-To-Many)."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#6",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Working Principle and Logic (2/4)",
+  "anchor": "working-principle-and-logic",
+  "text": "Matching in this mode is based on the Reference Number ID. Cross-group link identification: an auxiliary step of the M:N relations that looks for possible matches among the individual Transactions in the groups formed by M:N matching. The search is based on the Reference Number ID. Cross-group relations: cross-group matches are established. As a result, a single Transaction can belong to two or more subgroups (for example, when it carries multiple Reference Number IDs in the Description field). Subgroups merge: the subgroups formed by M:N mode are fused through a 1:1 match established between members of different groups. This mode is called Cross Grouping through 1:1 Matching. Output: the resulting groups are displayed on the Transaction Matching grid with their calculated Confidence Levels."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#7",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Working Principle and Logic (3/4)",
+  "anchor": "working-principle-and-logic",
+  "text": "Because Transaction records are held differently across accounting institutions, the Transaction Matching process runs in three modes: One-To-One: one Transaction to one Transaction. M:N Matching, with three variations: One-To-Many: one Transaction to many Transactions. Many-To-One: many Transactions to one Transaction. Many-To-Many: many Transactions to many Transactions. Cross Grouping through 1:1 Matching: Many-To-Many groups linked through a One-To-One match and an established cross-group connection. These different approaches exist because the number of Transaction records can differ between the House and Counterparty sides. NOTE. The One-To-One mode follows a dedicated algorithm that involves forming a search space. The One-To-Many, Many-To-One, and Many-To-Many modes are special cases of M:N matching, which follows a separate algorithm based on finding and matching Transactions by their Reference Number."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#8",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Working Principle and Logic (4/4)",
+  "anchor": "working-principle-and-logic",
+  "text": "Both matching processes run in parallel, with neither taking priority. Cross Grouping runs after the 1:1 and M:N matching processes finish."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#9",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Case 1: One-To-One Matching",
+  "anchor": "case-1-one-to-one-matching",
+  "text": "One-To-One Transaction Matching connects one Transaction from the House side to one Transaction from the Counterparty side. It is the simplest matching case, and the process proceeds as follows:"
+ },
+ {
+  "id": "Case-5-Transaction-Matching#10",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 1: Search space formation",
+  "anchor": "step-1-search-space-formation",
+  "text": "A search space is formed for the ungrouped Transactions from the left side (House) and the right side (Counterparty). Search space: A set of right-side and left-side Transactions that participate in the Algorithmic Matching process. Before the process starts, the search space is filtered: Transactions with the Vetted status and Transaction groups are excluded. INFORMATION. Once the search space is formed, the right-side and left-side Transactions are multiplied using the Cross Join method (every right-side Transaction is compared with every left-side Transaction). To optimize the process and avoid server memory overload, the Cross Join method compares a set of parameters: Currency, Amount, Settlement Date, and Trade Date. The Amount, Settlement Date, and Trade Date parameters have configurable thresholds that widen the room for matching. These thresholds are configured through Company Preferences."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#11",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Launching Algorithmic Matching (1/2)",
+  "anchor": "launching-algorithmic-matching",
+  "text": "Transaction data is loaded by the regular Sync Manager process, Client Writer Update. By default, this process is launched by Sync Manager according to the Sync Manager Scheduler. It takes all Transactions from the House and Counterparty sides for a period of T-30 days (today minus thirty). INFORMATION. Users can also re-run Algorithmic Matching from the Hazeltree interface and set the coverage period manually. On the Transaction Matching screen, set the following Upper toolbar filters before starting Algorithmic Matching: Date Type (Trade Date or Settlement Date) Date From Date To Once these parameters are set, the Transactions appear on the grid. To launch the Fuzzy logic engine, click Reprocess. Forming the search space from the full set of Transactions is unique to One-To-One mode; it does not apply to M:N mode."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#12",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Launching Algorithmic Matching (2/2)",
+  "anchor": "launching-algorithmic-matching",
+  "text": "All manually ungrouped Transactions (those removed from groups by users) are excluded from matching in later iterations of Algorithmic Matching. The system seeks new pairs and leaves the ungrouped Transactions out of the pool of candidates. A Transaction's ungrouped state is marked in a dedicated column on the Transaction Matching screen: Is Ungrouped."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#13",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 2: Pair Similarity calculation (1/4)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Pair Similarity is calculated for the Transactions inside the search space using three Predicates for particular field groups. A search space can contain multiple matching candidates, so to decide which candidate is correct, the Recon engine calculates Pair Similarity. This value is assembled from three Predicates computed for every candidate. Predicate: A variable representing Transaction matching strength, used to compute Pair Similarity. Predicates are based on the matching fields of the reconciled right-side (Counterparty) and left-side (House) Transactions. The Algorithmic Transaction Matching process uses three Predicates: Main qualitative required features (Trade Date, Settlement Date, Currency, Security, Account, Portfolio), Main quantitative required features (Quantity, Net Amount Local, Market Value Book, Notional Net Amount), and Additional natural-language fuzzy features (Description, Type)."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#14",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 2: Pair Similarity calculation (2/4)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Main qualitative required features carry the heaviest weight, 0.4; Main quantitative required features carry a lighter weight, 0.35; and Additional natural-language fuzzy features carry the lightest weight, 0.25. All Predicate weights are dynamic and can range between zero and their maximum value. In an ideal case, when all three Predicates reach their maximum during this step, they add up to a total weight of 1. INFORMATION. The Fuzzy engine uses a special system column that holds a cumulative description of the internal Transaction's Cashflow, which is compared with the data received from the Counterparty side. This system field is not visible in the Hazeltree interface. It contains the following parameters: Cashflow Name, Legal Entity, Investment, Investor (with their text UDFs), Cashflow Description, and Transfer Name. ENTROPY (INFORMATION THEORY) IN MATCHING PROCESS."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#15",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 2: Pair Similarity calculation (3/4)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "During the Predicates’ weight calculation, the Algorithmic Matching process compares the left and right Transactions’ Quantities (Main quantitative required features group), and this is where the Fuzzy engine uses the principle of Entropy (information theory). In the information theory the entropy is a concept that tells how much information there is in a certain event (in our case, in the Transactions comparison). In general, the more certain or deterministic the comparison is, the less information it needs. Therefore, the comparison of the Quantity values of both Transactions can either increase or decrease in the entropy. Example 1: the Quantity of both Transactions is $100,000,000.00. The uncertainty increases, since such flat Quantity can be not unique in the Search space that contains a lot of Transactions. The weight calculated for the Main quantitative required features will decrease."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#16",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 2: Pair Similarity calculation (4/4)",
+  "anchor": "step-2-pair-similarity-calculation",
+  "text": "Example 2: the Quantity of both Transactions is $98,104,637.89. The uncertainty decreases, since such number diverse Quantity is most certainly unique in the Search space. The weight calculated for the Main quantitative required features will increase."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#17",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 3: Best pair selection",
+  "anchor": "step-3-best-pair-selection",
+  "text": "Based on the calculated Pair Similarity, the algorithm selects the best Transactions to map. The computed Pair Similarities are compared, and the winner is matched. The winner's Pair Similarity becomes the Confidence Level (the mapping certainty value). Based on the Confidence Level, the algorithm decides whether the Transactions should be grouped automatically on the Transaction Matching screen."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#18",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 4: Automatic grouping and vetting (1/2)",
+  "anchor": "step-4-automatic-grouping-and-vetting",
+  "text": "Reconciled Transactions are grouped on the grid. Using the winner's Confidence Level, the Fuzzy logic algorithm decides whether the Transactions should be grouped automatically or require manual approval. To do this, it compares the calculated Confidence Level with the system value Min Confidence Level: Confidence Level of 100%: the two matching Transactions have identical Accounts, Amounts, Settlement Dates, Reference Numbers, and Currencies. The algorithm matches and groups the Transactions automatically. Below 100% but above the Min Confidence Level: the algorithm matches and groups the Transactions automatically. Below the Min Confidence Level but with the same Reference Numbers in the Description or Notes fields: the algorithm groups the Transactions automatically and sets the Require Approval indicator. It does not match the Transactions automatically. INFORMATION."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#19",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Step 4: Automatic grouping and vetting (2/2)",
+  "anchor": "step-4-automatic-grouping-and-vetting",
+  "text": "The Algorithmic Transaction Matching process also considers the Payee Codes and Payee Names in the Transaction Description field. One-To-One matching. In 1:1 mode, the engine forms a search space for the House-side Transaction and calculates the most accurate pair from the sum of three Predicates that analyze the matching fields. Once the connection between the two Transactions is established, they are grouped and displayed on the Transaction Matching screen: Grouped Transactions: the group of Transactions matched in 1:1 mode. The group Status is Matched, and the Description shows the details of the matching process. Expanded group with details: the user can expand the group and review the Transactions matched during the Algorithmic process. If the match was erroneous, the user can manually ungroup the cluster, which excludes the ungrouped pair from the search space in subsequent iterations of Algorithmic Matching."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#20",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Case2: M:N Matching (1/2)",
+  "anchor": "case2-m-n-matching",
+  "text": "M:N Transaction Matching applies when the number of matched entities differs between the House and Counterparty records. To connect the Transaction records correctly, the Fuzzy engine relies on the Reference Number value. Reference Number: A unique numeric identifier assigned to a financial Transaction. It is generated by the system and tied to a single Transaction, helping an institution identify Transactions in its records and databases. In the Transaction matching process, the Reference Number is a strong anchor that helps identify all interlinked Transactions from the House and Counterparty sides and match them accurately. When searching for a Reference Number, the Fuzzy algorithm scans two fields: the Reference Number field and the Transaction Description."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#21",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Case2: M:N Matching (2/2)",
+  "anchor": "case2-m-n-matching",
+  "text": "M:N mode has three variations: One Transaction to many Transactions (One-To-Many) Many Transactions to one Transaction (Many-To-One) Many Transactions to many Transactions (Many-To-Many) NOTE. This mode does not build a search space of one or several matching candidates. Instead, all Transactions in the algorithmic matching process form the search space. The algorithm assumes there can be an unlimited number of money transfers (additional Transactions, difference returns, corrections, and so on)."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#22",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "One-To-Many (1/2)",
+  "anchor": "one-to-many",
+  "text": "One-To-Many Transaction Matching connects one Transaction from the House side to several Transactions from the Counterparty side. It covers cases where a single House-side Transaction stands for several Counterparty-side Transactions. One-To-Many matching. - The House Transaction shows a cash movement of $266,596,105 settled on 10/8/2022. The Counterparty shows three Transactions: a cash movement of $266,373,400, a cash movement of $1,290, and a cash movement of $221,415. In reality, the first Transaction moved $222,705 less than required, and the shortfall was later transferred in two portions because of an accountant's miscalculation. In Hazeltree, only one Transaction was created to represent this cash movement. During algorithmic matching, the three Counterparty Transactions should be matched to the single House Transaction. The Fuzzy algorithm searches for the Transaction Reference ID in the Ref ID and Description fields."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#23",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "One-To-Many (2/2)",
+  "anchor": "one-to-many",
+  "text": "The match can be Strong (Confidence Level of 100%) or Weak (Confidence Level below 100%). The House Transaction is matched to the three Counterparty Transactions using the Reference Number ID MONSTSTHK125101IHRA2B5S, found in the Transaction Ref ID field (for the primary Transaction with the incorrect Amount) and the Description field (for the two complementary Transactions). The Transaction Matching screen then displays the group: Grouped Transactions: the group of Transactions matched in M:N mode. The group Status is Matched, and the Description shows the details of the matching process. Expanded group with details: the same group, expanded to show each matched Transaction and its Confidence Level."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#24",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Many-To-One",
+  "anchor": "many-to-one",
+  "text": "Many-To-One Transaction Matching connects several Transactions from the House side to one Transaction from the Counterparty side. It covers cases where multiple House-side Transactions stand for a single Counterparty-side Transaction. INFORMATION. This is a special case where several Transactions are created in Hazeltree under one Voucher, all sharing the same Transaction Reference Number (inherited from the Voucher). The Counterparty side sends a single wire for the sum of all Transactions in the Voucher and reports the Voucher's Reference Number. The Fuzzy logic then groups the Hazeltree Transactions with the single Broker wire based on the identical Reference Number."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#25",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Many-To-Many (1/2)",
+  "anchor": "many-to-many",
+  "text": "Many-To-Many Transaction Matching connects several Transactions from the House side to several Transactions from the Counterparty side. It covers cases where multiple House-side Transactions stand for a set of multiple Counterparty-side Transactions. NOTE. The number of House Transactions and Counterparty Transactions can differ (for example, four House Transactions matched to three Counterparty Transactions) or be equal. In either case, the matching process relies on the Reference Number value across the whole set of grouped Transactions. Many-To-Many matching. The Many-To-Many case is the most common in Transaction Matching. To display all right-side Transactions matched to the set of left-side Transactions, expand the group and scroll its Transaction list. Grouped Transactions: the group of Transactions matched in M:N mode. The group Status is Matched, and the Description shows the details of the matching process."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#26",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Many-To-Many (2/2)",
+  "anchor": "many-to-many",
+  "text": "Expanded group with details: the same group, expanded to show every matched Transaction on both sides. The Many-To-Many case carries the highest risk of error because of the number of entities involved, especially early in the Fuzzy engine's self-learning process for a given client. To correct a Many-To-Many group manually, users can exclude the excess Transactions from it."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#27",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Cross Grouping Through 1:1 Matching (1/3)",
+  "anchor": "cross-grouping-through-1-1-matching",
+  "text": "The Fuzzy logic of Transaction matching includes a special mode that extends the algorithm and adds precision. It is called Cross Grouping through 1:1 Matching. Cross Grouping works through an additional algorithm step in which one Transaction from an already formed group is matched with one Transaction from a different formed group. As a result, the two groups are merged into one. The Counterparty Transaction with ID 649130 is matched in M:N mode via the Transaction Reference Number (Ref ID) T320365BGH0. Under the Fuzzy logic of M:N matching, a matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%. The Counterparty Transaction with ID 650085 is matched in M:N mode via the Ref ID T320365BGH0. Here the Ref ID was retrieved from the Transaction Description field, so the calculated Confidence Level is 95%. Transactions 649130 and 650085 are grouped as a Voucher from the Broker (Counterparty side)."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#28",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Cross Grouping Through 1:1 Matching (2/3)",
+  "anchor": "cross-grouping-through-1-1-matching",
+  "text": "The House Transaction with ID 640951 is matched in M:N mode via the Ref ID 4714978. A matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%. The House Transaction with ID 637179 is matched in M:N mode via the Ref ID 4714978. Again, a matching Ref ID in the Transaction Reference ID field yields a Confidence Level of 100%. Transactions 640951 and 637179 are grouped as a Voucher on the House side. During the parallel 1:1 matching process, Transaction 649130 (Counterparty side) and Transaction 640951 (House side) are matched on similar values in the following fields: Net Amount Local Currency Code Account Trade Date Settlement Date NOTE. The calculated Confidence Level is 82%. The drop from 100% is caused by an unmatched Transaction Type field (the House-side field is empty). 82% is still enough for automatic matching, since it is below 100% but above the Min Confidence Level threshold."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#29",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Cross Grouping Through 1:1 Matching (3/3)",
+  "anchor": "cross-grouping-through-1-1-matching",
+  "text": "All Transactions are shown as one group on the Transaction Matching screen. If the automatic grouping through 1:1 Matching is erroneous, users can manually ungroup the Transactions on the Transaction Matching screen: IMPORTANT. When a Transaction group created through Cross Grouping is ungrouped manually, the 1:1 connection between the two linking Transactions is broken and barred from future algorithmic matching. This connection is excluded from the search space for 1:1 Matching, and the system looks for a new pair. The M:N connections established before the Cross Grouping remain intact."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#30",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Transaction Matching Screen",
+  "anchor": "transaction-matching-screen",
+  "text": "The Transaction Matching screen is the result screen of the Algorithmic Matching reconciliation process. It displays the Transaction groups formed by the Fuzzy engine, along with the single Transactions that remain unmatched. Upper toolbar filters: filters that narrow the Transactions shown on the grid. Upper toolbar buttons: operational buttons for working with the Transaction entities on the grid (Reprocess, Group, Vet, Merge, Create Internal Transaction). Grid: the list of Transactions (Grouped, Internal, and External) for the selected period. Context menu: the options available for the selected Transaction or Transactions. INFORMATION. The Transaction Matching screen provides tools that let users control the Algorithmic Matching process: Grouping, Vetting, and Merging."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#31",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Group Transactions (1/2)",
+  "anchor": "group-transactions",
+  "text": "Group Transactions is a context-menu option that appears when two or more Transactions are selected on the grid. It combines the Transactions into a single group. When clicked, it opens the Transaction Group Editor in a pop-up window that shows the selected Transactions from the House side and the Counterparty side. Here you can add a Status, Tags, Business Status, and Description to the group. INFORMATION. The Transaction Group Editor is also used to edit Transaction Groups, for example, to exclude incorrectly added Transactions. The editor is described below: General group settings: the Group Name, Status, Business Status, and Tags parameters. Internal: the collection of House-side (Internal) Transactions matched with the External Transactions. The sub-grid shows the Confidence Level from the Algorithmic Matching results and other system parameters (Vet status, Group status)."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#32",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Group Transactions (2/2)",
+  "anchor": "group-transactions",
+  "text": "External: the collection of Counterparty-side (External) Transactions matched with the Internal Transactions. The sub-grid shows the Confidence Level from the Algorithmic Matching results and other system parameters (Vet status, Group status). Description: a note field for adding commentary about the nature of the group and the technical details of how it was formed. INFORMATION. Status and Business Status are different parameters of the Transaction Group. The Status field shows the state of matching progress (Matched, Partially Matched, Unmatched, Other). Business Status is a customizable value that shows additional information about the group (Awaiting More Transactions, Free to Edit, and so on). Business Status values are customized through the Dictionaries tool in the Reference Data module."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#33",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Vet Transactions and Transaction Groups",
+  "anchor": "vet-transactions-and-transaction-groups",
+  "text": "Vet Transactions and Transaction Groups is an option that lets users flag entities as Vetted (that is, checked). Once a Transaction or Transaction Group is vetted, it no longer participates in subsequent iterations of the Algorithmic Matching process. INFORMATION. This option lets users regulate how many entities go through the Algorithmic Matching procedure. When the Vet status is removed from Transactions, they immediately become candidates again for the next iterations of the process."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#34",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Merge Transaction Groups",
+  "anchor": "merge-transaction-groups",
+  "text": "The Merge Transaction Groups option lets users manually combine formed Transaction Groups into a single unit. This context-menu option appears when two or more Transaction Groups are selected on the grid."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#35",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Use of the Dictionary (1/2)",
+  "anchor": "use-of-the-dictionary",
+  "text": "Algorithmic Transaction Matching uses a self-learning Fuzzy engine that improves its accuracy with every iteration by analyzing the processed data and manual corrections. Fuzzy matching precision is further improved by custom tags assigned to Transactions. These tags, called Transaction Classifications, are created and managed on the Dictionaries screen (Reference Data module). Transaction Classification tags can be mapped to the Transaction attributes Transaction Code and Source. The mapping screen is opened with the context-menu option Add Transaction Classification Mapping: For example, a user maps the Transaction Classification S103T to the Internal code (see the screenshot below). The Classification Code for this Transaction then takes the Internal value. If no mapping is found, the Classification Code field stays empty. INFORMATION."
+ },
+ {
+  "id": "Case-5-Transaction-Matching#36",
+  "doc": "Case 5: Transaction Matching",
+  "slug": "Case-5-Transaction-Matching",
+  "heading": "Use of the Dictionary (2/2)",
+  "anchor": "use-of-the-dictionary",
+  "text": "Transaction Classification mapping has a positive effect on the Predicates calculated during 1:1 Matching, so the Confidence Level rises and matching becomes more reliable."
+ }
+]

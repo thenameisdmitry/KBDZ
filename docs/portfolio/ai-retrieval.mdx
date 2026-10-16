@@ -1,0 +1,70 @@
+---
+id: ai-retrieval
+title: "Writing for AI Retrieval"
+sidebar_label: "Writing for AI Retrieval"
+description: "What changes in technical writing when a retrieval system reads the documentation: seven rules, each with the failure it prevents."
+---
+
+# Writing for AI Retrieval
+
+Documentation now has a second reader. A support agent or an IDE assistant answers a
+customer by retrieving a few fragments of a page and composing a reply from them.
+
+That reader never sees the page. It sees a chunk.
+
+## What the agent sees
+
+| A human reader has | The retrieved chunk has |
+|---|---|
+| Page title and URL | Nothing, unless the chunk repeats them |
+| Breadcrumbs and sidebar | Nothing |
+| The sections above and below | Nothing |
+| A red warning box | Plain text, same weight as any paragraph |
+
+Whatever a person infers from position, a model loses or invents. The craft is making the
+implicit explicit.
+
+## Seven rules
+
+**1. Make every section stand alone.** A cross-reference is an instruction to go
+somewhere, and the agent cannot go anywhere.
+
+| Avoid | Prefer |
+|---|---|
+| "Set up the Counterparty side the same way as the House side." | "Set the Counterparty matching window to 3 days. The House side uses 1 day." |
+
+**2. Name the subject in the text, not only in the URL.** Two guides describing the same
+engine for different objects will be confused with each other. This portfolio contains a
+live example: see the defect in the [Documentation Assistant](./docs-assistant).
+
+**3. Turn facts into tables.** Prose hides values. A table row survives chunking intact;
+a figure buried in a paragraph often does not.
+
+**4. State consequences in words.** To a retriever, a caution box is a paragraph with an
+unusual CSS class. Write what happens:
+
+> Do not change an Allocation Rule while a GL batch is posting. Entries already queued
+> keep the old rule, and the batch will not reconcile.
+
+**5. Write headings as the questions people ask.** A heading is the highest-signal line in
+a chunk. "Voucher stuck in Approve Required" retrieves. "Troubleshooting" does not.
+
+**6. Keep one fact in one place.** Duplicated values become two chunks that disagree the
+moment one is updated, and the retriever cannot tell which is current.
+
+**7. Give the pipeline metadata to filter on.** Product, version and audience in front
+matter let a retriever narrow candidates before scoring, which removes a whole class of
+wrong-product answers.
+
+## What I do not do
+
+- **Write for the bot.** No FAQ pages stuffed with phrasings, no keyword repetition.
+- **Shorten below usefulness.** Chunk-friendly is not terse. Each chunk carries its own context.
+- **Treat the agent as the customer.** The goal is a correct answer; the agent is a channel.
+
+## Where this goes next
+
+The rules are testable. [Documentation Assistant](./docs-assistant) shows them applied to
+the guides in this portfolio, [Retrieval Pipeline](./retrieval-pipeline) shows where they
+fail, and [RAG Evaluation](./rag-evaluation) shows how to catch a regression before a
+customer does.

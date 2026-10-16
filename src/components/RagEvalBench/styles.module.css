@@ -1,0 +1,180 @@
+.root {
+  border: 1px solid #3a3f52;
+  border-radius: 10px;
+  background: #161a24;
+  margin: 28px 0 36px;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #2a2f3d;
+  flex-wrap: wrap;
+}
+
+.revs {
+  display: inline-flex;
+  border: 1px solid #3a3f52;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.revBtn {
+  background: transparent;
+  border: none;
+  color: #a0a0a0;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.revBtn:hover { color: #ffffff; }
+.revBtnActive { background: #6a0aaf; color: #ffffff; }
+
+.revNote { margin: 0; font-size: 13px; color: #8a8f9c; }
+
+/* ── Gate banner ── */
+.gate {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #2a2f3d;
+}
+
+.gatePass { background: #052e16; }
+.gateFail { background: #2a0a0a; }
+
+.gateVerdict {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.gatePass .gateVerdict { color: #4ade80; }
+.gateFail .gateVerdict { color: #f87171; }
+
+.gateCount { font-size: 13px; color: #c9ccd4; }
+
+/* ── Table ── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 0;
+  display: table;
+}
+
+.table thead th {
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-family: 'IBM Plex Mono', monospace;
+  border-bottom: 1px solid #2a2f3d;
+  background: #12161f;
+}
+
+.thStatus { width: 110px; }
+.thId { width: 80px; }
+
+.row { cursor: pointer; border-bottom: 1px solid #222732; transition: background 0.12s; }
+.row:hover { background: rgba(166, 72, 234, 0.07); }
+.row_fail { background: rgba(248, 113, 113, 0.06); }
+.row_warn { background: rgba(251, 191, 36, 0.05); }
+
+.tdStatus, .tdQuestion, .tdId { padding: 11px 20px; vertical-align: middle; }
+
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  white-space: nowrap;
+}
+
+.badge_pass { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+.badge_warn { background: #2a1f00; color: #fbbf24; border: 1px solid #78350f; }
+.badge_fail { background: #2a0a0a; color: #f87171; border: 1px solid #7f1d1d; }
+
+.rowBtn {
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+}
+
+.tdId {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ── Expanded detail ── */
+.detailRow { background: #0d1117; }
+.detailRow td { padding: 0; border-bottom: 1px solid #222732; }
+
+.detail {
+  margin: 0;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 8px 16px;
+}
+
+.detail dt {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-family: 'IBM Plex Mono', monospace;
+  padding-top: 2px;
+}
+
+.detail dd {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #c9ccd4;
+}
+
+.answer { color: #fafafa; }
+.causeKey { color: #fbbf24 !important; }
+.cause { color: #fbbf24; }
+
+.foot {
+  padding: 13px 20px;
+  border-top: 1px solid #2a2f3d;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #6b7280;
+  background: #12161f;
+}
+
+@media (max-width: 700px) {
+  .detail { grid-template-columns: 1fr; gap: 4px; }
+  .detail dt { padding-top: 10px; }
+  .thId, .tdId { display: none; }
+}

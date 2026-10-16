@@ -6,7 +6,7 @@ description: Skills, tools, domain knowledge, and methodologies of Dmitrii Zhuko
 
 ## Core competencies
 
-Technical writing • Documentation strategy • Knowledge management • Developer and API documentation • Docs-as-code and DITA • CI/CD • Team leadership • Release coordination • Product planning • Feature scoping • Business requirements analysis • UX writing • AI workflow optimization • Prompt engineering • Product implementation (UAT, production) • Client onboarding and support • Presentations and training materials
+Technical writing • Documentation strategy • Knowledge management • Developer and API documentation • Documentation for AI retrieval (RAG) • Content design for machine readers • LLM evaluation and regression testing • Structured content and metadata • Docs-as-code and DITA • CI/CD • Team leadership • Release coordination • Product planning • Feature scoping • Business requirements analysis • UX writing • AI workflow optimization • Prompt engineering • Product implementation (UAT, production) • Client onboarding and support • Presentations and training materials
 
 ---
 
@@ -18,7 +18,8 @@ Technical writing • Documentation strategy • Knowledge management • Develo
 - **Project and collaboration:** Jira • Confluence • Notion • SharePoint • Slack • Aha
 - **Design and media:** Adobe Photoshop • Adobe Illustrator • Snagit • UML
 - **Cloud and infrastructure:** AWS • Azure • Zendesk • Zabbix • MS Exchange
-- **AI:** Claude (Anthropic) • Copilot • ChatGPT • Grammarly • AI Workflow Automation
+- **AI tooling:** Claude (Anthropic) • GitHub Copilot • ChatGPT • Grammarly • AI workflow automation
+- **AI & retrieval:** RAG pipelines • Chunk-safe content structure • Retrieval evaluation sets • LLM-as-judge rubrics • Eval gates in CI • `llms.txt` and agent-readable docs
 
 ---
 
@@ -33,6 +34,10 @@ Technical writing • Documentation strategy • Knowledge management • Develo
 - Maintained an **internal Confluence wiki with a structured SQL script library**, cutting issue-resolution time for implementation specialists and DBAs by ~20%.
 
 <small>*Figures marked with “~” are estimates based on metrics tracked internally over a full year.*</small>
+
+The AI and retrieval work is demonstrated rather than asserted: the
+[AI & RAG section](/docs/portfolio/ai-retrieval) of the portfolio contains a live
+retrieval playground, a stage-by-stage pipeline walkthrough, and an evaluation bench.
 
 ---
 

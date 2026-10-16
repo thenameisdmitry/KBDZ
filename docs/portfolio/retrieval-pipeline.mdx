@@ -1,0 +1,42 @@
+---
+id: retrieval-pipeline
+title: "Retrieval Pipeline, Stage by Stage"
+sidebar_label: "Retrieval Pipeline"
+description: "One customer question travelling a production RAG pipeline, and which failure at each stage belongs to the writer rather than the platform team."
+---
+
+import RetrievalPipeline from '@site/src/components/RetrievalPipeline';
+
+# Retrieval Pipeline, Stage by Stage
+
+The [assistant](./docs-assistant) shows what retrieval does. This shows where it breaks,
+and who fixes each break.
+
+<RetrievalPipeline />
+
+## Why the ownership labels matter
+
+When an agent answers wrongly, the reflex is to treat it as a model problem: swap the
+embedding model, raise the top-k, widen the context window.
+
+Five of the seven stages fail for reasons that live in the documentation:
+
+| Stage | The writer's share |
+|---|---|
+| Query | Headings use internal vocabulary instead of the customer's |
+| Chunk | A fact depends on the paragraph above it and does not survive the split |
+| Retrieve | The answer exists but shares no wording with the question |
+| Generate | The chunks do not contain the answer, so the model composes one |
+| Cite | The cited section does not support the claim |
+
+Only embedding and reranking are genuinely infrastructure. No amount of tuning recovers a
+fact that was never written in a findable place.
+
+## The stage worth staring at
+
+**Generate.** A model handed three passages that do not answer the question almost never
+says so. It produces a fluent paragraph in the register of your documentation, with your
+terminology, and the customer cannot tell it apart from a real answer.
+
+The dangerous output is not the blank one. It is the confident one, which is why
+[RAG Evaluation](./rag-evaluation) measures answers rather than trusting prose.

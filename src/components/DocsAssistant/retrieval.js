@@ -88,14 +88,21 @@ export function search(question, index) {
   return {results, queryTerms};
 }
 
+const PASSAGE_CHARS = 420;
+
 /**
- * Compose an extractive answer from the top chunk: the single sentence with the
- * most question terms in it. Extractive rather than generated, so nothing on
- * this page can invent a fact that is not in the corpus.
+ * Compose an extractive answer from the top chunk: the sentence carrying the
+ * most question terms, followed by the sentences after it until the passage is
+ * long enough to be useful.
+ *
+ * A production pipeline hands the model the whole chunk and lets it phrase a
+ * reply. Quoting a passage is the honest stand-in: it shows how much context
+ * the answer actually rests on, and nothing here can invent a fact the corpus
+ * does not contain.
  */
 export function composeAnswer(question, results, queryTerms) {
   if (results.length === 0) {
-    return {verdict: 'none', grounded: false, coverage: 0, sentence: null, citation: null, matched: []};
+    return {verdict: 'none', grounded: false, coverage: 0, passage: null, citation: null, matched: []};
   }
 
   const top = results[0];
@@ -106,16 +113,21 @@ export function composeAnswer(question, results, queryTerms) {
     .map((s) => s.trim())
     .filter(Boolean);
 
-  let best = sentences[0] || top.chunk.text;
+  let bestIndex = 0;
   let bestHits = -1;
-  sentences.forEach((s) => {
+  sentences.forEach((s, i) => {
     const tokens = new Set(tokenize(s));
     const hits = queryTerms.filter((t) => tokens.has(t)).length;
     if (hits > bestHits) {
       bestHits = hits;
-      best = s;
+      bestIndex = i;
     }
   });
+
+  let passage = sentences[bestIndex] || top.chunk.text;
+  for (let i = bestIndex + 1; i < sentences.length && passage.length < PASSAGE_CHARS; i += 1) {
+    passage += ` ${sentences[i]}`;
+  }
 
   // Three states, not two. A chunk that matches half the question often yields a
   // fluent answer to a question it does not actually address, which is the most
@@ -128,7 +140,7 @@ export function composeAnswer(question, results, queryTerms) {
     verdict,
     grounded: verdict === 'grounded',
     coverage,
-    sentence: best,
+    passage,
     citation: `${top.chunk.source} › ${top.chunk.heading}`,
     matched: top.matched,
   };

@@ -15,7 +15,7 @@ const SEARCH_MS = 2000;
 const TYPE_MS = 16;
 const CHARS_PER_TICK = 2;
 
-const EMPTY = {verdict: 'none', coverage: 0, sentence: null, citation: null, matched: []};
+const EMPTY = {verdict: 'none', coverage: 0, passage: null, citation: null, matched: []};
 
 function Highlighted({text, queryTerms}) {
   return highlight(text, queryTerms).map((part, i) =>
@@ -45,7 +45,7 @@ export default function DocsAssistant() {
     return {results: r, queryTerms: q, answer: composeAnswer(query, r, q)};
   }, [query, index]);
 
-  const fullAnswer = answer.sentence || '';
+  const fullAnswer = answer.passage || '';
 
   // Searching: hold for a beat so the reader sees retrieval happen.
   useEffect(() => {
@@ -257,9 +257,9 @@ export default function DocsAssistant() {
               ))}
 
               <p className={styles.foot}>
-                The answer is the sentence from the top passage carrying the most question
-                terms. It is quoted, never generated, so the assistant cannot state a fact
-                the guides do not contain.
+                The answer is quoted from the highest-scoring passage, starting at the
+                sentence carrying the most question terms. Nothing is generated, so the
+                assistant cannot state a fact the guides do not contain.
               </p>
             </div>
           )}

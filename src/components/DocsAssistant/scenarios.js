@@ -15,10 +15,10 @@ export const SCENARIOS = [
   },
   {
     id: 's2',
-    tab: 'Why a probability, not a yes or no',
+    tab: 'One Transaction, two groups',
     problem:
-      'An operations analyst has been asked to sign off on automated Transaction matching. The engine returns likelihood scores rather than exact comparisons, and they will not rely on it until they understand why it was built that way.',
-    question: 'Why is Fuzzy logic used for matching Transactions?',
+      'A reconciliation analyst is reviewing matched Transaction groups and finds the same Transaction sitting in more than one of them. Before raising it as a defect, they need to know whether the engine does this deliberately, and on what basis it decides to link groups at all.',
+    question: 'How does Cross Grouping link Transaction groups?',
   },
   {
     id: 's3',

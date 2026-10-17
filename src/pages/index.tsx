@@ -78,35 +78,21 @@ function AnimatedTagline() {
   );
 }
 
-// KNOWLEDGE GRAPH CANVAS - HEADER
+// DOCUMENT CANVAS - HEADER
 //
-// Nodes cluster the way a documentation set does: tightly linked inside a
-// product module, sparsely bridged between modules. Every second or so a
-// retrieval pulse walks a few hops along those links, which is the visual
-// shorthand for what the AI & RAG section of this site is about.
+// Columns of faint bars standing in for lines of documentation: headings,
+// paragraphs, lists. Every few seconds one line lights up and fades, the way a
+// retrieved passage does. The centre is erased so the banner never competes
+// with the name sitting on top of it.
 
-interface GraphNode {
-  bx: number;   // cluster-anchored base position
-  by: number;
+interface DocLine {
   x: number;
   y: number;
-  phase: number;
-  drift: number;
-  radius: number;
-  cluster: number;
-}
-
-interface GraphEdge {
-  a: number;
-  b: number;
-  bridge: boolean;
-}
-
-interface Pulse {
-  path: number[];
-  seg: number;
-  t: number;
-  speed: number;
+  w: number;
+  h: number;
+  alpha: number;
+  body: boolean;    // only body lines are eligible for the highlight
+  central: boolean; // sits under the title, where the canvas is erased
 }
 
 function NetworkCanvas() {
@@ -121,14 +107,19 @@ function NetworkCanvas() {
 
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-    const NODE_RGB = '131, 131, 131';
-    const PULSE_RGB = '204, 68, 255';
+    const INK = '131, 131, 131';
+    const GLOW = '204, 68, 255';
+    const LINE_H = 4;
+    const LINE_GAP = 9;
+    const BLOCK_GAP = 20;
+    const HIGHLIGHT_MS = 1700;
 
-    let nodes: GraphNode[] = [];
-    let edges: GraphEdge[] = [];
-    let neighbours: number[][] = [];
-    let pulses: Pulse[] = [];
-    let nextPulse = 0;
+    let lines: DocLine[] = [];
+    let edgeIndexes: number[] = [];
+    let centreIndexes: number[] = [];
+    let litIndex = -1;
+    let litStart = 0;
+    let nextLit = 0;
 
     function resize() {
       if (!canvas) return;
@@ -136,81 +127,85 @@ function NetworkCanvas() {
       canvas.height = canvas.offsetHeight;
     }
 
-    function buildGraph() {
+    function buildPage() {
       if (!canvas) return;
       const {width, height} = canvas;
-      nodes = [];
-      edges = [];
+      lines = [];
 
-      // Cluster count scales with width so the graph never looks crowded.
-      const clusterCount = Math.max(4, Math.min(7, Math.round(width / 260)));
-      const centres = Array.from({length: clusterCount}, (_, i) => ({
-        x: width * ((i + 0.5) / clusterCount) + (Math.random() - 0.5) * width * 0.06,
-        y: height * (0.3 + Math.random() * 0.4),
-      }));
+      const gutter = 44;
+      const colTarget = 240;
+      const cols = Math.max(2, Math.round((width + gutter) / (colTarget + gutter)));
+      const colW = (width - gutter * (cols - 1)) / cols;
 
-      centres.forEach((c, ci) => {
-        const size = 5 + Math.floor(Math.random() * 4);
-        for (let i = 0; i < size; i += 1) {
-          const angle = Math.random() * Math.PI * 2;
-          const spread = (0.25 + Math.random() * 0.75) * Math.min(width / clusterCount, height) * 0.38;
-          const bx = c.x + Math.cos(angle) * spread;
-          const by = c.y + Math.sin(angle) * spread * 0.75;
-          nodes.push({
-            bx, by, x: bx, y: by,
-            phase: Math.random() * Math.PI * 2,
-            drift: 4 + Math.random() * 7,
-            radius: 1.1 + Math.random() * 1.9,
-            cluster: ci,
-          });
-        }
-      });
+      for (let c = 0; c < cols; c += 1) {
+        const x0 = c * (colW + gutter);
+        let y = 16 + Math.random() * 14;
 
-      // Dense links inside a cluster: each node to its two nearest siblings.
-      nodes.forEach((n, i) => {
-        const siblings = nodes
-          .map((m, j) => ({j, d: (m.bx - n.bx) ** 2 + (m.by - n.by) ** 2}))
-          .filter((o) => o.j !== i && nodes[o.j].cluster === n.cluster)
-          .sort((a, b) => a.d - b.d)
-          .slice(0, 2);
-        siblings.forEach((sib) => {
-          if (!edges.some((e) => (e.a === i && e.b === sib.j) || (e.a === sib.j && e.b === i))) {
-            edges.push({a: i, b: sib.j, bridge: false});
+        while (y < height - LINE_H) {
+          const roll = Math.random();
+
+          if (roll < 0.22) {
+            // Heading: shorter, heavier, brighter than body text.
+            lines.push({
+              x: x0,
+              y,
+              w: colW * (0.38 + Math.random() * 0.3),
+              h: LINE_H + 1.5,
+              alpha: 0.27,
+              body: false,
+              central: false,
+            });
+            y += LINE_H + 1.5 + LINE_GAP + 5;
+          } else if (roll < 0.42) {
+            // List: indented, with a marker dot.
+            const items = 2 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < items && y < height - LINE_H; i += 1) {
+              lines.push({x: x0, y, w: 3, h: 3, alpha: 0.2, body: false, central: false});
+              lines.push({
+                x: x0 + 12,
+                y,
+                w: colW * (0.45 + Math.random() * 0.4) - 12,
+                h: LINE_H,
+                alpha: 0.12,
+                body: true,
+                central: false,
+              });
+              y += LINE_H + LINE_GAP;
+            }
+            y += BLOCK_GAP - LINE_GAP;
+          } else {
+            // Paragraph: full-width lines, the last one short.
+            const rows = 2 + Math.floor(Math.random() * 4);
+            for (let i = 0; i < rows && y < height - LINE_H; i += 1) {
+              const last = i === rows - 1;
+              lines.push({
+                x: x0,
+                y,
+                w: colW * (last ? 0.35 + Math.random() * 0.35 : 0.82 + Math.random() * 0.18),
+                h: LINE_H,
+                alpha: 0.12,
+                body: true,
+                central: false,
+              });
+              y += LINE_H + LINE_GAP;
+            }
+            y += BLOCK_GAP - LINE_GAP;
           }
-        });
+        }
+      }
+
+      // Mark the lines that fall inside the erased area behind the title.
+      const cx = width / 2;
+      const cy = height / 2;
+      const erased = Math.max(width, height) * 0.46 * 0.5;
+      lines.forEach((l) => {
+        l.central = Math.hypot(l.x + l.w / 2 - cx, l.y + l.h / 2 - cy) < erased;
       });
 
-      // Sparse bridges between neighbouring clusters.
-      for (let c = 0; c < clusterCount - 1; c += 1) {
-        const left = nodes.map((n, i) => ({n, i})).filter((o) => o.n.cluster === c);
-        const right = nodes.map((n, i) => ({n, i})).filter((o) => o.n.cluster === c + 1);
-        if (!left.length || !right.length) continue;
-        const a = left[Math.floor(Math.random() * left.length)].i;
-        const b = right[Math.floor(Math.random() * right.length)].i;
-        edges.push({a, b, bridge: true});
-      }
-
-      neighbours = nodes.map(() => [] as number[]);
-      edges.forEach((e) => {
-        neighbours[e.a].push(e.b);
-        neighbours[e.b].push(e.a);
-      });
-      pulses = [];
-    }
-
-    /** A pulse walks 3 to 5 hops, preferring links it has not just used. */
-    function spawnPulse() {
-      if (nodes.length === 0) return;
-      const path = [Math.floor(Math.random() * nodes.length)];
-      const hops = 3 + Math.floor(Math.random() * 3);
-      for (let h = 0; h < hops; h += 1) {
-        const options = neighbours[path[path.length - 1]].filter((n) => !path.includes(n));
-        if (!options.length) break;
-        path.push(options[Math.floor(Math.random() * options.length)]);
-      }
-      if (path.length > 1) {
-        pulses.push({path, seg: 0, t: 0, speed: 0.018 + Math.random() * 0.012});
-      }
+      edgeIndexes = lines.map((l, i) => (l.body && !l.central ? i : -1)).filter((i) => i >= 0);
+      centreIndexes = lines.map((l, i) => (l.body && l.central ? i : -1)).filter((i) => i >= 0);
+      litIndex = -1;
+      nextLit = 0;
     }
 
     function draw(time: number) {
@@ -219,98 +214,61 @@ function NetworkCanvas() {
       ctx.clearRect(0, 0, width, height);
 
       if (!reduced) {
-        nodes.forEach((n) => {
-          n.x = n.bx + Math.sin(time / 2600 + n.phase) * n.drift;
-          n.y = n.by + Math.cos(time / 3100 + n.phase) * n.drift * 0.7;
-        });
-      }
-
-      // Links
-      edges.forEach((e) => {
-        const a = nodes[e.a];
-        const b = nodes[e.b];
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = `rgba(${NODE_RGB}, ${e.bridge ? 0.14 : 0.26})`;
-        ctx.lineWidth = e.bridge ? 0.5 : 0.7;
-        ctx.stroke();
-      });
-
-      // Retrieval pulses
-      if (!reduced) {
-        if (time > nextPulse) {
-          spawnPulse();
-          nextPulse = time + 900 + Math.random() * 1400;
+        if (litIndex === -1 && time > nextLit && (edgeIndexes.length || centreIndexes.length)) {
+          const centre = centreIndexes.length > 0 && Math.random() < 0.15;
+          const pool = centre || !edgeIndexes.length ? centreIndexes : edgeIndexes;
+          litIndex = pool[Math.floor(Math.random() * pool.length)];
+          litStart = time;
         }
-
-        pulses = pulses.filter((p) => {
-          p.t += p.speed;
-          if (p.t >= 1) {
-            p.t = 0;
-            p.seg += 1;
-          }
-          if (p.seg >= p.path.length - 1) return false;
-
-          // Trail: segments already crossed fade behind the head.
-          for (let i = 0; i <= p.seg; i += 1) {
-            const from = nodes[p.path[i]];
-            const to = nodes[p.path[i + 1]];
-            if (!from || !to) continue;
-            const age = p.seg - i;
-            const alpha = Math.max(0, 0.5 - age * 0.16);
-            if (alpha <= 0) continue;
-            ctx.beginPath();
-            ctx.moveTo(from.x, from.y);
-            ctx.lineTo(to.x, to.y);
-            ctx.strokeStyle = `rgba(${PULSE_RGB}, ${alpha})`;
-            ctx.lineWidth = 1.1;
-            ctx.stroke();
-          }
-
-          const from = nodes[p.path[p.seg]];
-          const to = nodes[p.path[p.seg + 1]];
-          if (from && to) {
-            const hx = from.x + (to.x - from.x) * p.t;
-            const hy = from.y + (to.y - from.y) * p.t;
-            ctx.beginPath();
-            ctx.arc(hx, hy, 7, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${PULSE_RGB}, 0.10)`;
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(hx, hy, 2.1, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${PULSE_RGB}, 0.85)`;
-            ctx.fill();
-          }
-          return true;
-        });
+        if (litIndex !== -1 && time - litStart > HIGHLIGHT_MS) {
+          litIndex = -1;
+          nextLit = time + 1500 + Math.random() * 1500;
+        }
       }
 
-      // Nodes, drawn last so pulses never cover them
-      const lit = new Set<number>();
-      pulses.forEach((p) => {
-        lit.add(p.path[p.seg]);
-        lit.add(p.path[p.seg + 1]);
+      // Ease the highlight in and out so nothing blinks.
+      let litAlpha = 0;
+      if (litIndex !== -1) {
+        const t = (time - litStart) / HIGHLIGHT_MS;
+        litAlpha = Math.sin(Math.PI * Math.min(1, Math.max(0, t)));
+      }
+
+      lines.forEach((l, i) => {
+        if (i === litIndex && litAlpha > 0) return;
+        ctx.fillStyle = `rgba(${INK}, ${l.alpha})`;
+        ctx.fillRect(l.x, l.y, l.w, l.h);
       });
 
-      nodes.forEach((n, i) => {
-        const hot = lit.has(i);
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.radius * (hot ? 1.7 : 1), 0, Math.PI * 2);
-        ctx.fillStyle = hot
-          ? `rgba(${PULSE_RGB}, 0.9)`
-          : `rgba(${NODE_RGB}, 0.62)`;
-        ctx.fill();
-      });
+      // Clear a soft area behind the title so the text stays the loudest thing.
+      const g = ctx.createRadialGradient(
+        width / 2, height / 2, 0,
+        width / 2, height / 2, Math.max(width, height) * 0.46,
+      );
+      g.addColorStop(0, 'rgba(0,0,0,0.92)');
+      g.addColorStop(0.55, 'rgba(0,0,0,0.77)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Drawn last so a highlight under the title is not erased with the rest.
+      if (litIndex !== -1 && litAlpha > 0) {
+        const l = lines[litIndex];
+        const dim = l.central ? 0.55 : 1;
+        ctx.fillStyle = `rgba(${GLOW}, ${0.07 * litAlpha * dim})`;
+        ctx.fillRect(l.x - 5, l.y - 4, l.w + 10, l.h + 8);
+        ctx.fillStyle = `rgba(${GLOW}, ${(0.18 + 0.5 * litAlpha) * dim})`;
+        ctx.fillRect(l.x, l.y, l.w, l.h);
+      }
 
       animRef.current = requestAnimationFrame(draw);
     }
 
     resize();
-    buildGraph();
+    buildPage();
 
     if (reduced) {
-      // One static frame: the structure without the motion.
       draw(0);
       cancelAnimationFrame(animRef.current);
       animRef.current = 0;
@@ -320,7 +278,7 @@ function NetworkCanvas() {
 
     const resizeObserver = new ResizeObserver(() => {
       resize();
-      buildGraph();
+      buildPage();
       if (reduced) draw(0);
     });
     resizeObserver.observe(canvas);
